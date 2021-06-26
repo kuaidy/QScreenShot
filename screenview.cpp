@@ -20,6 +20,11 @@ screenview::screenview(QWidget *parent,int screentype) :
     setWindowState(Qt::WindowActive|Qt::WindowFullScreen);
     //解决只有鼠标按下时才捕捉鼠标移动
     setMouseTracking(true);
+
+    //获取系统设置的显示比例
+    float swidth=this->width();
+    float rwidth=originalPixmap.width();
+    Scale=rwidth/swidth;
 }
 
 screenview::~screenview()
@@ -58,10 +63,8 @@ void screenview::mousePressEvent(QMouseEvent *event)
     if(event->button()==Qt::LeftButton){
         sx=event->x();
         sy=event->y();
-        startpoint=event->pos();
 
-        int x=this->mapFromGlobal(QCursor().pos()).x();
-        int y=this->mapFromGlobal(QCursor().pos()).y();
+        startpoint=event->pos();
 
         if(shottype==1){
             this->close();
@@ -75,13 +78,18 @@ void screenview::mousePressEvent(QMouseEvent *event)
 void screenview::mouseMoveEvent(QMouseEvent *event){
     ex=event->x();
     ey=event->y();
+
     endpoint=event->pos();
     update();
 }
 
 void screenview::mouseReleaseEvent(QMouseEvent *event){
     this->close();
-    sourcePixmap=originalPixmap.copy(sx,sy,ex-sx,ey-sy);
+
+    ex=event->x();
+    ey=event->y();
+
+    sourcePixmap=originalPixmap.copy(sx*Scale,sy*Scale,(ex-sx)*Scale,(ey-sy)*Scale);
     emit senddata(sourcePixmap);
 }
 
