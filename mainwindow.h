@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -52,6 +52,10 @@ private slots:
     void on_pb_windowsshot_clicked();
 
     void on_pb_fixedsize_clicked();
+
+
+signals:
+    void senddata(QString str);
 
 private:
     Ui::MainWindow *ui;

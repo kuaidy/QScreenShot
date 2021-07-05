@@ -1,4 +1,4 @@
-#ifndef SCREENVIEW_H
+﻿#ifndef SCREENVIEW_H
 #define SCREENVIEW_H
 
 #include <QWidget>
@@ -36,6 +36,7 @@ protected:
 
 protected slots:
     void mouseReleaseEvent(QMouseEvent *event);
+    void receiveData(QString str);   //接收传递过来的数据的槽
 
 private:
     Ui::screenview *ui;

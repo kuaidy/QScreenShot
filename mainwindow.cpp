@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -26,11 +26,6 @@ void MainWindow::on_pb_fullscreenshot_clicked()
 
         editwin.editview(&originalPixmap);
         editwin.show();
-//        QDateTime current_date_time =QDateTime::currentDateTime();
-//        QString current_date =current_date_time.toString("yyyy-MM-dd-hhmmss");
-//        QString filename=current_date+".jpg";
-//        originalPixmap.save(filename,"jpg");
-        //MainWindow::show();
         show();
     }
 }
@@ -114,6 +109,30 @@ void MainWindow::on_pb_activewinshot_clicked()
 //    show();
 }
 
+char m_Name[MAXBYTE];
+char m_Title[MAXBYTE];
+WORD m_nNum;
+//回调函数
+BOOL CALLBACK EnumAllWindows(HWND Hwnd, LPARAM IParm)//系统返还给你的窗口句柄,API调用进来的参数
+{
+    //每次Hwnd返回回来，都需要获取他的类名和标题
+    GetClassNameA(Hwnd,m_Name,MAXBYTE);//获得指定窗口所属的类的类名
+    GetWindowTextA(Hwnd,m_Title,MAXBYTE);//查找标题
+    m_nNum++;
+    QString strName = QString::fromLocal8Bit(m_Name);
+    QString strTitle = QString::fromLocal8Bit(m_Title);
+    QWindow *m_window;
+    m_window = QWindow::fromWinId((WId)Hwnd);
+    if(IsWindow(Hwnd)&&IsWindowEnabled(Hwnd)&&IsWindowVisible(Hwnd)){
+        qDebug()<<"ID:"<<m_nNum<<"hwnd:"<<Hwnd<<"classname:"<<strName<<"title:"<<strTitle;
+        qDebug()<<m_window->width();
+        qDebug()<<m_window->height();
+    }
+
+//    return false;//枚举一次就不枚举了
+    return true;//枚举到完毕
+}
+
 //获取窗口对象
 void MainWindow::on_pb_windowsshot_clicked()
 {
@@ -125,6 +144,16 @@ void MainWindow::on_pb_windowsshot_clicked()
 //    editwin.editview(&pixmap);
 //    editwin.show();
 //    show();
+
+    EnumWindows(EnumAllWindows,(LPARAM)"");
+
+    hide();
+    QThread::msleep(800);
+    screenview *sv=new screenview(this,0);
+    connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
+    sv->show();
+
+
 }
 
 //捕获固定窗口的大小
@@ -135,4 +164,8 @@ void MainWindow::on_pb_fixedsize_clicked()
     screenview *sv=new screenview(nullptr,1);
     connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
     sv->show();
+}
+
+void MainWindow::senddata(QString str){
+    emit senddata(str);
 }

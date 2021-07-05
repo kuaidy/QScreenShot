@@ -1,4 +1,4 @@
-#include "screenview.h"
+﻿#include "screenview.h"
 #include "ui_screenview.h"
 
 screenview::screenview(QWidget *parent,int screentype) :
@@ -25,6 +25,8 @@ screenview::screenview(QWidget *parent,int screentype) :
     float swidth=this->width();
     float rwidth=originalPixmap.width();
     Scale=rwidth/swidth;
+
+    connect(parent, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
 }
 
 screenview::~screenview()
@@ -53,6 +55,8 @@ void screenview::paintEvent(QPaintEvent *event){
         {
             painter.drawRect(QRect(sx,sy,ex-sx,ey-sy));
         }
+    }else if(shottype==2){
+
     }
 
     painter.end();
@@ -91,5 +95,10 @@ void screenview::mouseReleaseEvent(QMouseEvent *event){
 
     sourcePixmap=originalPixmap.copy(sx*Scale,sy*Scale,(ex-sx)*Scale,(ey-sy)*Scale);
     emit senddata(sourcePixmap);
+}
+
+void screenview::receiveData(QString str){
+    qDebug()<<str;
+    show();
 }
 
