@@ -112,6 +112,7 @@ void MainWindow::on_pb_activewinshot_clicked()
 char m_Name[MAXBYTE];
 char m_Title[MAXBYTE];
 WORD m_nNum;
+QList<QRect> ListRect;
 //回调函数
 BOOL CALLBACK EnumAllWindows(HWND Hwnd, LPARAM IParm)//系统返还给你的窗口句柄,API调用进来的参数
 {
@@ -127,6 +128,15 @@ BOOL CALLBACK EnumAllWindows(HWND Hwnd, LPARAM IParm)//系统返还给你的窗�
         qDebug()<<"ID:"<<m_nNum<<"hwnd:"<<Hwnd<<"classname:"<<strName<<"title:"<<strTitle;
         qDebug()<<m_window->width();
         qDebug()<<m_window->height();
+        qDebug()<<m_window->x();
+        qDebug()<<m_window->y();
+
+        QRect rect;
+        rect.setX(m_window->x());
+        rect.setY(m_window->y());
+        rect.setWidth(m_window->width());
+        rect.setHeight(m_window->height());
+        ListRect.append(rect);
     }
 
 //    return false;//枚举一次就不枚举了
@@ -145,13 +155,18 @@ void MainWindow::on_pb_windowsshot_clicked()
 //    editwin.show();
 //    show();
 
-    EnumWindows(EnumAllWindows,(LPARAM)"");
+//    EnumWindows(EnumAllWindows,(LPARAM)"");
+    EnumChildWindows(GetDesktopWindow(), EnumAllWindows, (LPARAM)"");
 
-    hide();
-    QThread::msleep(800);
-    screenview *sv=new screenview(this,0);
-    connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
-    sv->show();
+    if(ListRect.count()>0){
+
+    }
+
+//    hide();
+//    QThread::msleep(800);
+//    screenview *sv=new screenview(this,0);
+//    connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
+//    sv->show();
 
 
 }
@@ -164,8 +179,4 @@ void MainWindow::on_pb_fixedsize_clicked()
     screenview *sv=new screenview(nullptr,1);
     connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
     sv->show();
-}
-
-void MainWindow::senddata(QString str){
-    emit senddata(str);
 }
