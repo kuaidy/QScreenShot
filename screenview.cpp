@@ -1,9 +1,8 @@
 ﻿#include "screenview.h"
 #include "ui_screenview.h"
 
-screenview::screenview(QWidget *parent,int screentype) :
-    QWidget(parent),
-    ui(new Ui::screenview)
+screenview::screenview(QWidget *parent,QList<QRect> *listRect,int screentype)
+    :QWidget(parent),ui(new Ui::screenview)
 {
     ui->setupUi(this);
 
@@ -27,6 +26,9 @@ screenview::screenview(QWidget *parent,int screentype) :
     Scale=rwidth/swidth;
 
     connect(parent, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
+
+
+    ListRect=listRect;
 }
 
 screenview::~screenview()
@@ -56,7 +58,10 @@ void screenview::paintEvent(QPaintEvent *event){
             painter.drawRect(QRect(sx,sy,ex-sx,ey-sy));
         }
     }else if(shottype==2){
-
+        for(int i=0;i<ListRect->count();i++)
+        {
+            painter.drawRect(ListRect->at(i));
+        }
     }
 
     painter.end();

@@ -26,7 +26,7 @@ class screenview : public QWidget
     Q_OBJECT
 
 public:
-    screenview(QWidget *parent = nullptr,int screentype=0);
+    screenview(QWidget *parent = nullptr,QList<QRect> *ListRect=nullptr,int screentype=0);
     ~screenview();
 
 protected:
@@ -61,6 +61,8 @@ private:
     QRect fixedRect;
     //窗口放大倍数
     float Scale;
+
+    QList<QRect> *ListRect;
 
 
 signals:

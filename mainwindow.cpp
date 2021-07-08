@@ -124,19 +124,22 @@ BOOL CALLBACK EnumAllWindows(HWND Hwnd, LPARAM IParm)//系统返还给你的窗�
     QString strTitle = QString::fromLocal8Bit(m_Title);
     QWindow *m_window;
     m_window = QWindow::fromWinId((WId)Hwnd);
-    if(IsWindow(Hwnd)&&IsWindowEnabled(Hwnd)&&IsWindowVisible(Hwnd)){
-        qDebug()<<"ID:"<<m_nNum<<"hwnd:"<<Hwnd<<"classname:"<<strName<<"title:"<<strTitle;
-        qDebug()<<m_window->width();
-        qDebug()<<m_window->height();
-        qDebug()<<m_window->x();
-        qDebug()<<m_window->y();
+    if(IsWindow(Hwnd)&&IsWindowEnabled(Hwnd)&&IsWindowVisible(Hwnd)&&!IsIconic(Hwnd)){
+        if((GetWindowLong(Hwnd,GWL_STYLE)& WS_VISIBLE)!=0){
+            qDebug()<<"ID:"<<m_nNum<<"hwnd:"<<Hwnd<<"classname:"<<strName<<"title:"<<strTitle;
+            qDebug()<<m_window->width();
+            qDebug()<<m_window->height();
+            qDebug()<<m_window->x();
+            qDebug()<<m_window->y();
 
-        QRect rect;
-        rect.setX(m_window->x());
-        rect.setY(m_window->y());
-        rect.setWidth(m_window->width());
-        rect.setHeight(m_window->height());
-        ListRect.append(rect);
+            QRect rect;
+            rect.setX(m_window->x());
+            rect.setY(m_window->y());
+            rect.setWidth(m_window->width());
+            rect.setHeight(m_window->height());
+            ListRect.append(rect);
+        };
+
     }
 
 //    return false;//枚举一次就不枚举了
@@ -159,7 +162,11 @@ void MainWindow::on_pb_windowsshot_clicked()
     EnumChildWindows(GetDesktopWindow(), EnumAllWindows, (LPARAM)"");
 
     if(ListRect.count()>0){
-
+        hide();
+        QThread::msleep(800);
+        screenview *sv=new screenview(nullptr,&ListRect,2);
+        connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
+        sv->show();
     }
 
 //    hide();
@@ -176,7 +183,7 @@ void MainWindow::on_pb_fixedsize_clicked()
 {
     hide();
     QThread::msleep(800);
-    screenview *sv=new screenview(nullptr,1);
+    screenview *sv=new screenview(nullptr,nullptr,1);
     connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
     sv->show();
 }
