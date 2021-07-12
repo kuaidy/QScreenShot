@@ -61,9 +61,11 @@ private:
     QRect fixedRect;
     //窗口放大倍数
     float Scale;
-
+    //保存所有的矩形
     QList<QRect> *ListRect;
 
+    //当前选中的窗口
+    QRect CurrentWindow;
 
 signals:
     void senddata(QPixmap sourcePixmap);

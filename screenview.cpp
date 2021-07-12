@@ -58,9 +58,28 @@ void screenview::paintEvent(QPaintEvent *event){
             painter.drawRect(QRect(sx,sy,ex-sx,ey-sy));
         }
     }else if(shottype==2){
+
+
+        setAttribute(Qt::WA_TransparentForMouseEvents,true);
+
+        POINT point;
+        point.x=ex;
+        point.y=ey;
+        QWindow *m_window;
+
+//        m_window = QWindow::fromWinId((WId)ChildWindowFromPointEx(GetDesktopWindow(),point,CWP_SKIPINVISIBLE|CWP_SKIPTRANSPARENT||CWP_SKIPDISABLED));
+//        painter.drawRect(QRect(m_window->x(),m_window->y(),m_window->width(),m_window->height()));
+
+        int j=0;
         for(int i=0;i<ListRect->count();i++)
         {
-            painter.drawRect(ListRect->at(i));
+            if(j>0) continue;
+            QRect rect=ListRect->at(i);
+            CurrentWindow=rect;
+            if(ex>rect.x()&&ex<(rect.x()+rect.width())&&ey>rect.y()&&ey<(rect.y()+rect.height())){
+                painter.drawRect(rect);
+                j++;
+            }
         }
     }
 
@@ -78,6 +97,11 @@ void screenview::mousePressEvent(QMouseEvent *event)
         if(shottype==1){
             this->close();
             sourcePixmap=originalPixmap.copy(fixedRect);
+            emit senddata(sourcePixmap);
+        }
+        else if(shottype==2){
+            this->close();
+            sourcePixmap=originalPixmap.copy(CurrentWindow.x()*Scale,CurrentWindow.y()*Scale,CurrentWindow.width()*Scale,CurrentWindow.height()*Scale);
             emit senddata(sourcePixmap);
         }
     }
