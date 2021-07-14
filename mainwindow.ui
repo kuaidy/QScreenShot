@@ -89,7 +89,7 @@
      </sizepolicy>
     </property>
     <property name="toolTip">
-     <string>矩形截图</string>
+     <string>自定义截图</string>
     </property>
     <property name="text">
      <string/>
@@ -124,7 +124,7 @@
      </sizepolicy>
     </property>
     <property name="toolTip">
-     <string>活动窗口截图</string>
+     <string>捕捉活动窗口</string>
     </property>
     <property name="text">
      <string/>
@@ -159,7 +159,7 @@
      </sizepolicy>
     </property>
     <property name="toolTip">
-     <string>活动窗口截图</string>
+     <string>捕捉窗口</string>
     </property>
     <property name="text">
      <string/>
@@ -194,7 +194,7 @@
      </sizepolicy>
     </property>
     <property name="toolTip">
-     <string>活动窗口截图</string>
+     <string>截取固定窗口</string>
     </property>
     <property name="text">
      <string/>

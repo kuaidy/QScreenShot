@@ -51,6 +51,8 @@ void screenview::paintEvent(QPaintEvent *event){
         int fixy=(ey-rh/2)>0?(ey-rh/2):0;
         fixedRect=QRect(fixx,fixy,rw,rh);
         painter.drawRect(fixedRect);
+        painter.setPen(QPen(Qt::black,2));
+        painter.drawText(fixx,fixy+rh+10,"F2调整大小");
     }else if(shottype==0)
     {
         if(sx>=0&&sy>=0)
@@ -96,7 +98,7 @@ void screenview::mousePressEvent(QMouseEvent *event)
 
         if(shottype==1){
             this->close();
-            sourcePixmap=originalPixmap.copy(fixedRect);
+            sourcePixmap=originalPixmap.copy(fixedRect.x()*Scale,fixedRect.y()*Scale,fixedRect.width()*Scale,fixedRect.height()*Scale);
             emit senddata(sourcePixmap);
         }
         else if(shottype==2){
