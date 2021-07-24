@@ -1,4 +1,4 @@
-#ifndef EDITWINDOW_H
+﻿#ifndef EDITWINDOW_H
 #define EDITWINDOW_H
 
 #include <QMainWindow>
@@ -14,6 +14,7 @@
 #include <QFileDialog>
 #include <QDateTime>
 #include <QPixmap>
+#include <QGraphicsBlurEffect>
 
 namespace Ui {
 class editwindow;
@@ -36,6 +37,9 @@ public:
     //起始位置，终点位置
     int sx,sy,ex,ey;
 
+    //对于桌面的坐标
+    int glsx,glsy,glex,gley;
+
 
 
 private:
@@ -54,11 +58,15 @@ public:
     //绘制类型
     static int painttype;
 
+
+
 private:
     Ui::editwindow *ui;
 
     QDockWidget *DockImage;
     Plabel *imagelabel;
+
+
 
 public:
     void editview(QPixmap *qpix);
@@ -69,6 +77,7 @@ private slots:
     void on_paintrec_triggered(bool checked);
     void on_paintarrow_triggered(bool checked);
     void on_filesaveother_triggered();
+    void on_vague_triggered(bool checked);
 };
 
 #endif // EDITWINDOW_H

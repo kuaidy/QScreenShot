@@ -1,7 +1,9 @@
-#include "editwindow.h"
+﻿#include "editwindow.h"
 #include "ui_editwindow.h"
 
 int editwindow::painttype=0;
+
+QWidget *vagueWidget;
 
 editwindow::editwindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,7 +19,7 @@ editwindow::~editwindow()
 }
 
 void editwindow::editview(QPixmap *qpix){
-
+    ui->tabWidget->clear();
     //创建一个窗口，放到tab里头
     QWidget *widget = new QWidget();
     widget->setStyleSheet("{background-color:gray;padding:0px}");
@@ -42,26 +44,41 @@ void editwindow::editview(QPixmap *qpix){
     // 初始图像
     //QImage image = QImage(500, 500, QImage::Format_RGB32);  // 新建图像
     //image.fill(qRgb(0, 255, 255));                         // 全白
-
     qgridlayout->addWidget(scrollarea);
-    //qgridlayout->addWidget(imagelabel);
+
+    vagueWidget=new QWidget();
+    vagueWidget->setGeometry(0,0,0,0);
+//    vagueWidget->setStyleSheet("background-color:black;");
+    //无边框
+//    vagueWidget->setWindowFlags(Qt::FramelessWindowHint);
+
+    QGraphicsBlurEffect *blureffect = new QGraphicsBlurEffect;
+    blureffect->setBlurRadius(30);	//数值越大，越模糊
+    vagueWidget->setGraphicsEffect(blureffect);
+    vagueWidget->show();
 
     //插入页
     QString tabname="新建";
     QString tabnum=QString::number(ui->tabWidget->count(),10);
     tabname.append(tabnum);
-    ui->tabWidget->insertTab(ui->tabWidget->count()-1<0?0:ui->tabWidget->count()-1,widget,tabname);
+    int tabindex=ui->tabWidget->count()-1<0?0:ui->tabWidget->count()-1;
+    ui->tabWidget->insertTab(tabindex,widget,tabname);
+
 }
 
 //重写鼠标按下方法
 void Plabel::mousePressEvent(QMouseEvent *e){
     sx=e->x();
     sy=e->y();
+    glsx=e->globalX();
+    glsy=e->globalY();
 }
 
 void Plabel::mouseMoveEvent(QMouseEvent *e){
     ex=e->x();
     ey=e->y();
+    glex=e->globalX();
+    gley=e->globalY();
     update();
 }
 
@@ -88,17 +105,18 @@ void Plabel::mouseReleaseEvent(QMouseEvent *e){
 void Plabel::paintEvent(QPaintEvent *event){
     QLabel::paintEvent(event);//先调用父类的paintEvent为了显示'背景'!!!
     QPainter painter(this);
-    painter.setPen(QPen(Qt::red,2));
 
     float l=10;
     float a=0.5;
 
     switch (editwindow::painttype) {
         case 1:{
+            painter.setPen(QPen(Qt::red,2));
             painter.drawRect(QRect(sx,sy,ex-sx,ey-sy));
             break;
         }
         case 2:{
+            painter.setPen(QPen(Qt::red,2));
             float x3 = ex - l * cos(atan2((ey - sy) , (ex - sx)) - a);//计算箭头的终点（x3,y3）
             float y3 = ey - l * sin(atan2((ey - sy) , (ex - sx)) - a);
             float x4 = ex - l * sin(atan2((ex - sx) , (ey - sy)) - a);//计算箭头的终点（x4,y4）
@@ -108,6 +126,12 @@ void Plabel::paintEvent(QPaintEvent *event){
             painter.drawLine(sx,sy,ex,ey);
             break;
         }
+    case 3:{
+        vagueWidget->move(glsx,glsy);
+        vagueWidget->resize(glex-glsx,gley-glsy);
+//        painter.fillRect(QRect(sx,sy,ex-sx,ey-sy), QBrush(QColor(128, 128, 255, 128)));
+        break;
+    }
     }
 
     //绘制矩形
@@ -146,21 +170,19 @@ void editwindow::on_paintarrow_triggered()
 
 }
 
+//绘制矩形
 void editwindow::on_paintrec_triggered(bool checked)
 {
     if(checked){
         editwindow::painttype=1;
-    }else{
-        editwindow::painttype=0;
     }
 }
 
+//绘制箭头
 void editwindow::on_paintarrow_triggered(bool checked)
 {
        if(checked){
            editwindow::painttype=2;
-       }else{
-           editwindow::painttype=0;
        }
 }
 
@@ -178,7 +200,16 @@ void editwindow::on_filesaveother_triggered()
         QWidget *tmpwidget=ui->tabWidget->currentWidget();
         //适用于固定的布局
         Plabel *tmplabel=(Plabel *)tmpwidget->children().at(1)->children().at(0)->children().at(0);
-//        const QPixmap *pmap=tmplabel->pixmap();
-//        pmap->save(filename);
+        QPixmap pmap=tmplabel->pixmap();
+        pmap.save(filename);
     }
 }
+
+//模糊
+void editwindow::on_vague_triggered(bool checked)
+{
+    if(checked){
+        editwindow::painttype=3;
+    }
+}
+
