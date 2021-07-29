@@ -15,6 +15,8 @@
 #include <QDateTime>
 #include <QPixmap>
 #include <QGraphicsBlurEffect>
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
 
 namespace Ui {
 class editwindow;
@@ -40,12 +42,13 @@ public:
     //对于桌面的坐标
     int glsx,glsy,glex,gley;
 
-
+    static QPixmap *PlabelPixmap;
 
 private:
     QList<QRect> _listRect;
     //二位数组存放坐标
     QVector<QVector<int>> _listseat;
+
 };
 
 class editwindow : public QMainWindow
@@ -57,7 +60,7 @@ public:
     ~editwindow();
     //绘制类型
     static int painttype;
-
+//    static QPixmap *PlabelPixmap;
 
 
 private:

@@ -3,7 +3,9 @@
 
 int editwindow::painttype=0;
 
-QWidget *vagueWidget;
+QImage applyEffectToImage(QImage src, QGraphicsEffect *effect, int extent);
+
+QPixmap *Plabel::PlabelPixmap=nullptr;
 
 editwindow::editwindow(QWidget *parent) :
     QMainWindow(parent),
@@ -46,17 +48,6 @@ void editwindow::editview(QPixmap *qpix){
     //image.fill(qRgb(0, 255, 255));                         // 全白
     qgridlayout->addWidget(scrollarea);
 
-    vagueWidget=new QWidget();
-    vagueWidget->setGeometry(0,0,0,0);
-//    vagueWidget->setStyleSheet("background-color:black;");
-    //无边框
-//    vagueWidget->setWindowFlags(Qt::FramelessWindowHint);
-
-    QGraphicsBlurEffect *blureffect = new QGraphicsBlurEffect;
-    blureffect->setBlurRadius(30);	//数值越大，越模糊
-    vagueWidget->setGraphicsEffect(blureffect);
-    vagueWidget->show();
-
     //插入页
     QString tabname="新建";
     QString tabnum=QString::number(ui->tabWidget->count(),10);
@@ -64,6 +55,7 @@ void editwindow::editview(QPixmap *qpix){
     int tabindex=ui->tabWidget->count()-1<0?0:ui->tabWidget->count()-1;
     ui->tabWidget->insertTab(tabindex,widget,tabname);
 
+    Plabel::PlabelPixmap=qpix;
 }
 
 //重写鼠标按下方法
@@ -98,6 +90,9 @@ void Plabel::mouseReleaseEvent(QMouseEvent *e){
             _listseat.append(tmpseat);
             break;
         }
+        case 3:{
+
+        }
     }
 }
 
@@ -126,12 +121,17 @@ void Plabel::paintEvent(QPaintEvent *event){
             painter.drawLine(sx,sy,ex,ey);
             break;
         }
-    case 3:{
-        vagueWidget->move(glsx,glsy);
-        vagueWidget->resize(glex-glsx,gley-glsy);
-//        painter.fillRect(QRect(sx,sy,ex-sx,ey-sy), QBrush(QColor(128, 128, 255, 128)));
-        break;
-    }
+        case 3:{
+            QImage copyImage=this->pixmap().copy(sx,sy,ex-sx,ey-sy).toImage();
+            QGraphicsBlurEffect *blur = new QGraphicsBlurEffect;
+            QGraphicsOpacityEffect *opac=new QGraphicsOpacityEffect;
+            blur->setBlurRadius(5);
+            opac->setOpacity(0.5);
+    //        QImage source("C:\\Users\\kuai\\Desktop\\2021-07-28-203720.png");
+            QImage result = applyEffectToImage(copyImage, blur,0);
+            painter.drawImage(sx,sy,result);
+            break;
+        }
     }
 
     //绘制矩形
@@ -211,5 +211,23 @@ void editwindow::on_vague_triggered(bool checked)
     if(checked){
         editwindow::painttype=3;
     }
+}
+
+//图片模糊处理
+QImage applyEffectToImage(QImage src, QGraphicsEffect *effect, int extent = 0)
+{
+    if(src.isNull()) return QImage();   //No need to do anything else!
+    if(!effect) return src;             //No need to do anything else!
+    QGraphicsScene scene;
+    QGraphicsPixmapItem item;
+    item.setPixmap(QPixmap::fromImage(src));
+    item.setGraphicsEffect(effect);
+    item.setOpacity(1);
+    scene.addItem(&item);
+    QImage res(src.size()+QSize(extent*2, extent*2), QImage::Format_ARGB32);
+    res.fill(Qt::transparent);
+    QPainter ptr(&res);
+    scene.render(&ptr, QRectF(), QRectF( -extent, -extent, src.width()+extent*2, src.height()+extent*2 ) );
+    return res;
 }
 
