@@ -18,6 +18,8 @@
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 
+#include "shotcommon.h"
+
 namespace Ui {
 class editwindow;
 }

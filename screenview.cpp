@@ -24,7 +24,7 @@ screenview::screenview(QWidget *parent,QList<QRect> *listRect,int screentype)
     float swidth=this->width();
     float rwidth=originalPixmap.width();
     Scale=rwidth/swidth;
-
+//    shotcommon::Scale=Scale;
     connect(parent, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
 
 

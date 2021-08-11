@@ -13,6 +13,7 @@
 
 #include "editwindow.h"
 #include "mainwindow.h"
+#include "shotcommon.h"
 
 //添加
 class QRubberBand;

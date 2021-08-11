@@ -14,14 +14,16 @@ SOURCES += \
     formtimer.cpp \
     main.cpp \
     mainwindow.cpp \
-    screenview.cpp
+    screenview.cpp \
+    shotcommon.cpp
 
 HEADERS += \
     editwindow.h \
     fixedsizeform.h \
     formtimer.h \
     mainwindow.h \
-    screenview.h
+    screenview.h \
+    shotcommon.h
 
 FORMS += \
     editwindow.ui \

@@ -22,6 +22,7 @@ editwindow::~editwindow()
 
 void editwindow::editview(QPixmap *qpix){
     ui->tabWidget->clear();
+
     //创建一个窗口，放到tab里头
     QWidget *widget = new QWidget();
     widget->setStyleSheet("{background-color:gray;padding:0px}");
@@ -35,10 +36,15 @@ void editwindow::editview(QPixmap *qpix){
     //创建一个label用来显示图片
     imagelabel=new Plabel();
     //imagelabel->setScaledContents(true);
-    //imagelabel->setStyleSheet("{background-color:red;padding:10px}");
-    imagelabel->setPixmap(*qpix);         // 显示图像
-    imagelabel->resize(qpix->width(), qpix->height());        // 图像与imgLabel同大小
+    imagelabel->setStyleSheet("{background-color:red;}");
+    // 显示图像
+    imagelabel->setPixmap(*qpix);
+    // 图像与imgLabel同大小
+    imagelabel->resize(qpix->width(), qpix->height());
+    qDebug()<<imagelabel->width();
+    qDebug()<<imagelabel->height();
     imagelabel->setAlignment(Qt::AlignCenter);
+
 
     scrollarea->setWidget(imagelabel);
     scrollarea->setAlignment(Qt::AlignCenter);
@@ -56,6 +62,8 @@ void editwindow::editview(QPixmap *qpix){
     ui->tabWidget->insertTab(tabindex,widget,tabname);
 
     Plabel::PlabelPixmap=qpix;
+
+
 }
 
 //重写鼠标按下方法
@@ -199,9 +207,15 @@ void editwindow::on_filesaveother_triggered()
     if(!filename.isNull()){
         QWidget *tmpwidget=ui->tabWidget->currentWidget();
         //适用于固定的布局
-        Plabel *tmplabel=(Plabel *)tmpwidget->children().at(1)->children().at(0)->children().at(0);
-        QPixmap pmap=tmplabel->pixmap();
-        pmap.save(filename);
+//        Plabel *tmplabel=(Plabel *)tmpwidget->children().at(1)->children().at(0)->children().at(0);
+//        QPixmap pmap=tmplabel->pixmap();
+//        QPixmap pmap(imagelabel->size());
+//        imagelabel->render(&pmap);
+
+        QPixmap pmap=imagelabel->grab(QRect(0,0,imagelabel->width(),imagelabel->height()));
+        //针对系统进行缩放的情况
+        QPixmap tmppmap =pmap.copy((pmap.width()-imagelabel->width())/2,(pmap.height()-imagelabel->height())/2,imagelabel->width(),imagelabel->height());
+        tmppmap.save(filename,nullptr,100);
     }
 }
 
