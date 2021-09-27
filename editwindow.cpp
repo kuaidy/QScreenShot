@@ -25,7 +25,7 @@ void editwindow::editview(QPixmap *qpix){
 
     //创建一个窗口，放到tab里头
     QWidget *widget = new QWidget();
-    widget->setStyleSheet("{background-color:gray;padding:0px}");
+//    widget->setStyleSheet("{background-color:gray;padding:0px}");
 
     QGridLayout *qgridlayout=new QGridLayout(widget);
     //创建滚动条
@@ -35,19 +35,19 @@ void editwindow::editview(QPixmap *qpix){
     //scrollarea->setWidgetResizable(true);
     //创建一个label用来显示图片
     imagelabel=new Plabel();
+
     //imagelabel->setScaledContents(true);
     imagelabel->setStyleSheet("{background-color:red;}");
     // 显示图像
-    imagelabel->setPixmap(*qpix);
+//    imagelabel->setPixmap(*qpix);
     // 图像与imgLabel同大小
-    imagelabel->resize(qpix->width(), qpix->height());
-    qDebug()<<imagelabel->width();
-    qDebug()<<imagelabel->height();
+//    imagelabel->resize(qpix->width(), qpix->height());
+//    qDebug()<<imagelabel->width();
+//    qDebug()<<imagelabel->height();
     imagelabel->setAlignment(Qt::AlignCenter);
 
-
     scrollarea->setWidget(imagelabel);
-    scrollarea->setAlignment(Qt::AlignCenter);
+//    scrollarea->setAlignment(Qt::AlignCenter);
     //setCentralWidget(scrollarea);
     // 初始图像
     //QImage image = QImage(500, 500, QImage::Format_RGB32);  // 新建图像
