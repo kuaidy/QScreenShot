@@ -17,6 +17,7 @@
 #include <QGraphicsBlurEffect>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
+#include <QRect>
 
 #include "shotcommon.h"
 
@@ -40,16 +41,16 @@ public:
 
     //起始位置，终点位置
     int sx,sy,ex,ey;
-
     //对于桌面的坐标
     int glsx,glsy,glex,gley;
-
     static QPixmap *PlabelPixmap;
+    QRect m_leftTopRect;
 
 private:
     QList<QRect> _listRect;
     //二位数组存放坐标
     QVector<QVector<int>> _listseat;
+
 
 };
 

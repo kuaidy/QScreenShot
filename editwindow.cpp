@@ -1,6 +1,9 @@
 ﻿#include "editwindow.h"
 #include "ui_editwindow.h"
 
+#define STRETCH_RECT_HEIGHT 4
+#define STRETCH_RECT_WIDTH 4
+
 int editwindow::painttype=0;
 
 QImage applyEffectToImage(QImage src, QGraphicsEffect *effect, int extent);
@@ -22,48 +25,44 @@ editwindow::~editwindow()
 
 void editwindow::editview(QPixmap *qpix){
     ui->tabWidget->clear();
-
     //创建一个窗口，放到tab里头
     QWidget *widget = new QWidget();
-//    widget->setStyleSheet("{background-color:gray;padding:0px}");
-
+//    widget->setStyleSheet("background:red");
     QGridLayout *qgridlayout=new QGridLayout(widget);
     //创建滚动条
     QScrollArea *scrollarea=new QScrollArea();
-    //scrollarea->setGeometry(400, 300, 300, 200);
-    //scrollarea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    //scrollarea->setWidgetResizable(true);
+//    scrollarea->setGeometry(400, 300, 300, 200);
+//    scrollarea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    scrollarea->setWidgetResizable(true);
     //创建一个label用来显示图片
     imagelabel=new Plabel();
-
-    //imagelabel->setScaledContents(true);
-    imagelabel->setStyleSheet("{background-color:red;}");
+//    imagelabel->setScaledContents(true);
+//    imagelabel->setStyleSheet("background:red");
+//    imagelabel->setGeometry(300,300,300,300);
+    imagelabel->setStyleSheet("color: red");
+    imagelabel->setStyleSheet("border: 1px solid red;");
     // 显示图像
-//    imagelabel->setPixmap(*qpix);
+    imagelabel->setPixmap(*qpix);
     // 图像与imgLabel同大小
-//    imagelabel->resize(qpix->width(), qpix->height());
+    imagelabel->resize(qpix->width(), qpix->height());
 //    qDebug()<<imagelabel->width();
 //    qDebug()<<imagelabel->height();
-    imagelabel->setAlignment(Qt::AlignCenter);
-
+    imagelabel->setAlignment(Qt::AlignLeft);
+    scrollarea->setAlignment(Qt::AlignCenter);
     scrollarea->setWidget(imagelabel);
-//    scrollarea->setAlignment(Qt::AlignCenter);
-    //setCentralWidget(scrollarea);
+
+//    setCentralWidget(scrollarea);
     // 初始图像
     //QImage image = QImage(500, 500, QImage::Format_RGB32);  // 新建图像
     //image.fill(qRgb(0, 255, 255));                         // 全白
     qgridlayout->addWidget(scrollarea);
-
     //插入页
     QString tabname="新建";
     QString tabnum=QString::number(ui->tabWidget->count(),10);
     tabname.append(tabnum);
     int tabindex=ui->tabWidget->count()-1<0?0:ui->tabWidget->count()-1;
     ui->tabWidget->insertTab(tabindex,widget,tabname);
-
     Plabel::PlabelPixmap=qpix;
-
-
 }
 
 //重写鼠标按下方法
@@ -111,6 +110,9 @@ void Plabel::paintEvent(QPaintEvent *event){
 
     float l=10;
     float a=0.5;
+
+    //绘制小方块
+    painter.drawRect(QRect(Plabel::PlabelPixmap->PdmPhysicalDpiX,Plabel::PlabelPixmap->PdmPhysicalDpiY,STRETCH_RECT_WIDTH,STRETCH_RECT_HEIGHT));
 
     switch (editwindow::painttype) {
         case 1:{

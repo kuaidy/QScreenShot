@@ -23,7 +23,6 @@ void MainWindow::on_pb_fullscreenshot_clicked()
         if(!screen)
             return ;
         originalPixmap=screen->grabWindow(0);
-
         editwin.editview(&originalPixmap);
         editwin.show();
         show();
