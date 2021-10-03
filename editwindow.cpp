@@ -37,7 +37,7 @@ void editwindow::editview(QPixmap *qpix){
     //创建一个label用来显示图片
     imagelabel=new Plabel();
 //    imagelabel->setScaledContents(true);
-    imagelabel->setStyleSheet("background:red");
+//    imagelabel->setStyleSheet("background:red");
 //    imagelabel->setGeometry(300,300,300,300);
     imagelabel->setStyleSheet("color: red");
     imagelabel->setStyleSheet("border: 1px solid red;");
