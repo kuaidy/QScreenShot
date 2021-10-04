@@ -107,6 +107,11 @@ void screenview::mousePressEvent(QMouseEvent *event)
             emit senddata(sourcePixmap);
         }
     }
+    else if(event->button()==Qt::RightButton)
+    {
+        this->close();
+        emit showWin();
+    }
     update();
 }
 

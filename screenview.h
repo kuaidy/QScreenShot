@@ -70,6 +70,7 @@ private:
 
 signals:
     void senddata(QPixmap sourcePixmap);
+    void showWin();
 };
 
 #endif // SCREENVIEW_H

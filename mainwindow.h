@@ -42,17 +42,13 @@ private slots:
     void on_pb_fullscreenshot_clicked();
     void on_pb_regscreenshot_clicked();
     void on_pb_delayedshot_clicked();
-
-    void receiveData(QPixmap data);   //接收传递过来的数据的槽
-
+    //接收传递过来的数据的槽
+    void receiveData(QPixmap data);
     void on_pb_widgetscreenshot_clicked();
-
     void on_pb_activewinshot_clicked();
-
     void on_pb_windowsshot_clicked();
-
     void on_pb_fixedsize_clicked();
-
+    void showWin();
 
 signals:
     void senddata(QString str);

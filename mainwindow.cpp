@@ -42,6 +42,7 @@ void MainWindow::on_pb_regscreenshot_clicked()
     QThread::msleep(800);
     screenview *sv=new screenview(nullptr,0);
     connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
+    connect(sv,SIGNAL(showWin()),this,SLOT(showWin()));
     sv->show();
 }
 
@@ -54,6 +55,9 @@ void MainWindow::on_pb_delayedshot_clicked()
 void MainWindow::receiveData(QPixmap data){
     editwin.editview(&data);
     editwin.show();
+    show();
+}
+void MainWindow::showWin(){
     show();
 }
 
