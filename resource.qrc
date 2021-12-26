@@ -15,5 +15,6 @@
         <file>image/delay.png</file>
         <file>image/widget.png</file>
         <file>image/activewindow.png</file>
+        <file>image/drawfreedom.png</file>
     </qresource>
 </RCC>

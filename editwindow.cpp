@@ -36,26 +36,26 @@ void editwindow::editview(QPixmap *qpix){
     scrollarea->setWidgetResizable(true);
     //创建一个label用来显示图片
     imagelabel=new Plabel();
-//    imagelabel->setScaledContents(true);
+    imagelabel->setScaledContents(false);
+
 //    imagelabel->setStyleSheet("background:red");
 //    imagelabel->setGeometry(300,300,300,300);
-    imagelabel->setStyleSheet("color: red");
-    imagelabel->setStyleSheet("border: 1px solid red;");
+//    imagelabel->setStyleSheet("color: red");
+//    imagelabel->setStyleSheet("border: 1px solid red;");
     // 显示图像
     imagelabel->setPixmap(*qpix);
     // 图像与imgLabel同大小
     imagelabel->resize(qpix->width(), qpix->height());
 //    qDebug()<<imagelabel->width();
 //    qDebug()<<imagelabel->height();
-    imagelabel->setAlignment(Qt::AlignLeft);
+    imagelabel->setAlignment(Qt::AlignCenter);
     scrollarea->setAlignment(Qt::AlignCenter);
     scrollarea->setWidget(imagelabel);
-
-//    setCentralWidget(scrollarea);
+    setCentralWidget(scrollarea);
     // 初始图像
     //QImage image = QImage(500, 500, QImage::Format_RGB32);  // 新建图像
     //image.fill(qRgb(0, 255, 255));                         // 全白
-    qgridlayout->addWidget(scrollarea);
+//    qgridlayout->addWidget(scrollarea);
     //插入页
     QString tabname="新建";
     QString tabnum=QString::number(ui->tabWidget->count(),10);
@@ -71,6 +71,8 @@ void Plabel::mousePressEvent(QMouseEvent *e){
     sy=e->y();
     glsx=e->globalX();
     glsy=e->globalY();
+    _startPoint=e->pos();
+    _endPoint=e->pos();
 }
 
 void Plabel::mouseMoveEvent(QMouseEvent *e){
@@ -78,6 +80,16 @@ void Plabel::mouseMoveEvent(QMouseEvent *e){
     ey=e->y();
     glex=e->globalX();
     gley=e->globalY();
+    _endPoint=e->pos();
+    switch (editwindow::painttype) {
+        case 4:{
+            QVector<QPoint> tmpPoint;
+            tmpPoint.append(_startPoint);
+            tmpPoint.append(_endPoint);
+            _listLine.append(tmpPoint);
+            break;
+        }
+    }
     update();
 }
 
@@ -94,12 +106,10 @@ void Plabel::mouseReleaseEvent(QMouseEvent *e){
             tmpseat.append(sy);
             tmpseat.append(ex);
             tmpseat.append(ey);
-            _listseat.append(tmpseat);
+            _listSeat.append(tmpseat);
             break;
         }
-        case 3:{
 
-        }
     }
 }
 
@@ -112,7 +122,6 @@ void Plabel::paintEvent(QPaintEvent *event){
     float a=0.5;
 
     //绘制小方块
-    painter.drawRect(QRect(Plabel::PlabelPixmap->PdmPhysicalDpiX,Plabel::PlabelPixmap->PdmPhysicalDpiY,STRETCH_RECT_WIDTH,STRETCH_RECT_HEIGHT));
 
     switch (editwindow::painttype) {
         case 1:{
@@ -142,6 +151,13 @@ void Plabel::paintEvent(QPaintEvent *event){
             painter.drawImage(sx,sy,result);
             break;
         }
+        case 4:{
+            painter.setPen(QPen(Qt::red,2));
+            painter.drawLine(_startPoint,_endPoint);
+            _startPoint=_endPoint;
+            break;
+        }
+
     }
 
     //绘制矩形
@@ -150,15 +166,19 @@ void Plabel::paintEvent(QPaintEvent *event){
     }
 
     //绘制箭头
-    for(int i = 0; i != _listseat.size(); i++)
+    for(int i = 0; i != _listSeat.size(); i++)
     {
-        float x3 = _listseat[i][2] - l * cos(atan2((_listseat[i][3] - _listseat[i][1]) , (_listseat[i][2] - _listseat[i][0])) - a);//计算箭头的终点（x3,y3）
-        float y3 = _listseat[i][3] - l * sin(atan2((_listseat[i][3] - _listseat[i][1]) , (_listseat[i][2] - _listseat[i][0])) - a);
-        float x4 = _listseat[i][2] - l * sin(atan2((_listseat[i][2] - _listseat[i][0]) , (_listseat[i][3] - _listseat[i][1])) - a);//计算箭头的终点（x4,y4）
-        float y4 = _listseat[i][3] - l * cos(atan2((_listseat[i][2] - _listseat[i][0]) , (_listseat[i][3] - _listseat[i][1])) - a);
-        painter.drawLine(_listseat[i][2],_listseat[i][3],x3,y3);
-        painter.drawLine(_listseat[i][2],_listseat[i][3],x4,y4);
-        painter.drawLine(_listseat[i][0],_listseat[i][1],_listseat[i][2],_listseat[i][3]);
+        float x3 = _listSeat[i][2] - l * cos(atan2((_listSeat[i][3] - _listSeat[i][1]) , (_listSeat[i][2] - _listSeat[i][0])) - a);//计算箭头的终点（x3,y3）
+        float y3 = _listSeat[i][3] - l * sin(atan2((_listSeat[i][3] - _listSeat[i][1]) , (_listSeat[i][2] - _listSeat[i][0])) - a);
+        float x4 = _listSeat[i][2] - l * sin(atan2((_listSeat[i][2] - _listSeat[i][0]) , (_listSeat[i][3] - _listSeat[i][1])) - a);//计算箭头的终点（x4,y4）
+        float y4 = _listSeat[i][3] - l * cos(atan2((_listSeat[i][2] - _listSeat[i][0]) , (_listSeat[i][3] - _listSeat[i][1])) - a);
+        painter.drawLine(_listSeat[i][2],_listSeat[i][3],x3,y3);
+        painter.drawLine(_listSeat[i][2],_listSeat[i][3],x4,y4);
+        painter.drawLine(_listSeat[i][0],_listSeat[i][1],_listSeat[i][2],_listSeat[i][3]);
+    }
+    //自由绘制
+    for(int i=0;i!=_listLine.size();i++){
+        painter.drawLine(_listLine[i][0],_listLine[i][1]);
     }
 }
 
@@ -196,6 +216,8 @@ void editwindow::on_paintarrow_triggered(bool checked)
        }
 }
 
+
+
 //另存为
 void editwindow::on_filesaveother_triggered()
 {
@@ -207,7 +229,7 @@ void editwindow::on_filesaveother_triggered()
     fileDialog->setFileMode(QFileDialog::AnyFile);
     QString filename=fileDialog->getSaveFileName(this,tr("另存为"),filestr+".png");
     if(!filename.isNull()){
-        QWidget *tmpwidget=ui->tabWidget->currentWidget();
+        //QWidget *tmpwidget=ui->tabWidget->currentWidget();
         //适用于固定的布局
 //        Plabel *tmplabel=(Plabel *)tmpwidget->children().at(1)->children().at(0)->children().at(0);
 //        QPixmap pmap=tmplabel->pixmap();
@@ -247,3 +269,10 @@ QImage applyEffectToImage(QImage src, QGraphicsEffect *effect, int extent = 0)
     return res;
 }
 
+//自由绘制
+void editwindow::on_actionpaintfreedom_triggered(bool checked)
+{
+    if(checked){
+        editwindow::painttype=4;
+    }
+}

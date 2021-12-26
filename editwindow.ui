@@ -115,8 +115,9 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="paintrec"/>
+   <addaction name="actionpaintfreedom"/>
    <addaction name="paintarrow"/>
+   <addaction name="paintrec"/>
    <addaction name="vague"/>
    <addaction name="focus"/>
   </widget>
@@ -235,6 +236,18 @@
    </property>
    <property name="toolTip">
     <string>绘制箭头</string>
+   </property>
+  </action>
+  <action name="actionpaintfreedom">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/new/prefix1/image/drawfreedom.png</normaloff>:/new/prefix1/image/drawfreedom.png</iconset>
+   </property>
+   <property name="text">
+    <string>自由绘制</string>
    </property>
   </action>
  </widget>

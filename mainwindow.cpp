@@ -69,29 +69,29 @@ typedef struct _DLONG{
 editwindow *ewind=NULL;
 int i=0;
 //回调函数
-BOOL CALLBACK MainWindow::EnumWindowsProc(HWND hwnd,LPARAM lParam){
-    qDebug()<<hwnd;
-    if(hwnd){
-//        QPixmap pixmap = QPixmap::grabWindow((WId)hwnd);
-//        ewind->editview(&pixmap);
-//        ewind->show();
-//        i++;
-//        if(i>=100){
-//            return false;
-//        }
-    }else{
-        return false;
-    }
-}
+//BOOL CALLBACK MainWindow::EnumWindowsProc(HWND hwnd,LPARAM lParam){
+//    qDebug()<<hwnd;
+//    if(hwnd){
+////        QPixmap pixmap = QPixmap::grabWindow((WId)hwnd);
+////        ewind->editview(&pixmap);
+////        ewind->show();
+////        i++;
+////        if(i>=100){
+////            return false;
+////        }
+//    }else{
+//        return false;
+//    }
+//}
 
 //捕获活动窗口
 void MainWindow::on_pb_widgetscreenshot_clicked()
 {
     hide();
-    QThread::msleep(800);
+    //QThread::msleep(800);
     //获取所有窗口
     //EnumWindows(EnumWindowsProc,NULL);
-    HWND tmp=GetForegroundWindow();
+    //HWND tmp=GetForegroundWindow();
 //    QPixmap pixmap = QPixmap::grabWindow((WId)tmp);
 //    editwin.editview(&pixmap);
 //    editwin.show();
@@ -116,37 +116,37 @@ QList<QRect> ListRect;
 //回调函数
 BOOL CALLBACK EnumAllWindows(HWND Hwnd, LPARAM IParm)//系统返还给你的窗口句柄,API调用进来的参数
 {
-    QWindow *m_window;
-    m_window = QWindow::fromWinId((WId)Hwnd);
+//    QWindow *m_window;
+//    m_window = QWindow::fromWinId((WId)Hwnd);
 
-    if(IsWindowEnabled(Hwnd)&&IsWindowVisible(Hwnd)&&!IsIconic(Hwnd)){
-        QRect rect;
-        rect.setX(m_window->frameGeometry().x());
-        rect.setY(m_window->frameGeometry().y());
-        rect.setWidth(m_window->frameGeometry().width());
-        rect.setHeight(m_window->frameGeometry().height());
-        ListRect.append(rect);
-    }
-    //枚举到完毕
+//    if(IsWindowEnabled(Hwnd)&&IsWindowVisible(Hwnd)&&!IsIconic(Hwnd)){
+//        QRect rect;
+//        rect.setX(m_window->frameGeometry().x());
+//        rect.setY(m_window->frameGeometry().y());
+//        rect.setWidth(m_window->frameGeometry().width());
+//        rect.setHeight(m_window->frameGeometry().height());
+//        ListRect.append(rect);
+//    }
+//    //枚举到完毕
     return true;
 }
 
 //获取窗口对象
 void MainWindow::on_pb_windowsshot_clicked()
 {
-    hide();
-    ListRect.clear();
-    QThread::msleep(800);
+//    hide();
+//    ListRect.clear();
+//    QThread::msleep(800);
 
-    EnumWindows(EnumAllWindows,(LPARAM)"");
+//    //EnumWindows(EnumAllWindows,(LPARAM)"");
 
-//    EnumChildWindows(GetDesktopWindow(), EnumAllWindows, (LPARAM)"");
+////    EnumChildWindows(GetDesktopWindow(), EnumAllWindows, (LPARAM)"");
 
-    if(ListRect.count()>0){
-        screenview *sv=new screenview(nullptr,&ListRect,2);
-        connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
-        sv->show();
-    }
+//    if(ListRect.count()>0){
+//        screenview *sv=new screenview(nullptr,&ListRect,2);
+//        connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
+//        sv->show();
+//    }
 
 }
 

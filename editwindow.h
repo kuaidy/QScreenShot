@@ -18,6 +18,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QRect>
+#include <QCursor>
 
 #include "shotcommon.h"
 
@@ -48,9 +49,13 @@ public:
 
 private:
     QList<QRect> _listRect;
-    //二位数组存放坐标
-    QVector<QVector<int>> _listseat;
-
+    //绘制箭头存放坐标点
+    QVector<QVector<int>> _listSeat;
+    //自由绘制坐标点
+    QVector<QVector<int>> _listPoint;
+    QVector<QVector<QPoint>> _listLine;
+    QPoint _startPoint;
+    QPoint _endPoint;
 
 };
 
@@ -84,6 +89,7 @@ private slots:
     void on_paintarrow_triggered(bool checked);
     void on_filesaveother_triggered();
     void on_vague_triggered(bool checked);
+    void on_actionpaintfreedom_triggered(bool checked);
 };
 
 #endif // EDITWINDOW_H
