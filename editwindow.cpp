@@ -28,17 +28,16 @@ void editwindow::editview(QPixmap *qpix){
     //创建一个窗口，放到tab里头
     QWidget *widget = new QWidget();
 //    widget->setStyleSheet("background:red");
-    QGridLayout *qgridlayout=new QGridLayout(widget);
+//    QGridLayout *qgridlayout=new QGridLayout(widget);
     //创建滚动条
     QScrollArea *scrollarea=new QScrollArea();
 //    scrollarea->setGeometry(400, 300, 300, 200);
 //    scrollarea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    scrollarea->setWidgetResizable(true);
+    scrollarea->setWidgetResizable(false);
     //创建一个label用来显示图片
     imagelabel=new Plabel();
-    imagelabel->setScaledContents(false);
-
-//    imagelabel->setStyleSheet("background:red");
+    imagelabel->setScaledContents(true);
+    imagelabel->setStyleSheet("background:red");
 //    imagelabel->setGeometry(300,300,300,300);
 //    imagelabel->setStyleSheet("color: red");
 //    imagelabel->setStyleSheet("border: 1px solid red;");
@@ -215,8 +214,6 @@ void editwindow::on_paintarrow_triggered(bool checked)
            editwindow::painttype=2;
        }
 }
-
-
 
 //另存为
 void editwindow::on_filesaveother_triggered()

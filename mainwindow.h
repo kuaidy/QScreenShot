@@ -13,12 +13,12 @@
 #include <QPen>
 #include <QMessageBox>
 #include <QDebug>
-
-#include "screenview.h"
-#include "editwindow.h"
-#include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <Windows.h>
+#include "screenview.h"
+#include "editwindow.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -56,8 +56,6 @@ signals:
 private:
     Ui::MainWindow *ui;
     QPixmap originalPixmap;
-
-
 
 
 };

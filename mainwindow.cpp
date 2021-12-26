@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setWindowFlags(Qt::WindowMinimizeButtonHint|Qt::WindowCloseButtonHint);
 }
 
 MainWindow::~MainWindow()
@@ -112,42 +113,40 @@ void MainWindow::on_pb_activewinshot_clicked()
 //    show();
 }
 
-QList<QRect> ListRect;
+QList<QRect> ListWindows;
 //回调函数
 BOOL CALLBACK EnumAllWindows(HWND Hwnd, LPARAM IParm)//系统返还给你的窗口句柄,API调用进来的参数
 {
-//    QWindow *m_window;
-//    m_window = QWindow::fromWinId((WId)Hwnd);
-
-//    if(IsWindowEnabled(Hwnd)&&IsWindowVisible(Hwnd)&&!IsIconic(Hwnd)){
-//        QRect rect;
-//        rect.setX(m_window->frameGeometry().x());
-//        rect.setY(m_window->frameGeometry().y());
-//        rect.setWidth(m_window->frameGeometry().width());
-//        rect.setHeight(m_window->frameGeometry().height());
-//        ListRect.append(rect);
-//    }
-//    //枚举到完毕
+    QWindow *m_window;
+    m_window = QWindow::fromWinId((WId)Hwnd);
+    if(IsWindowEnabled(Hwnd)&&IsWindowVisible(Hwnd)&&!IsIconic(Hwnd)){
+        QRect rect;
+        rect.setX(m_window->frameGeometry().x());
+        rect.setY(m_window->frameGeometry().y());
+        rect.setWidth(m_window->frameGeometry().width());
+        rect.setHeight(m_window->frameGeometry().height());
+        ListWindows.append(rect);
+    }
+    //枚举到完毕
     return true;
 }
 
 //获取窗口对象
 void MainWindow::on_pb_windowsshot_clicked()
 {
-//    hide();
-//    ListRect.clear();
-//    QThread::msleep(800);
-
-//    //EnumWindows(EnumAllWindows,(LPARAM)"");
-
-////    EnumChildWindows(GetDesktopWindow(), EnumAllWindows, (LPARAM)"");
-
-//    if(ListRect.count()>0){
-//        screenview *sv=new screenview(nullptr,&ListRect,2);
-//        connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
-//        sv->show();
-//    }
-
+    //windows操作系统执行
+    #ifdef Q_OS_WIN
+        hide();
+        ListWindows.clear();
+        QThread::msleep(800);
+        EnumWindows(EnumAllWindows,(LPARAM)"");
+        //EnumChildWindows(GetDesktopWindow(), EnumAllWindows, (LPARAM)"");
+        if(ListWindows.count()>0){
+            screenview *sv=new screenview(nullptr,&ListWindows,2);
+            connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
+            sv->show();
+        }
+    #endif
 }
 
 //捕获固定窗口的大小
