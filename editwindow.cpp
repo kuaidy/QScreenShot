@@ -62,6 +62,12 @@ void editwindow::editview(QPixmap *qpix){
     int tabindex=ui->tabWidget->count()-1<0?0:ui->tabWidget->count()-1;
     ui->tabWidget->insertTab(tabindex,widget,tabname);
     Plabel::PlabelPixmap=qpix;
+
+    //状态栏显示
+    sizeStatus=new QLabel("大小："+QString::number(qpix->width())+'x'+QString::number(qpix->height()));
+    scaleStatus=new QLabel("缩放："+QString::number(Scale)+"%");
+    ui->statusbar->addWidget(sizeStatus);
+    ui->statusbar->addWidget(scaleStatus);
 }
 
 //重写鼠标按下方法
@@ -273,3 +279,31 @@ void editwindow::on_actionpaintfreedom_triggered(bool checked)
         editwindow::painttype=4;
     }
 }
+//放大
+void editwindow::on_enlarge_triggered()
+{
+    const int num=2;
+    int pixWidth=imagelabel->pixmap().width();
+    int pixHeigth=imagelabel->pixmap().height();
+    QPixmap pixMap=imagelabel->pixmap().scaled(pixWidth*num,pixHeigth*num,Qt::KeepAspectRatio);
+    imagelabel->setPixmap(pixMap);
+    imagelabel->resize(pixMap.width(),pixMap.height());
+    sizeStatus->setText("大小："+QString::number(pixMap.width())+"x"+QString::number(pixMap.height()));
+    Scale=Scale*num;
+    scaleStatus->setText("缩放："+QString::number(Scale)+"%");
+}
+
+
+void editwindow::on_narrow_triggered()
+{
+    const int num=2;
+    int pixWidth=imagelabel->pixmap().width();
+    int pixHeigth=imagelabel->pixmap().height();
+    QPixmap pixMap=imagelabel->pixmap().scaled(pixWidth/num,pixHeigth/num,Qt::KeepAspectRatio);
+    imagelabel->setPixmap(pixMap);
+    imagelabel->resize(pixMap.width(),pixMap.height());
+    sizeStatus->setText("大小："+QString::number(pixMap.width())+"x"+QString::number(pixMap.height()));
+    Scale=Scale/num;
+    scaleStatus->setText("缩放："+QString::number(Scale)+"%");
+}
+

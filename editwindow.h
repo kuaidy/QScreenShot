@@ -69,7 +69,8 @@ public:
     //绘制类型
     static int painttype;
 //    static QPixmap *PlabelPixmap;
-
+    //缩放比例
+    int Scale=100;
 
 private:
     Ui::editwindow *ui;
@@ -77,7 +78,10 @@ private:
     QDockWidget *DockImage;
     Plabel *imagelabel;
 
-
+    //状态栏大小
+    QLabel *sizeStatus;
+    //状态栏缩放比例
+    QLabel *scaleStatus;
 
 public:
     void editview(QPixmap *qpix);
@@ -90,6 +94,8 @@ private slots:
     void on_filesaveother_triggered();
     void on_vague_triggered(bool checked);
     void on_actionpaintfreedom_triggered(bool checked);
+    void on_enlarge_triggered();
+    void on_narrow_triggered();
 };
 
 #endif // EDITWINDOW_H
