@@ -44,7 +44,7 @@ public:
     int sx,sy,ex,ey;
     //对于桌面的坐标
     int glsx,glsy,glex,gley;
-    static QPixmap *PlabelPixmap;
+//    static QPixmap *PlabelPixmap;
     QRect m_leftTopRect;
 
 private:
@@ -68,7 +68,7 @@ public:
     ~editwindow();
     //绘制类型
     static int painttype;
-//    static QPixmap *PlabelPixmap;
+//    static QPixmap PlabelPixmap;
     //缩放比例
     int Scale=100;
 

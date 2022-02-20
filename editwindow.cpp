@@ -8,7 +8,8 @@ int editwindow::painttype=0;
 
 QImage applyEffectToImage(QImage src, QGraphicsEffect *effect, int extent);
 
-QPixmap *Plabel::PlabelPixmap=nullptr;
+QPixmap *PlabelPixmap=nullptr;
+QImage PlabelImage;
 
 editwindow::editwindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,42 +27,32 @@ editwindow::~editwindow()
 void editwindow::editview(QPixmap *qpix){
     ui->tabWidget->clear();
     //创建一个窗口，放到tab里头
-    QWidget *widget = new QWidget();
-//    widget->setStyleSheet("background:red");
-//    QGridLayout *qgridlayout=new QGridLayout(widget);
+    QWidget *widget = new QWidget();\
+    QGridLayout *qgridlayout=new QGridLayout(widget);
     //创建滚动条
-    QScrollArea *scrollarea=new QScrollArea();
-//    scrollarea->setGeometry(400, 300, 300, 200);
-//    scrollarea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    QScrollArea *scrollarea=new QScrollArea(widget);
     scrollarea->setWidgetResizable(false);
+
     //创建一个label用来显示图片
     imagelabel=new Plabel();
     imagelabel->setScaledContents(true);
     imagelabel->setStyleSheet("background:red");
-//    imagelabel->setGeometry(300,300,300,300);
-//    imagelabel->setStyleSheet("color: red");
-//    imagelabel->setStyleSheet("border: 1px solid red;");
     // 显示图像
     imagelabel->setPixmap(*qpix);
     // 图像与imgLabel同大小
     imagelabel->resize(qpix->width(), qpix->height());
-//    qDebug()<<imagelabel->width();
-//    qDebug()<<imagelabel->height();
     imagelabel->setAlignment(Qt::AlignCenter);
     scrollarea->setAlignment(Qt::AlignCenter);
     scrollarea->setWidget(imagelabel);
-    setCentralWidget(scrollarea);
-    // 初始图像
-    //QImage image = QImage(500, 500, QImage::Format_RGB32);  // 新建图像
-    //image.fill(qRgb(0, 255, 255));                         // 全白
-//    qgridlayout->addWidget(scrollarea);
+    qgridlayout->addWidget(scrollarea);
+//    setCentralWidget(scrollarea);
     //插入页
     QString tabname="新建";
     QString tabnum=QString::number(ui->tabWidget->count(),10);
     tabname.append(tabnum);
     int tabindex=ui->tabWidget->count()-1<0?0:ui->tabWidget->count()-1;
-    ui->tabWidget->insertTab(tabindex,widget,tabname);
-    Plabel::PlabelPixmap=qpix;
+    ui->tabWidget->addTab(widget,tabname);
+    PlabelImage=qpix->toImage();
 
     //状态栏显示
     sizeStatus=new QLabel("大小："+QString::number(qpix->width())+'x'+QString::number(qpix->height()));
@@ -127,7 +118,6 @@ void Plabel::paintEvent(QPaintEvent *event){
     float a=0.5;
 
     //绘制小方块
-
     switch (editwindow::painttype) {
         case 1:{
             painter.setPen(QPen(Qt::red,2));
@@ -151,7 +141,6 @@ void Plabel::paintEvent(QPaintEvent *event){
             QGraphicsOpacityEffect *opac=new QGraphicsOpacityEffect;
             blur->setBlurRadius(5);
             opac->setOpacity(0.5);
-    //        QImage source("C:\\Users\\kuai\\Desktop\\2021-07-28-203720.png");
             QImage result = applyEffectToImage(copyImage, blur,0);
             painter.drawImage(sx,sy,result);
             break;
@@ -232,13 +221,6 @@ void editwindow::on_filesaveother_triggered()
     fileDialog->setFileMode(QFileDialog::AnyFile);
     QString filename=fileDialog->getSaveFileName(this,tr("另存为"),filestr+".png");
     if(!filename.isNull()){
-        //QWidget *tmpwidget=ui->tabWidget->currentWidget();
-        //适用于固定的布局
-//        Plabel *tmplabel=(Plabel *)tmpwidget->children().at(1)->children().at(0)->children().at(0);
-//        QPixmap pmap=tmplabel->pixmap();
-//        QPixmap pmap(imagelabel->size());
-//        imagelabel->render(&pmap);
-
         QPixmap pmap=imagelabel->grab(QRect(0,0,imagelabel->width(),imagelabel->height()));
         //针对系统进行缩放的情况
         QPixmap tmppmap =pmap.copy((pmap.width()-imagelabel->width())/2,(pmap.height()-imagelabel->height())/2,imagelabel->width(),imagelabel->height());
@@ -283,9 +265,10 @@ void editwindow::on_actionpaintfreedom_triggered(bool checked)
 void editwindow::on_enlarge_triggered()
 {
     const int num=2;
+    //获取原图片
     int pixWidth=imagelabel->pixmap().width();
     int pixHeigth=imagelabel->pixmap().height();
-    QPixmap pixMap=imagelabel->pixmap().scaled(pixWidth*num,pixHeigth*num,Qt::KeepAspectRatio);
+    QPixmap pixMap=QPixmap::fromImage(PlabelImage.scaled(pixWidth*num,pixHeigth*num,Qt::KeepAspectRatio,Qt::SmoothTransformation));
     imagelabel->setPixmap(pixMap);
     imagelabel->resize(pixMap.width(),pixMap.height());
     sizeStatus->setText("大小："+QString::number(pixMap.width())+"x"+QString::number(pixMap.height()));
@@ -297,9 +280,10 @@ void editwindow::on_enlarge_triggered()
 void editwindow::on_narrow_triggered()
 {
     const int num=2;
+
     int pixWidth=imagelabel->pixmap().width();
     int pixHeigth=imagelabel->pixmap().height();
-    QPixmap pixMap=imagelabel->pixmap().scaled(pixWidth/num,pixHeigth/num,Qt::KeepAspectRatio);
+    QPixmap pixMap=QPixmap::fromImage(PlabelImage.scaled(pixWidth/num,pixHeigth/num,Qt::KeepAspectRatio,Qt::SmoothTransformation));
     imagelabel->setPixmap(pixMap);
     imagelabel->resize(pixMap.width(),pixMap.height());
     sizeStatus->setText("大小："+QString::number(pixMap.width())+"x"+QString::number(pixMap.height()));
