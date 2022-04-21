@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>editwindow</class>
  <widget class="QMainWindow" name="editwindow">
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>screenshot编辑器</string>
+   <string>编辑器</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -41,7 +41,7 @@
     <addaction name="fileopen"/>
     <addaction name="filesaveother"/>
    </widget>
-   <widget class="QMenu" name="menu_2">
+   <widget class="QMenu" name="menu_set">
     <property name="title">
      <string>设置</string>
     </property>
@@ -52,7 +52,7 @@
     </property>
    </widget>
    <addaction name="menu"/>
-   <addaction name="menu_2"/>
+   <addaction name="menu_set"/>
    <addaction name="menu_3"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -69,7 +69,7 @@
    <addaction name="fileopen"/>
    <addaction name="filesaveother"/>
   </widget>
-  <widget class="QToolBar" name="toolBarpaint">
+  <widget class="QToolBar" name="toolBarSize">
    <property name="windowTitle">
     <string>toolBar_2</string>
    </property>
@@ -82,7 +82,7 @@
    <addaction name="enlarge"/>
    <addaction name="narrow"/>
   </widget>
-  <widget class="QToolBar" name="toolBar">
+  <widget class="QToolBar" name="toolBarPaint">
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
@@ -95,10 +95,8 @@
    <addaction name="actionpaintfreedom"/>
    <addaction name="paintarrow"/>
    <addaction name="paintrec"/>
-   <addaction name="vague"/>
-   <addaction name="focus"/>
   </widget>
-  <widget class="QToolBar" name="toolBar_2">
+  <widget class="QToolBar" name="toolBarClound">
    <property name="windowTitle">
     <string>toolBar_2</string>
    </property>
@@ -108,7 +106,19 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="tailoring"/>
+   <addaction name="actionupload"/>
+  </widget>
+  <widget class="QToolBar" name="toolBarSet">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="setting"/>
   </widget>
   <action name="filenew">
    <property name="icon">
@@ -155,36 +165,6 @@
     <string>缩小</string>
    </property>
   </action>
-  <action name="vague">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="resource.qrc">
-     <normaloff>:/new/prefix1/image/vague.png</normaloff>:/new/prefix1/image/vague.png</iconset>
-   </property>
-   <property name="text">
-    <string>模糊</string>
-   </property>
-  </action>
-  <action name="focus">
-   <property name="icon">
-    <iconset resource="resource.qrc">
-     <normaloff>:/new/prefix1/image/focus.png</normaloff>:/new/prefix1/image/focus.png</iconset>
-   </property>
-   <property name="text">
-    <string>聚焦</string>
-   </property>
-  </action>
-  <action name="tailoring">
-   <property name="icon">
-    <iconset resource="resource.qrc">
-     <normaloff>:/new/prefix1/image/tailoring.png</normaloff>:/new/prefix1/image/tailoring.png</iconset>
-   </property>
-   <property name="text">
-    <string>裁剪</string>
-   </property>
-  </action>
   <action name="paintrec">
    <property name="checkable">
     <bool>true</bool>
@@ -225,6 +205,30 @@
    </property>
    <property name="text">
     <string>自由绘制</string>
+   </property>
+  </action>
+  <action name="actionupload">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/new/prefix1/image/upload.png</normaloff>:/new/prefix1/image/upload.png</iconset>
+   </property>
+   <property name="text">
+    <string>upload</string>
+   </property>
+   <property name="toolTip">
+    <string>将当前图片上传</string>
+   </property>
+  </action>
+  <action name="setting">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/new/prefix1/image/set.png</normaloff>:/new/prefix1/image/set.png</iconset>
+   </property>
+   <property name="text">
+    <string>setting</string>
+   </property>
+   <property name="toolTip">
+    <string>设置</string>
    </property>
   </action>
  </widget>

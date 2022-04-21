@@ -17,6 +17,9 @@ editwindow::editwindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->tabWidget->layout();
+    //这样每页都会有关闭按钮
+    ui->tabWidget->setTabsClosable(true);
+    connect(ui->tabWidget,SIGNAL(tabCloseRequested(int)),this,SLOT(removeSubTab(int)));
 }
 
 editwindow::~editwindow()
@@ -26,34 +29,13 @@ editwindow::~editwindow()
 
 void editwindow::editview(QPixmap *qpix){
     ui->tabWidget->clear();
-    //创建一个窗口，放到tab里头
-    QWidget *widget = new QWidget();\
-    QGridLayout *qgridlayout=new QGridLayout(widget);
-    //创建滚动条
-    QScrollArea *scrollarea=new QScrollArea(widget);
-    scrollarea->setWidgetResizable(false);
-
-    //创建一个label用来显示图片
-    imagelabel=new Plabel();
-    imagelabel->setScaledContents(true);
-    imagelabel->setStyleSheet("background:red");
-    // 显示图像
-    imagelabel->setPixmap(*qpix);
-    // 图像与imgLabel同大小
-    imagelabel->resize(qpix->width(), qpix->height());
-    imagelabel->setAlignment(Qt::AlignCenter);
-    scrollarea->setAlignment(Qt::AlignCenter);
-    scrollarea->setWidget(imagelabel);
-    qgridlayout->addWidget(scrollarea);
-//    setCentralWidget(scrollarea);
+    PlabelImage = qpix->toImage();
     //插入页
     QString tabname="新建";
     QString tabnum=QString::number(ui->tabWidget->count(),10);
     tabname.append(tabnum);
     int tabindex=ui->tabWidget->count()-1<0?0:ui->tabWidget->count()-1;
-    ui->tabWidget->addTab(widget,tabname);
-    PlabelImage=qpix->toImage();
-
+    CreateTab(*qpix,tabname);
     //状态栏显示
     sizeStatus=new QLabel("大小："+QString::number(qpix->width())+'x'+QString::number(qpix->height()));
     scaleStatus=new QLabel("缩放："+QString::number(Scale)+"%");
@@ -213,6 +195,7 @@ void editwindow::on_paintarrow_triggered(bool checked)
 //另存为
 void editwindow::on_filesaveother_triggered()
 {
+    int tabIndex=ui->tabWidget->currentIndex();
     QDateTime timenow=QDateTime::currentDateTime();
     QString filestr=timenow.toString("yyyy-MM-dd-hhmmss");
     QFileDialog *fileDialog=new QFileDialog();
@@ -221,10 +204,13 @@ void editwindow::on_filesaveother_triggered()
     fileDialog->setFileMode(QFileDialog::AnyFile);
     QString filename=fileDialog->getSaveFileName(this,tr("另存为"),filestr+".png");
     if(!filename.isNull()){
-        QPixmap pmap=imagelabel->grab(QRect(0,0,imagelabel->width(),imagelabel->height()));
-        //针对系统进行缩放的情况
-        QPixmap tmppmap =pmap.copy((pmap.width()-imagelabel->width())/2,(pmap.height()-imagelabel->height())/2,imagelabel->width(),imagelabel->height());
-        tmppmap.save(filename,nullptr,100);
+        int tabIndex= ui->tabWidget->currentIndex();
+        QString tabName=ui->tabWidget->tabText(tabIndex);
+        ui->tabWidget->currentWidget();
+
+//        //针对系统进行缩放的情况
+//        QPixmap tmppmap =pmap.copy((pmap.width()-imagelabel->width())/2,(pmap.height()-imagelabel->height())/2,imagelabel->width(),imagelabel->height());
+//        pmap.save(filename,nullptr,100);
     }
 }
 
@@ -276,11 +262,10 @@ void editwindow::on_enlarge_triggered()
     scaleStatus->setText("缩放："+QString::number(Scale)+"%");
 }
 
-
+//缩小
 void editwindow::on_narrow_triggered()
 {
     const int num=2;
-
     int pixWidth=imagelabel->pixmap().width();
     int pixHeigth=imagelabel->pixmap().height();
     QPixmap pixMap=QPixmap::fromImage(PlabelImage.scaled(pixWidth/num,pixHeigth/num,Qt::KeepAspectRatio,Qt::SmoothTransformation));
@@ -289,5 +274,74 @@ void editwindow::on_narrow_triggered()
     sizeStatus->setText("大小："+QString::number(pixMap.width())+"x"+QString::number(pixMap.height()));
     Scale=Scale/num;
     scaleStatus->setText("缩放："+QString::number(Scale)+"%");
+}
+
+//打开文件
+void editwindow::on_fileopen_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("选择文件"),"./", tr("Image files(*.bmp *.jpg *.png);All files (*.*)"));
+    if(!fileName.isEmpty())
+    {
+        QFileInfo fileInfo=QFileInfo(fileName);
+        QImage img;
+        if(img.load(fileName)){
+            CreateTab(QPixmap::fromImage(img),fileInfo.fileName());
+        }
+    }
+}
+//创建tab页
+void editwindow::CreateTab(QPixmap pixMap,QString fileName){
+    //保存原始图片
+    //创建一个窗口，放到tab里头
+    QWidget *widget = new QWidget();
+    QGridLayout *qgridlayout=new QGridLayout(widget);
+    //创建滚动条
+    QScrollArea *scrollarea=new QScrollArea(widget);
+    scrollarea->setWidgetResizable(false);
+    //创建一个label用来显示图片
+    Plabel *imagelabel=new Plabel();
+    imagelabel->setObjectName(fileName);
+    imagelabel->setScaledContents(true);
+    imagelabel->setStyleSheet("background:red");
+    // 显示图像
+    imagelabel->setPixmap(pixMap);
+    // 图像与imgLabel同大小
+    imagelabel->resize(pixMap.width(), pixMap.height());
+    imagelabel->setAlignment(Qt::AlignCenter);
+    scrollarea->setAlignment(Qt::AlignCenter);
+    scrollarea->setWidget(imagelabel);
+    qgridlayout->addWidget(scrollarea);
+    //插入页
+    ui->tabWidget->addTab(widget,fileName);
+}
+
+void editwindow::removeSubTab(int index)
+{
+    ui->tabWidget->removeTab(index);
+}
+
+void editwindow::on_setting_triggered()
+{
+    Setting *setting=new Setting();
+    setting->show();
+}
+
+
+void editwindow::on_actionupload_triggered()
+{
+    QMessageBox::StandardButton box;
+    box = QMessageBox::question(this, "提示", "确定要上传图片吗?", QMessageBox::Yes|QMessageBox::No);
+    if(box==QMessageBox::No)
+       return;
+//    BaiduDiskApi *baiduDiskApi=new BaiduDiskApi();
+//    QString strToken=baiduDiskApi->GetTokenByNoserver();
+////    QFileInfo file=QFileInfo(fileName);
+//    QString filePath="C:\\Users\\kuai\\Desktop\\test.jpg";
+
+//    baiduDiskApi->PreCreateFile(filePath,strToken);
+
+    WordpressApi *wordpressApi=new WordpressApi();
+    QString token = wordpressApi->GetToken();
+
 }
 

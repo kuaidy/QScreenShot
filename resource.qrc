@@ -16,5 +16,7 @@
         <file>image/widget.png</file>
         <file>image/activewindow.png</file>
         <file>image/drawfreedom.png</file>
+        <file>image/upload.png</file>
+        <file>image/set.png</file>
     </qresource>
 </RCC>

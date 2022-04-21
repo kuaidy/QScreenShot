@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network webenginewidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -11,28 +11,41 @@ LIBS +=User32.LIB
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Api/BaiduDiskApi.cpp \
+    Api/HttpHelper.cpp \
+    Api/wordpressapi.cpp \
+    Models/UserTokenInfo.cpp\
+    UserTokenInfo.cpp \
     editwindow.cpp \
     fixedsizeform.cpp \
     formtimer.cpp \
     main.cpp \
     mainwindow.cpp \
     screenview.cpp \
-    shotcommon.cpp
+    setting.cpp \
+    shotcommon.cpp\
 
 HEADERS += \
+    Api/BaiduDiskApi.h \
+    Api/HttpHelper.h \
+    Api/wordpressapi.h \
+    Models/UserTokenInfo.h\
+    UserTokenInfo.h \
     editwindow.h \
     fixedsizeform.h \
     formtimer.h \
     mainwindow.h \
     screenview.h \
-    shotcommon.h
+    setting.h \
+    shotcommon.h\
 
 FORMS += \
     editwindow.ui \
     fixedsizeform.ui \
     formtimer.ui \
     mainwindow.ui \
-    screenview.ui
+    screenview.ui \
+    setting.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

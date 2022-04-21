@@ -19,8 +19,14 @@
 #include <QGraphicsPixmapItem>
 #include <QRect>
 #include <QCursor>
+#include <QMessageBox>
+#include <QWebEngineView>
+#include <QNetworkProxyFactory>
 
 #include "shotcommon.h"
+#include "setting.h"
+#include "Api/BaiduDiskApi.h"
+#include "Api/wordpressapi.h"
 
 namespace Ui {
 class editwindow;
@@ -71,6 +77,7 @@ public:
 //    static QPixmap PlabelPixmap;
     //缩放比例
     int Scale=100;
+    void CreateTab(QPixmap qPixmap,QString fileName);
 
 private:
     Ui::editwindow *ui;
@@ -96,6 +103,10 @@ private slots:
     void on_actionpaintfreedom_triggered(bool checked);
     void on_enlarge_triggered();
     void on_narrow_triggered();
+    void on_fileopen_triggered();
+    void on_setting_triggered();
+    void removeSubTab(int index);
+    void on_actionupload_triggered();
 };
 
 #endif // EDITWINDOW_H
