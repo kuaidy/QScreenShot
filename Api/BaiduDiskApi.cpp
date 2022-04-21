@@ -10,8 +10,8 @@ QString BaiduDiskApi::GetToken(){
     //发送的数据
     QJsonObject obj;
     obj.insert("grant_type","client_credentials");
-    obj.insert("client_id","AVPyRVuMPRRehbMxROzsFmEXotMEmQ9x");
-    obj.insert("client_secret","kp2ouuZgqWNtNjxuLPEd9YdpOuDoM36f");
+    obj.insert("client_id","");
+    obj.insert("client_secret","");
     QByteArray postData;
     postData.append(QJsonDocument(obj).toJson());
     QNetworkReply* reply = manager->post(request,postData);
