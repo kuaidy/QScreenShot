@@ -14,8 +14,7 @@ SOURCES += \
     Api/BaiduDiskApi.cpp \
     Api/HttpHelper.cpp \
     Api/wordpressapi.cpp \
-    Models/UserTokenInfo.cpp\
-    UserTokenInfo.cpp \
+    Models/UserTokenInfo.cpp \
     editwindow.cpp \
     fixedsizeform.cpp \
     formtimer.cpp \
@@ -29,8 +28,7 @@ HEADERS += \
     Api/BaiduDiskApi.h \
     Api/HttpHelper.h \
     Api/wordpressapi.h \
-    Models/UserTokenInfo.h\
-    UserTokenInfo.h \
+    Models/UserTokenInfo.h \
     editwindow.h \
     fixedsizeform.h \
     formtimer.h \

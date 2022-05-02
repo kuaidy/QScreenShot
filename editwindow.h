@@ -22,6 +22,7 @@
 #include <QMessageBox>
 #include <QWebEngineView>
 #include <QNetworkProxyFactory>
+#include <QBuffer>
 
 #include "shotcommon.h"
 #include "setting.h"

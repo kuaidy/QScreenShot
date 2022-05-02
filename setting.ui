@@ -97,7 +97,7 @@
          </property>
          <widget class="QWidget" name="Wordpress">
           <attribute name="title">
-           <string>百度网盘</string>
+           <string>WordPress</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_3">
            <item row="2" column="0">

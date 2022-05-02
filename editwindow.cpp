@@ -333,15 +333,17 @@ void editwindow::on_actionupload_triggered()
     box = QMessageBox::question(this, "提示", "确定要上传图片吗?", QMessageBox::Yes|QMessageBox::No);
     if(box==QMessageBox::No)
        return;
-//    BaiduDiskApi *baiduDiskApi=new BaiduDiskApi();
-//    QString strToken=baiduDiskApi->GetTokenByNoserver();
-////    QFileInfo file=QFileInfo(fileName);
-//    QString filePath="C:\\Users\\kuai\\Desktop\\test.jpg";
-
-//    baiduDiskApi->PreCreateFile(filePath,strToken);
-
+    QPixmap pixMap=QPixmap::fromImage(PlabelImage);
+    QByteArray bytearray;
+    QBuffer buffer(&bytearray);
+    buffer.open(QIODevice::WriteOnly);
+    bool bOk = pixMap.save(&buffer,"PNG",20);
+    QDateTime timenow=QDateTime::currentDateTime();
+    QString fileName=timenow.toString("yyyy-MM-dd-hhmmss")+".png";
     WordpressApi *wordpressApi=new WordpressApi();
-    QString token = wordpressApi->GetToken();
+    wordpressApi->GetToken();
+    bool res=wordpressApi->UploadFile(bytearray,fileName);
+    QMessageBox::information(this,"提示","上传成功！",QMessageBox::Ok);
 
 }
 

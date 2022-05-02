@@ -84,3 +84,26 @@ QString HttpHelper::Post(QString url,QJsonObject jsonData,QString token){
     QString strResponse = QString::fromUtf8(responseData);
     return strResponse;
 }
+bool HttpHelper::Post(QString url,QByteArray data,QString token,QString fileName){
+    try{
+        QUrl reqUrl(url);
+        QNetworkRequest request(reqUrl);
+        request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("multipart/form-data"));
+        request.setHeader(QNetworkRequest::ContentDispositionHeader,QVariant("attachment; filename="+fileName));
+        request.setRawHeader("Authorization",("Bearer "+token).toUtf8());
+        QNetworkAccessManager *manager=new QNetworkAccessManager();
+        QNetworkReply *reply=manager->post(request,data);
+        QEventLoop eventLoop;
+        connect(manager,SIGNAL(finished(QNetworkReply*)),&eventLoop,SLOT(quit()));
+        eventLoop.exec();
+        QByteArray responseData = reply->readAll();
+        QJsonObject strResponse=QJsonDocument::fromJson(responseData).object();
+        if(strResponse.value("id").toInt()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }catch(_exception){
+        return false;
+    }
+}
