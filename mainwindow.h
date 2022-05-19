@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <Windows.h>
+#include <QApplication>
 #include "screenview.h"
 #include "editwindow.h"
 

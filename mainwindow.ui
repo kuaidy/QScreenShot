@@ -31,6 +31,10 @@
   <property name="windowTitle">
    <string>截图</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/new/prefix1/image/cut.png</normaloff>:/new/prefix1/image/cut.png</iconset>
+  </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
   </property>

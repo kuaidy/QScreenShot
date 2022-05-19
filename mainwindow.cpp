@@ -7,6 +7,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::WindowMinimizeButtonHint|Qt::WindowCloseButtonHint);
+    QScreen *screen =QGuiApplication::primaryScreen();
+    int x= screen->geometry().width()-300;
+    int y= 100;
+    move(x,y);
 }
 
 MainWindow::~MainWindow()

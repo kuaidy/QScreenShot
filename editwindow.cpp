@@ -20,6 +20,7 @@ editwindow::editwindow(QWidget *parent) :
     //这样每页都会有关闭按钮
     ui->tabWidget->setTabsClosable(true);
     connect(ui->tabWidget,SIGNAL(tabCloseRequested(int)),this,SLOT(removeSubTab(int)));
+
 }
 
 editwindow::~editwindow()
@@ -28,6 +29,7 @@ editwindow::~editwindow()
 }
 
 void editwindow::editview(QPixmap *qpix){
+    showMaximized();
     ui->tabWidget->clear();
     PlabelImage = qpix->toImage();
     //插入页

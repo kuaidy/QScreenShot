@@ -18,5 +18,6 @@
         <file>image/drawfreedom.png</file>
         <file>image/upload.png</file>
         <file>image/set.png</file>
+        <file>image/cut.png</file>
     </qresource>
 </RCC>
