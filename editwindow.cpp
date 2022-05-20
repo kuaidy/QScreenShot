@@ -19,8 +19,12 @@ editwindow::editwindow(QWidget *parent) :
     ui->tabWidget->layout();
     //这样每页都会有关闭按钮
     ui->tabWidget->setTabsClosable(true);
+    //状态栏显示
+    sizeStatus=new QLabel("大小：");
+    scaleStatus=new QLabel("缩放：");
+    ui->statusbar->addWidget(sizeStatus);
+    ui->statusbar->addWidget(scaleStatus);
     connect(ui->tabWidget,SIGNAL(tabCloseRequested(int)),this,SLOT(removeSubTab(int)));
-
 }
 
 editwindow::~editwindow()
@@ -30,7 +34,7 @@ editwindow::~editwindow()
 
 void editwindow::editview(QPixmap *qpix){
     showMaximized();
-    ui->tabWidget->clear();
+//    ui->tabWidget->clear();
     PlabelImage = qpix->toImage();
     //插入页
     QString tabname="新建";
@@ -39,10 +43,12 @@ void editwindow::editview(QPixmap *qpix){
     int tabindex=ui->tabWidget->count()-1<0?0:ui->tabWidget->count()-1;
     CreateTab(*qpix,tabname);
     //状态栏显示
-    sizeStatus=new QLabel("大小："+QString::number(qpix->width())+'x'+QString::number(qpix->height()));
-    scaleStatus=new QLabel("缩放："+QString::number(Scale)+"%");
-    ui->statusbar->addWidget(sizeStatus);
-    ui->statusbar->addWidget(scaleStatus);
+//    sizeStatus=new QLabel("大小："+QString::number(qpix->width())+'x'+QString::number(qpix->height()));
+//    scaleStatus=new QLabel("缩放："+QString::number(Scale)+"%");
+//    ui->statusbar->addWidget(sizeStatus);
+//    ui->statusbar->addWidget(scaleStatus);
+    sizeStatus->setText("大小："+QString::number(qpix->width())+'x'+QString::number(qpix->height()));
+    scaleStatus->setText("缩放："+QString::number(Scale)+"%");
 }
 
 //重写鼠标按下方法
@@ -204,15 +210,13 @@ void editwindow::on_filesaveother_triggered()
     fileDialog->setWindowTitle(tr("另存为"));
     fileDialog->setAcceptMode(QFileDialog::AcceptSave);
     fileDialog->setFileMode(QFileDialog::AnyFile);
-    QString filename=fileDialog->getSaveFileName(this,tr("另存为"),filestr+".png");
-    if(!filename.isNull()){
-        int tabIndex= ui->tabWidget->currentIndex();
-        QString tabName=ui->tabWidget->tabText(tabIndex);
-        ui->tabWidget->currentWidget();
-
-//        //针对系统进行缩放的情况
-//        QPixmap tmppmap =pmap.copy((pmap.width()-imagelabel->width())/2,(pmap.height()-imagelabel->height())/2,imagelabel->width(),imagelabel->height());
-//        pmap.save(filename,nullptr,100);
+    QString fileName=fileDialog->getSaveFileName(this,tr("另存为"),filestr+".png");
+    if(!fileName.isNull()){
+        QWidget* qWidget= ui->tabWidget->currentWidget();
+        //根据子控件的名称查找子控件
+        QLabel* label = qWidget->findChild<QLabel*>();
+        QPixmap pixmap=label->pixmap();
+        pixmap.save(fileName);
     }
 }
 
@@ -253,28 +257,31 @@ void editwindow::on_actionpaintfreedom_triggered(bool checked)
 void editwindow::on_enlarge_triggered()
 {
     const int num=2;
+    QWidget* qWidget= ui->tabWidget->currentWidget();
+    //根据子控件的名称查找子控件
+    QLabel* label = qWidget->findChild<QLabel*>();
     //获取原图片
-    int pixWidth=imagelabel->pixmap().width();
-    int pixHeigth=imagelabel->pixmap().height();
-    QPixmap pixMap=QPixmap::fromImage(PlabelImage.scaled(pixWidth*num,pixHeigth*num,Qt::KeepAspectRatio,Qt::SmoothTransformation));
-    imagelabel->setPixmap(pixMap);
-    imagelabel->resize(pixMap.width(),pixMap.height());
-    sizeStatus->setText("大小："+QString::number(pixMap.width())+"x"+QString::number(pixMap.height()));
+    int pixWidth=PlabelImage.width();
+    int pixHeigth=PlabelImage.height();
     Scale=Scale*num;
-    scaleStatus->setText("缩放："+QString::number(Scale)+"%");
+    QPixmap pixMap=QPixmap::fromImage(PlabelImage.scaled(pixWidth*Scale,pixHeigth*Scale,Qt::KeepAspectRatio,Qt::SmoothTransformation));
+    label->setPixmap(pixMap);
+    label->resize(pixMap.width(),pixMap.height());
+    sizeStatus->setText("大小："+QString::number(pixMap.width())+"x"+QString::number(pixMap.height()));
+    scaleStatus->setText("缩放："+QString::number(Scale*100)+"%");
 }
 
 //缩小
 void editwindow::on_narrow_triggered()
 {
     const int num=2;
-    int pixWidth=imagelabel->pixmap().width();
-    int pixHeigth=imagelabel->pixmap().height();
-    QPixmap pixMap=QPixmap::fromImage(PlabelImage.scaled(pixWidth/num,pixHeigth/num,Qt::KeepAspectRatio,Qt::SmoothTransformation));
+    int pixWidth=PlabelImage.width();
+    int pixHeigth=PlabelImage.height();
+    Scale=Scale/num;
+    QPixmap pixMap=QPixmap::fromImage(PlabelImage.scaled(pixWidth*Scale,pixHeigth*Scale,Qt::KeepAspectRatio,Qt::SmoothTransformation));
     imagelabel->setPixmap(pixMap);
     imagelabel->resize(pixMap.width(),pixMap.height());
     sizeStatus->setText("大小："+QString::number(pixMap.width())+"x"+QString::number(pixMap.height()));
-    Scale=Scale/num;
     scaleStatus->setText("缩放："+QString::number(Scale)+"%");
 }
 
@@ -315,6 +322,7 @@ void editwindow::CreateTab(QPixmap pixMap,QString fileName){
     qgridlayout->addWidget(scrollarea);
     //插入页
     ui->tabWidget->addTab(widget,fileName);
+    ui->tabWidget->setCurrentWidget(widget);
 }
 
 void editwindow::removeSubTab(int index)

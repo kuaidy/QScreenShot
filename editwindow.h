@@ -77,7 +77,7 @@ public:
     static int painttype;
 //    static QPixmap PlabelPixmap;
     //缩放比例
-    int Scale=100;
+    int Scale=1;
     void CreateTab(QPixmap qPixmap,QString fileName);
 
 private:
