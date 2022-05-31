@@ -14,6 +14,7 @@
 #include "editwindow.h"
 #include "mainwindow.h"
 #include "shotcommon.h"
+#include "colorvalue.h"
 
 //添加
 class QRubberBand;
@@ -34,7 +35,6 @@ protected:
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
-
 protected slots:
     void mouseReleaseEvent(QMouseEvent *event);
     void receiveData(QString str);   //接收传递过来的数据的槽
@@ -71,6 +71,10 @@ private:
 signals:
     void senddata(QPixmap sourcePixmap);
     void showWin();
+
+public:
+    void getColorValue();
+    ColorValue *_colorValue=NULL;
 };
 
 #endif // SCREENVIEW_H

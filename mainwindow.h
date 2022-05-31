@@ -15,7 +15,14 @@
 #include <QDebug>
 #include <stdio.h>
 #include <stdlib.h>
+#ifdef Q_OS_WIN
 #include <Windows.h>
+#endif
+#ifdef Q_OS_LINUX
+//#include <X11/Xlib.h>
+//#include <X11/Xatom.h>
+//#include <X11/Xutil.h>
+#endif
 #include <QApplication>
 #include "screenview.h"
 #include "editwindow.h"
@@ -36,8 +43,9 @@ public:
     editwindow editwin;
 
 private:
+    #ifdef Q_OS_WIN
     static BOOL CALLBACK EnumWindowsProc(HWND hwnd,LPARAM lParam);
-
+    #endif
 private slots:
     void shotscreen();
     void on_pb_fullscreenshot_clicked();
@@ -50,6 +58,8 @@ private slots:
     void on_pb_windowsshot_clicked();
     void on_pb_fixedsize_clicked();
     void showWin();
+
+    void on_pb_colorpicker_clicked();
 
 signals:
     void senddata(QString str);

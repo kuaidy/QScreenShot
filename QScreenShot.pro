@@ -4,7 +4,14 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 
+win32{
 LIBS +=User32.LIB
+}
+
+linux-g++*{
+    LIBS+=-lX11
+}
+
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -15,6 +22,7 @@ SOURCES += \
     Api/HttpHelper.cpp \
     Api/wordpressapi.cpp \
     Models/UserTokenInfo.cpp \
+    colorvalue.cpp \
     editwindow.cpp \
     fixedsizeform.cpp \
     formtimer.cpp \
@@ -29,6 +37,7 @@ HEADERS += \
     Api/HttpHelper.h \
     Api/wordpressapi.h \
     Models/UserTokenInfo.h \
+    colorvalue.h \
     editwindow.h \
     fixedsizeform.h \
     formtimer.h \
@@ -38,6 +47,7 @@ HEADERS += \
     shotcommon.h\
 
 FORMS += \
+    colorvalue.ui \
     editwindow.ui \
     fixedsizeform.ui \
     formtimer.ui \

@@ -275,12 +275,16 @@ void editwindow::on_enlarge_triggered()
 void editwindow::on_narrow_triggered()
 {
     const int num=2;
+    QWidget* qWidget= ui->tabWidget->currentWidget();
+    //根据子控件的名称查找子控件
+    QLabel* label = qWidget->findChild<QLabel*>();
+    //获取原图片
     int pixWidth=PlabelImage.width();
     int pixHeigth=PlabelImage.height();
     Scale=Scale/num;
     QPixmap pixMap=QPixmap::fromImage(PlabelImage.scaled(pixWidth*Scale,pixHeigth*Scale,Qt::KeepAspectRatio,Qt::SmoothTransformation));
-    imagelabel->setPixmap(pixMap);
-    imagelabel->resize(pixMap.width(),pixMap.height());
+    label->setPixmap(pixMap);
+    label->resize(pixMap.width(),pixMap.height());
     sizeStatus->setText("大小："+QString::number(pixMap.width())+"x"+QString::number(pixMap.height()));
     scaleStatus->setText("缩放："+QString::number(Scale)+"%");
 }

@@ -66,58 +66,27 @@ void MainWindow::showWin(){
     show();
 }
 
+#ifdef Q_OS_WIN
 typedef struct _DLONG{
     LONG wParam;
     LONG lParam;
 }stLONG;
-
 editwindow *ewind=NULL;
 int i=0;
-//回调函数
-//BOOL CALLBACK MainWindow::EnumWindowsProc(HWND hwnd,LPARAM lParam){
-//    qDebug()<<hwnd;
-//    if(hwnd){
-////        QPixmap pixmap = QPixmap::grabWindow((WId)hwnd);
-////        ewind->editview(&pixmap);
-////        ewind->show();
-////        i++;
-////        if(i>=100){
-////            return false;
-////        }
-//    }else{
-//        return false;
-//    }
-//}
-
+#endif
 //捕获活动窗口
 void MainWindow::on_pb_widgetscreenshot_clicked()
 {
-    hide();
-    //QThread::msleep(800);
-    //获取所有窗口
-    //EnumWindows(EnumWindowsProc,NULL);
-    //HWND tmp=GetForegroundWindow();
-//    QPixmap pixmap = QPixmap::grabWindow((WId)tmp);
-//    editwin.editview(&pixmap);
-//    editwin.show();
-//    show();
+
 }
 
 //捕获顶层窗口的截图
 void MainWindow::on_pb_activewinshot_clicked()
 {
-//    hide();
-//    QThread::msleep(800);
-//    //获取所有窗口
-//    //EnumWindows(EnumWindowsProc,NULL);
-//    HWND tmp=GetForegroundWindow();
-//    QPixmap pixmap = QPixmap::grabWindow((WId)tmp);
-//    editwin.editview(&pixmap);
-//    editwin.show();
-//    show();
-}
 
+}
 QList<QRect> ListWindows;
+#ifdef Q_OS_WIN
 //回调函数
 BOOL CALLBACK EnumAllWindows(HWND Hwnd, LPARAM IParm)//系统返还给你的窗口句柄,API调用进来的参数
 {
@@ -134,12 +103,12 @@ BOOL CALLBACK EnumAllWindows(HWND Hwnd, LPARAM IParm)//系统返还给你的窗�
     //枚举到完毕
     return true;
 }
-
+#endif
 //获取窗口对象
 void MainWindow::on_pb_windowsshot_clicked()
 {
-    //windows操作系统执行
     #ifdef Q_OS_WIN
+        //windows操作系统执行
         hide();
         ListWindows.clear();
         QThread::msleep(800);
@@ -151,7 +120,28 @@ void MainWindow::on_pb_windowsshot_clicked()
             sv->show();
         }
     #endif
+    #ifdef Q_OS_LINUX
+        //linux
+        QPoint point=QCursor().pos();
+        QWindowList listWindow= QGuiApplication::allWindows();
+        for(int i=0;i<listWindow.length();i++){
+            if(listWindow[i]->isVisible()&&listWindow[i]->isWindowType()){
+                QRect rect;
+                rect.setX(listWindow[i]->x());
+                rect.setY(listWindow[i]->y());
+                rect.setWidth(listWindow[i]->width());
+                rect.setHeight(listWindow[i]->height());
+                ListWindows.append(rect);
+            }
+        }
+        if(ListWindows.count()>0){
+            screenview *sv=new screenview(nullptr,&ListWindows,2);
+            connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
+            sv->show();
+        }
+    #endif
 }
+
 
 //捕获固定窗口的大小
 void MainWindow::on_pb_fixedsize_clicked()
@@ -162,3 +152,10 @@ void MainWindow::on_pb_fixedsize_clicked()
     connect(sv, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
     sv->show();
 }
+//拾取颜色
+void MainWindow::on_pb_colorpicker_clicked()
+{
+    screenview *sv=new screenview(nullptr,nullptr,3);
+    sv->show();
+}
+

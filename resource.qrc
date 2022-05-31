@@ -19,5 +19,6 @@
         <file>image/upload.png</file>
         <file>image/set.png</file>
         <file>image/cut.png</file>
+        <file>image/ColorPicker.png</file>
     </qresource>
 </RCC>

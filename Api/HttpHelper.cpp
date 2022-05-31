@@ -103,7 +103,7 @@ bool HttpHelper::Post(QString url,QByteArray data,QString token,QString fileName
         }else{
             return false;
         }
-    }catch(_exception){
+    }catch(std::exception ex){
         return false;
     }
 }

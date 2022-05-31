@@ -7,7 +7,7 @@
 #include <QGridLayout>
 #include <QImage>
 #include <QScrollArea>
-#include <Qpainter>
+#include <QPainter>
 #include <QMouseEvent>
 #include <QList>
 #include <cmath>

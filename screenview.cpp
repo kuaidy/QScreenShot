@@ -19,11 +19,17 @@ screenview::screenview(QWidget *parent,QList<QRect> *listRect,int screentype)
     setWindowState(Qt::WindowActive|Qt::WindowFullScreen);
     //解决只有鼠标按下时才捕捉鼠标移动
     setMouseTracking(true);
-
+#ifdef Q_OS_LINUX
+    //获取系统设置的显示比例
+    qreal dpiVal = screen->logicalDotsPerInch();
+    Scale =(float)dpiVal/96;
+#endif
+#ifdef Q_OS_WIN
     //获取系统设置的显示比例
     float swidth=this->width();
     float rwidth=originalPixmap.width();
     Scale=rwidth/swidth;
+#endif
     connect(parent, SIGNAL(senddata(QPixmap)),this,SLOT(receiveData(QPixmap)));
     ListRect=listRect;
 }
@@ -39,7 +45,14 @@ void screenview::paintEvent(QPaintEvent *event){
     painter.setPen(QPen(Qt::red,2));
     painter.drawPixmap(0,0,originalPixmap);
 
-    if(shottype==1)
+    if(shottype==0)
+    {
+        if(sx>=0&&sy>=0&&ex>0&&ey>0)
+        {
+            painter.drawRect(QRect(sx,sy,ex-sx,ey-sy));
+        }
+    }
+    else if(shottype==1)
     {
         //固定窗口截图
         rw=300;
@@ -50,25 +63,14 @@ void screenview::paintEvent(QPaintEvent *event){
         painter.drawRect(fixedRect);
         painter.setPen(QPen(Qt::black,2));
         painter.drawText(fixx,fixy+rh+10,"F2调整大小");
-    }else if(shottype==0)
-    {
-        if(sx>=0&&sy>=0)
-        {
-            painter.drawRect(QRect(sx,sy,ex-sx,ey-sy));
-        }
-    }else if(shottype==2){
-
-
+    } 
+    else if(shottype==2){
+        //捕获窗口
         setAttribute(Qt::WA_TransparentForMouseEvents,true);
-
-        POINT point;
-        point.x=ex;
-        point.y=ey;
+        QPoint point;
+        point.setX(ex);
+        point.setY(ey);
         QWindow *m_window;
-
-//        m_window = QWindow::fromWinId((WId)ChildWindowFromPointEx(GetDesktopWindow(),point,CWP_SKIPINVISIBLE|CWP_SKIPTRANSPARENT||CWP_SKIPDISABLED));
-//        painter.drawRect(QRect(m_window->x(),m_window->y(),m_window->width(),m_window->height()));
-
         int j=0;
         for(int i=0;i<ListRect->count();i++)
         {
@@ -80,6 +82,9 @@ void screenview::paintEvent(QPaintEvent *event){
                 j++;
             }
         }
+    }else if(shottype==3){
+        //拾取颜色
+
     }
 
     painter.end();
@@ -106,8 +111,13 @@ void screenview::mousePressEvent(QMouseEvent *event)
     }
     else if(event->button()==Qt::RightButton)
     {
-        this->close();
-        emit showWin();
+        if(shottype==3){
+            this->close();
+            this->_colorValue->close();
+        }else{
+            this->close();
+            emit showWin();
+        }
     }
     update();
 }
@@ -115,8 +125,10 @@ void screenview::mousePressEvent(QMouseEvent *event)
 void screenview::mouseMoveEvent(QMouseEvent *event){
     ex=event->x();
     ey=event->y();
-
     endpoint=event->pos();
+    if(shottype==3){
+        getColorValue();
+    }
     update();
 }
 
@@ -135,3 +147,25 @@ void screenview::receiveData(QString str){
     show();
 }
 
+void screenview::getColorValue(){
+    if(!originalPixmap.isNull()){
+        QImage image=originalPixmap.toImage();
+        if(image.valid(ex*Scale,ey*Scale)){
+            QColor color=image.pixel(ex*Scale,ey*Scale);
+            int r=color.red();
+            int g=color.green();
+            int b=color.blue();
+            qDebug()<<r<<g<<b;
+
+            if(this->_colorValue==NULL){
+                this->_colorValue=new ColorValue();
+                this->_colorValue->move(ex,ey);
+                this->_colorValue->SetColorValue(r,g,b);
+                this->_colorValue->show();
+            }else{
+                this->_colorValue->move(ex,ey);
+                this->_colorValue->SetColorValue(r,g,b);
+            }
+        }
+    }
+}
