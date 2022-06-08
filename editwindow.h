@@ -28,44 +28,12 @@
 #include "setting.h"
 #include "Api/BaiduDiskApi.h"
 #include "Api/wordpressapi.h"
+#include "plabel.h"
+#include "Common/GlobalVariable.h"
 
 namespace Ui {
 class editwindow;
 }
-
-//自定义label类，用来显示图像和绘制标记
-class Plabel:public QLabel
-{
-public:
-    //重写绘制方法
-    void paintEvent(QPaintEvent *event);
-    //重写鼠标按下方法
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-
-    //绘制箭头
-    void paintArrow(int sx,int sy,int ex,int ey);
-
-    //起始位置，终点位置
-    int sx,sy,ex,ey;
-    //对于桌面的坐标
-    int glsx,glsy,glex,gley;
-//    static QPixmap *PlabelPixmap;
-    QRect m_leftTopRect;
-
-private:
-    QList<QRect> _listRect;
-    //绘制箭头存放坐标点
-    QVector<QVector<int>> _listSeat;
-    //自由绘制坐标点
-    QVector<QVector<int>> _listPoint;
-    QVector<QVector<QPoint>> _listLine;
-    QPoint _startPoint;
-    QPoint _endPoint;
-
-};
-
 class editwindow : public QMainWindow
 {
     Q_OBJECT
@@ -73,27 +41,16 @@ class editwindow : public QMainWindow
 public:
     explicit editwindow(QWidget *parent = nullptr);
     ~editwindow();
-    //绘制类型
-    static int painttype;
-//    static QPixmap PlabelPixmap;
-    //缩放比例
-    int Scale=1;
     void CreateTab(QPixmap qPixmap,QString fileName);
-
 private:
     Ui::editwindow *ui;
-
     QDockWidget *DockImage;
-    Plabel *imagelabel;
-
     //状态栏大小
     QLabel *sizeStatus;
     //状态栏缩放比例
     QLabel *scaleStatus;
-
 public:
     void editview(QPixmap *qpix);
-
 private slots:
     void on_paintrec_triggered();
     void on_paintarrow_triggered();
@@ -108,6 +65,8 @@ private slots:
     void on_setting_triggered();
     void removeSubTab(int index);
     void on_actionupload_triggered();
+    void on_actionCrop_triggered(bool checked);
+
 };
 
 #endif // EDITWINDOW_H

@@ -156,14 +156,14 @@ void screenview::getColorValue(){
             int g=color.green();
             int b=color.blue();
             qDebug()<<r<<g<<b;
-
+            int deviation=3;
             if(this->_colorValue==NULL){
                 this->_colorValue=new ColorValue();
-                this->_colorValue->move(ex,ey);
+                this->_colorValue->move(ex+deviation,ey+deviation);
                 this->_colorValue->SetColorValue(r,g,b);
                 this->_colorValue->show();
             }else{
-                this->_colorValue->move(ex,ey);
+                this->_colorValue->move(ex+deviation,ey+deviation);
                 this->_colorValue->SetColorValue(r,g,b);
             }
         }

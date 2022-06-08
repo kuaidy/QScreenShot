@@ -21,6 +21,7 @@ SOURCES += \
     Api/BaiduDiskApi.cpp \
     Api/HttpHelper.cpp \
     Api/wordpressapi.cpp \
+    Common/GlobalVariable.cpp \
     Models/UserTokenInfo.cpp \
     colorvalue.cpp \
     editwindow.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
     formtimer.cpp \
     main.cpp \
     mainwindow.cpp \
+    plabel.cpp \
     screenview.cpp \
     setting.cpp \
     shotcommon.cpp\
@@ -36,12 +38,14 @@ HEADERS += \
     Api/BaiduDiskApi.h \
     Api/HttpHelper.h \
     Api/wordpressapi.h \
+    Common/GlobalVariable.h \
     Models/UserTokenInfo.h \
     colorvalue.h \
     editwindow.h \
     fixedsizeform.h \
     formtimer.h \
     mainwindow.h \
+    plabel.h \
     screenview.h \
     setting.h \
     shotcommon.h\
@@ -64,3 +68,5 @@ DISTFILES +=
 
 RESOURCES += \
     resource.qrc
+
+RC_ICONS=cut.ico

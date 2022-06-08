@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>588</width>
-     <height>26</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -95,6 +95,18 @@
    <addaction name="actionpaintfreedom"/>
    <addaction name="paintarrow"/>
    <addaction name="paintrec"/>
+  </widget>
+  <widget class="QToolBar" name="toolBarOption">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionCrop"/>
   </widget>
   <widget class="QToolBar" name="toolBarClound">
    <property name="windowTitle">
@@ -229,6 +241,21 @@
    </property>
    <property name="toolTip">
     <string>设置</string>
+   </property>
+  </action>
+  <action name="actionCrop">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/new/prefix1/image/tailoring.png</normaloff>:/new/prefix1/image/tailoring.png</iconset>
+   </property>
+   <property name="text">
+    <string>Crop</string>
+   </property>
+   <property name="toolTip">
+    <string>裁剪</string>
    </property>
   </action>
  </widget>

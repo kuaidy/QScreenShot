@@ -60,8 +60,7 @@ private:
     int fixedx,fixedy;
     //固定大小的矩形
     QRect fixedRect;
-    //窗口放大倍数
-    float Scale;
+
     //保存所有的矩形
     QList<QRect> *ListRect;
 

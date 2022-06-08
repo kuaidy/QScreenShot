@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowFlags(Qt::WindowMinimizeButtonHint|Qt::WindowCloseButtonHint);
+    setWindowFlags(Qt::WindowMinimizeButtonHint|Qt::WindowCloseButtonHint|Qt::WindowStaysOnTopHint);
     QScreen *screen =QGuiApplication::primaryScreen();
     int x= screen->geometry().width()-300;
     int y= 100;
