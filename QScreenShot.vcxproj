@@ -204,6 +204,7 @@
     </QtUic>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\AntLine.cpp" />
     <ClCompile Include="source\api\BaiduDiskApi.cpp" />
     <ClCompile Include="source\common\GlobalVariable.cpp" />
     <ClCompile Include="source\api\HttpHelper.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="include\ui\ui_screenview.h" />
     <ClInclude Include="include\ui\ui_setting.h" />
     <ClInclude Include="include\UserTokenInfo.h" />
+    <QtMoc Include="include\AntLine.h" />
     <QtMoc Include="include\colorvalue.h">
     </QtMoc>
     <QtMoc Include="include\editwindow.h">

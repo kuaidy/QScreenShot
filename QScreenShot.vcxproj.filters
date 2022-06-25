@@ -92,6 +92,9 @@
     <ClCompile Include="source\api\wordpressapi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\AntLine.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\api\BaiduDiskApi.h">
@@ -267,5 +270,10 @@
     <Image Include="resource\images\widget.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="include\AntLine.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

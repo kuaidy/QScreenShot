@@ -1,12 +1,13 @@
 ﻿#include "../include/plabel.h"
+#include <include/AntLine.h>
 
 QImage applyEffectToImage(QImage src, QGraphicsEffect *effect, int extent);
 
 //图片模糊处理
 QImage applyEffectToImage(QImage src, QGraphicsEffect *effect, int extent = 0)
 {
-    if(src.isNull()) return QImage();   //No need to do anything else!
-    if(!effect) return src;             //No need to do anything else!
+    if(src.isNull()) return QImage();   
+    if(!effect) return src;          
     QGraphicsScene scene;
     QGraphicsPixmapItem item;
     item.setPixmap(QPixmap::fromImage(src));
@@ -25,6 +26,8 @@ Plabel::Plabel(QWidget *parent)
 {
     //设置默认追踪鼠标
     this->setMouseTracking(true);
+
+    
 }
 Plabel::~Plabel(){
 
@@ -104,6 +107,16 @@ void Plabel::mouseReleaseEvent(QMouseEvent *e){
             _listSeat.append(tmpseat);
             break;
         }
+        case OptionTypeEnum::ActionCrop: {
+            /// <summary>
+            /// 绘制蚂蚁线
+            /// </summary>
+            /// <param name="event"></param>
+            AntLine* antLine = new AntLine(this);
+            antLine->resize(ex-sx, ey-sy);
+            antLine->move(sx,sy);
+            antLine->show();
+        }
     }
 }
 
@@ -150,35 +163,22 @@ void Plabel::paintEvent(QPaintEvent *event){
             break;
         }
         case OptionTypeEnum::ActionCrop:{
-
-                int rx=5;
-                int ry=5;
                 cutsx=sx;
                 cutsy=sy;
                 cutex=ex;
                 cutey=ey;
                 //裁剪
                 painter.setPen(QPen(Qt::black,1));
-                painter.setPen(Qt::DashLine);
                 painter.drawRect(QRect(sx,sy,ex-sx,ey-sy));
                 //绘制圆点
                 QPainterPath path;
-                path.addEllipse(QPoint(sx,sy),rx,ry);
-                path.addEllipse(QPoint(ex,sy),rx,ry);
-                path.addEllipse(QPoint(sx,ey),rx,ry);
-                path.addEllipse(QPoint(ex,ey),rx,ry);
                 path.setFillRule(Qt::WindingFill);
                 painter.setPen(QPen(Qt::black,1));
                 painter.setPen(Qt::SolidLine);
                 painter.drawPath(path);
 
-                //使用画刷填充一个矩形区域
-    //            painter.fillRect(QRect(0,0,this->width(),this->height()), QBrush(Qt::darkYellow));
-                //擦除一个矩形区域的内容
-    //            painter.eraseRect(QRect(sx/Scale,sy/Scale,ex/Scale,ey/Scale));
+                
                 break;
-
-
         }
     }
 
