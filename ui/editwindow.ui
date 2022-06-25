@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>editwindow</class>
  <widget class="QMainWindow" name="editwindow">
@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>588</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -134,7 +134,7 @@
   </widget>
   <action name="filenew">
    <property name="icon">
-    <iconset resource="../resource/resource.qrc">
+    <iconset>
      <normaloff>:/open.png</normaloff>:/open.png</iconset>
    </property>
    <property name="text">
@@ -144,7 +144,7 @@
   <action name="fileopen">
    <property name="icon">
     <iconset resource="../resource/resource.qrc">
-     <normaloff>:/open.png</normaloff>:/open.png</iconset>
+     <normaloff>:/images/open.png</normaloff>:/images/open.png</iconset>
    </property>
    <property name="text">
     <string>打开</string>
@@ -153,7 +153,7 @@
   <action name="filesaveother">
    <property name="icon">
     <iconset resource="../resource/resource.qrc">
-     <normaloff>:/saveother.png</normaloff>:/saveother.png</iconset>
+     <normaloff>:/images/saveother.png</normaloff>:/images/saveother.png</iconset>
    </property>
    <property name="text">
     <string>另存为</string>
@@ -162,7 +162,7 @@
   <action name="enlarge">
    <property name="icon">
     <iconset resource="../resource/resource.qrc">
-     <normaloff>:/enlarge.png</normaloff>:/enlarge.png</iconset>
+     <normaloff>:/images/enlarge.png</normaloff>:/images/enlarge.png</iconset>
    </property>
    <property name="text">
     <string>放大</string>
@@ -171,7 +171,7 @@
   <action name="narrow">
    <property name="icon">
     <iconset resource="../resource/resource.qrc">
-     <normaloff>:/narrow.png</normaloff>:/narrow.png</iconset>
+     <normaloff>:/images/narrow.png</normaloff>:/images/narrow.png</iconset>
    </property>
    <property name="text">
     <string>缩小</string>
@@ -183,7 +183,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resource/resource.qrc">
-     <normaloff>:/paintrectangle.png</normaloff>:/paintrectangle.png</iconset>
+     <normaloff>:/images/paintrectangle.png</normaloff>:/images/paintrectangle.png</iconset>
    </property>
    <property name="text">
     <string>绘制矩形</string>
@@ -198,7 +198,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resource/resource.qrc">
-     <normaloff>:/paintarrow.png</normaloff>:/paintarrow.png</iconset>
+     <normaloff>:/images/paintarrow.png</normaloff>:/images/paintarrow.png</iconset>
    </property>
    <property name="text">
     <string>绘制箭头</string>
@@ -213,7 +213,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resource/resource.qrc">
-     <normaloff>:/drawfreedom.png</normaloff>:/drawfreedom.png</iconset>
+     <normaloff>:/images/drawfreedom.png</normaloff>:/images/drawfreedom.png</iconset>
    </property>
    <property name="text">
     <string>自由绘制</string>
@@ -222,7 +222,7 @@
   <action name="actionupload">
    <property name="icon">
     <iconset resource="../resource/resource.qrc">
-     <normaloff>:/upload.png</normaloff>:/upload.png</iconset>
+     <normaloff>:/images/set.png</normaloff>:/images/set.png</iconset>
    </property>
    <property name="text">
     <string>upload</string>
@@ -233,7 +233,7 @@
   </action>
   <action name="setting">
    <property name="icon">
-    <iconset resource="../resource/resource.qrc">
+    <iconset>
      <normaloff>:/set.png</normaloff>:/set.png</iconset>
    </property>
    <property name="text">
@@ -249,7 +249,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resource/resource.qrc">
-     <normaloff>:/cut.png</normaloff>:/cut.png</iconset>
+     <normaloff>:/images/cut.png</normaloff>:/images/cut.png</iconset>
    </property>
    <property name="text">
     <string>Crop</string>

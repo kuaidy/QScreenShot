@@ -1,24 +1,26 @@
 <RCC>
     <qresource prefix="/">
-        <file>activewindow.png</file>
-        <file>ColorPicker.png</file>
-        <file>cut.ico</file>
-        <file>cut.png</file>
-        <file>delay.png</file>
-        <file>drawfreedom.png</file>
-        <file>enlarge.png</file>
-        <file>focus.png</file>
-        <file>fullscreen.png</file>
-        <file>narrow.png</file>
-        <file>narrow_copy.png</file>
-        <file>new.png</file>
-        <file>open.png</file>
-        <file>paintarrow.png</file>
-        <file>paintrectangle.png</file>
-        <file>rectangle.png</file>
-        <file>saveother.png</file>
-        <file>set.png</file>
-        <file>tailoring.png</file>
-        <file>upload.png</file>
+        <file>images/activewindow.png</file>
+        <file>images/ColorPicker.png</file>
+        <file>images/cut.ico</file>
+        <file>images/cut.png</file>
+        <file>images/delay.png</file>
+        <file>images/drawfreedom.png</file>
+        <file>images/enlarge.png</file>
+        <file>images/focus.png</file>
+        <file>images/fullscreen.png</file>
+        <file>images/narrow.png</file>
+        <file>images/narrow_copy.png</file>
+        <file>images/new.png</file>
+        <file>images/open.png</file>
+        <file>images/paintarrow.png</file>
+        <file>images/paintrectangle.png</file>
+        <file>images/rectangle.png</file>
+        <file>images/saveother.png</file>
+        <file>images/set.png</file>
+        <file>images/tailoring.png</file>
+        <file>images/upload.png</file>
+        <file>images/vague.png</file>
+        <file>images/widget.png</file>
     </qresource>
 </RCC>

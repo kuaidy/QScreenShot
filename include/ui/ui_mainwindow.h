@@ -60,7 +60,7 @@ public:
         pb_fullscreenshot->setSizePolicy(sizePolicy);
         pb_fullscreenshot->setStyleSheet(QString::fromUtf8("margin:0px;"));
         QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/new/prefix1/image/fullscreen.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon1.addFile(QString::fromUtf8(":/images/fullscreen.png"), QSize(), QIcon::Normal, QIcon::Off);
         pb_fullscreenshot->setIcon(icon1);
         pb_fullscreenshot->setIconSize(QSize(30, 30));
 
@@ -73,7 +73,7 @@ public:
         pb_regscreenshot->setSizePolicy(sizePolicy);
         pb_regscreenshot->setStyleSheet(QString::fromUtf8("margin:0px;"));
         QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/new/prefix1/image/rectangle.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon2.addFile(QString::fromUtf8(":/images/rectangle.png"), QSize(), QIcon::Normal, QIcon::Off);
         pb_regscreenshot->setIcon(icon2);
         pb_regscreenshot->setIconSize(QSize(30, 30));
 
@@ -86,7 +86,7 @@ public:
         pb_windowsshot->setSizePolicy(sizePolicy);
         pb_windowsshot->setStyleSheet(QString::fromUtf8("margin:0px;"));
         QIcon icon3;
-        icon3.addFile(QString::fromUtf8(":/new/prefix1/image/widget.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon3.addFile(QString::fromUtf8(":/images/activewindow.png"), QSize(), QIcon::Normal, QIcon::Off);
         pb_windowsshot->setIcon(icon3);
         pb_windowsshot->setIconSize(QSize(30, 30));
 
@@ -99,7 +99,7 @@ public:
         pb_fixedsize->setSizePolicy(sizePolicy);
         pb_fixedsize->setStyleSheet(QString::fromUtf8("margin:0px;"));
         QIcon icon4;
-        icon4.addFile(QString::fromUtf8(":/new/prefix1/image/paintrectangle.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon4.addFile(QString::fromUtf8(":/images/paintrectangle.png"), QSize(), QIcon::Normal, QIcon::Off);
         pb_fixedsize->setIcon(icon4);
         pb_fixedsize->setIconSize(QSize(30, 30));
 
@@ -108,7 +108,7 @@ public:
         pb_colorpicker = new QPushButton(centralwidget);
         pb_colorpicker->setObjectName(QString::fromUtf8("pb_colorpicker"));
         QIcon icon5;
-        icon5.addFile(QString::fromUtf8(":/new/prefix1/image/ColorPicker.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon5.addFile(QString::fromUtf8(":/images/ColorPicker.png"), QSize(), QIcon::Normal, QIcon::Off);
         pb_colorpicker->setIcon(icon5);
         pb_colorpicker->setIconSize(QSize(30, 30));
 

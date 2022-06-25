@@ -136,37 +136,35 @@
     <ClInclude Include="include\api\wordpressapi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ui\ui_colorvalue.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\ui_editwindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\ui_fixedsizeform.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\ui_formtimer.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\ui_mainwindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\ui_screenview.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ui\ui_setting.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="release\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\colorvalue.ui">
@@ -190,70 +188,84 @@
     <QtUic Include="ui\setting.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="ui\dialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <None Include="resource\ColorPicker.png">
+    <None Include="resource\images\ColorPicker.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\activewindow.png">
+    <None Include="resource\images\activewindow.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\cut.ico">
+    <None Include="resource\images\cut.ico">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\cut.png">
+    <None Include="resource\images\cut.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\delay.png">
+    <None Include="resource\images\delay.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\drawfreedom.png">
+    <None Include="resource\images\drawfreedom.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\enlarge.png">
+    <None Include="resource\images\enlarge.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\focus.png">
+    <None Include="resource\images\focus.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\fullscreen.png">
+    <None Include="resource\images\fullscreen.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\narrow.png">
+    <None Include="resource\images\narrow.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\narrow_copy.png">
+    <None Include="resource\images\narrow_copy.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\new.png">
+    <None Include="resource\images\new.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\open.png">
+    <None Include="resource\images\open.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\paintarrow.png">
+    <None Include="resource\images\paintarrow.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\paintrectangle.png">
+    <None Include="resource\images\paintrectangle.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\rectangle.png">
+    <None Include="resource\images\rectangle.png">
       <Filter>Resource Files</Filter>
     </None>
     <QtRcc Include="resource\resource.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <None Include="resource\saveother.png">
+    <None Include="resource\images\saveother.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\set.png">
+    <None Include="resource\images\set.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\tailoring.png">
+    <None Include="resource\images\tailoring.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resource\upload.png">
+    <None Include="resource\images\upload.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ui\test.qml">
+      <Filter>Form Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\images\vague.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resource\images\widget.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

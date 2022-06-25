@@ -71,7 +71,7 @@
       </property>
       <property name="icon">
        <iconset resource="../resource/resource.qrc">
-        <normaloff>:/fullscreen.png</normaloff>:/fullscreen.png</iconset>
+        <normaloff>:/images/fullscreen.png</normaloff>:/images/fullscreen.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -103,7 +103,7 @@
       </property>
       <property name="icon">
        <iconset resource="../resource/resource.qrc">
-        <normaloff>:/rectangle.png</normaloff>:/rectangle.png</iconset>
+        <normaloff>:/images/rectangle.png</normaloff>:/images/rectangle.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -135,7 +135,7 @@
       </property>
       <property name="icon">
        <iconset resource="../resource/resource.qrc">
-        <normaloff>:/activewindow.png</normaloff>:/activewindow.png</iconset>
+        <normaloff>:/images/activewindow.png</normaloff>:/images/activewindow.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -167,7 +167,7 @@
       </property>
       <property name="icon">
        <iconset resource="../resource/resource.qrc">
-        <normaloff>:/paintrectangle.png</normaloff>:/paintrectangle.png</iconset>
+        <normaloff>:/images/paintrectangle.png</normaloff>:/images/paintrectangle.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -184,7 +184,7 @@
       </property>
       <property name="icon">
        <iconset resource="../resource/resource.qrc">
-        <normaloff>:/ColorPicker.png</normaloff>:/ColorPicker.png</iconset>
+        <normaloff>:/images/ColorPicker.png</normaloff>:/images/ColorPicker.png</iconset>
       </property>
       <property name="iconSize">
        <size>

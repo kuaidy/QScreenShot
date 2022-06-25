@@ -224,6 +224,13 @@
     <ClInclude Include="include\api\BaiduDiskApi.h" />
     <ClInclude Include="include\Common\GlobalVariable.h" />
     <ClInclude Include="include\api\HttpHelper.h" />
+    <ClInclude Include="include\ui\ui_colorvalue.h" />
+    <ClInclude Include="include\ui\ui_editwindow.h" />
+    <ClInclude Include="include\ui\ui_fixedsizeform.h" />
+    <ClInclude Include="include\ui\ui_formtimer.h" />
+    <ClInclude Include="include\ui\ui_mainwindow.h" />
+    <ClInclude Include="include\ui\ui_screenview.h" />
+    <ClInclude Include="include\ui\ui_setting.h" />
     <ClInclude Include="include\UserTokenInfo.h" />
     <QtMoc Include="include\colorvalue.h">
     </QtMoc>
@@ -263,43 +270,59 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ui\colorvalue.ui">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <QtUicDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include\ui</QtUicDir>
+    </QtUic>
+    <QtUic Include="ui\dialog.ui">
+      <QtUicDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include\ui</QtUicDir>
     </QtUic>
     <QtUic Include="ui\editwindow.ui">
+      <QtUicDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include\ui</QtUicDir>
     </QtUic>
     <QtUic Include="ui\fixedsizeform.ui">
+      <QtUicDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include\ui</QtUicDir>
     </QtUic>
     <QtUic Include="ui\formtimer.ui">
+      <QtUicDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include\ui</QtUicDir>
     </QtUic>
     <QtUic Include="ui\mainwindow.ui">
+      <QtUicDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include\ui</QtUicDir>
     </QtUic>
     <QtUic Include="ui\screenview.ui">
+      <QtUicDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include\ui</QtUicDir>
     </QtUic>
     <QtUic Include="ui\setting.ui">
+      <QtUicDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include\ui</QtUicDir>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <None Include="resource\ColorPicker.png" />
-    <None Include="resource\activewindow.png" />
-    <None Include="resource\cut.ico" />
-    <None Include="resource\cut.png" />
-    <None Include="resource\delay.png" />
-    <None Include="resource\drawfreedom.png" />
-    <None Include="resource\enlarge.png" />
-    <None Include="resource\focus.png" />
-    <None Include="resource\fullscreen.png" />
-    <None Include="resource\narrow.png" />
-    <None Include="resource\narrow_copy.png" />
-    <None Include="resource\new.png" />
-    <None Include="resource\open.png" />
-    <None Include="resource\paintarrow.png" />
-    <None Include="resource\paintrectangle.png" />
-    <None Include="resource\rectangle.png" />
+    <None Include="resource\images\ColorPicker.png" />
+    <None Include="resource\images\activewindow.png" />
+    <None Include="resource\images\cut.ico" />
+    <None Include="resource\images\cut.png" />
+    <None Include="resource\images\delay.png" />
+    <None Include="resource\images\drawfreedom.png" />
+    <None Include="resource\images\enlarge.png" />
+    <None Include="resource\images\focus.png" />
+    <None Include="resource\images\fullscreen.png" />
+    <None Include="resource\images\narrow.png" />
+    <None Include="resource\images\narrow_copy.png" />
+    <None Include="resource\images\new.png" />
+    <None Include="resource\images\open.png" />
+    <None Include="resource\images\paintarrow.png" />
+    <None Include="resource\images\paintrectangle.png" />
+    <None Include="resource\images\rectangle.png" />
+    <None Include="ui\test.qml" />
     <QtRcc Include="resource\resource.qrc">
     </QtRcc>
-    <None Include="resource\saveother.png" />
-    <None Include="resource\set.png" />
-    <None Include="resource\tailoring.png" />
-    <None Include="resource\upload.png" />
+    <None Include="resource\images\saveother.png" />
+    <None Include="resource\images\set.png" />
+    <None Include="resource\images\tailoring.png" />
+    <None Include="resource\images\upload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\images\vague.png" />
+    <Image Include="resource\images\widget.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
