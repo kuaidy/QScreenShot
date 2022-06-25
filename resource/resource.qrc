@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/">
+        <file>activewindow.png</file>
+        <file>ColorPicker.png</file>
+        <file>cut.ico</file>
+        <file>cut.png</file>
+        <file>delay.png</file>
+        <file>drawfreedom.png</file>
+        <file>enlarge.png</file>
+        <file>focus.png</file>
+        <file>fullscreen.png</file>
+        <file>narrow.png</file>
+        <file>narrow_copy.png</file>
+        <file>new.png</file>
+        <file>open.png</file>
+        <file>paintarrow.png</file>
+        <file>paintrectangle.png</file>
+        <file>rectangle.png</file>
+        <file>saveother.png</file>
+        <file>set.png</file>
+        <file>tailoring.png</file>
+        <file>upload.png</file>
+    </qresource>
+</RCC>

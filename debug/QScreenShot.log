@@ -1,0 +1,61 @@
+﻿  Generate moc_predefs.h
+  Uic'ing ui\colorvalue.ui...
+  Uic'ing ui\editwindow.ui...
+  Uic'ing ui\fixedsizeform.ui...
+  Uic'ing ui\formtimer.ui...
+  Uic'ing ui\mainwindow.ui...
+  Uic'ing ui\screenview.ui...
+  Uic'ing ui\setting.ui...
+  Rcc'ing resource\resource.qrc...
+  Moc'ing include\colorvalue.h...
+   C:\Myproject\QScreenShot\ui\fixedsizeform.ui: Warning: The name 'horizontalFrame' (QFrame) is already in use, defaulting to 'horizontalFrame1'.
+  Moc'ing include\editwindow.h...
+  Moc'ing include\fixedsizeform.h...
+  Moc'ing include\formtimer.h...
+  Moc'ing include\mainwindow.h...
+  Moc'ing include\screenview.h...
+  Moc'ing include\setting.h...
+  BaiduDiskApi.cpp
+  GlobalVariable.cpp
+  HttpHelper.cpp
+  UserTokenInfo.cpp
+  colorvalue.cpp
+  editwindow.cpp
+  fixedsizeform.cpp
+  formtimer.cpp
+C:\Myproject\QScreenShot\include\common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\common\GlobalVariable.cpp)
+  main.cpp
+  mainwindow.cpp
+  plabel.cpp
+  screenview.cpp
+  setting.cpp
+C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\editwindow.cpp)
+  shotcommon.cpp
+C:\Myproject\QScreenShot\source\editwindow.cpp(40,9): warning C4189: “tabindex”: 局部变量已初始化但不引用
+  wordpressapi.cpp
+C:\Myproject\QScreenShot\source\editwindow.cpp(86,9): warning C4189: “tabIndex”: 局部变量已初始化但不引用
+C:\Myproject\QScreenShot\source\editwindow.cpp(225,10): warning C4189: “res”: 局部变量已初始化但不引用
+C:\Myproject\QScreenShot\source\editwindow.cpp(220,10): warning C4189: “bOk”: 局部变量已初始化但不引用
+C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\main.cpp)
+C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\mainwindow.cpp)
+C:\Myproject\QScreenShot\source\mainwindow.cpp(91,48): warning C4100: “IParm”: 未引用的形参
+C:\Myproject\QScreenShot\source\setting.cpp(22,21): warning C4834: 放弃具有 "nodiscard" 属性的函数的返回值
+C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\screenview.cpp)
+C:\Myproject\QScreenShot\include\common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\plabel.cpp)
+C:\Myproject\QScreenShot\source\plabel.cpp(24,25): warning C4100: “parent”: 未引用的形参
+C:\Myproject\QScreenShot\source\plabel.cpp(45,49): warning C4100: “e”: 未引用的形参
+C:\Myproject\QScreenShot\source\plabel.cpp(91,45): warning C4100: “e”: 未引用的形参
+C:\Myproject\QScreenShot\source\screenview.cpp(43,42): warning C4100: “event”: 未引用的形参
+C:\Myproject\QScreenShot\source\screenview.cpp(73,18): warning C4101: “m_window”: 未引用的局部变量
+  qrc_resource.cpp
+  moc_colorvalue.cpp
+  moc_editwindow.cpp
+  moc_fixedsizeform.cpp
+  moc_formtimer.cpp
+  moc_mainwindow.cpp
+  moc_screenview.cpp
+  moc_setting.cpp
+C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 Debug\moc_editwindow.cpp)
+C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 Debug\moc_screenview.cpp)
+C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 Debug\moc_mainwindow.cpp)
+  QScreenShot.vcxproj -> C:\Myproject\QScreenShot\debug\QScreenShot.exe
