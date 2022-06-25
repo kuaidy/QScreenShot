@@ -1,4 +1,5 @@
-﻿  Generate moc_predefs.h
+﻿  Reading Qt configuration (C:/Qt/6.2.1/msvc2019_64/bin/qmake)
+  Generate moc_predefs.h
   Uic'ing ui\colorvalue.ui...
   Uic'ing ui\dialog.ui...
   Uic'ing ui\editwindow.ui...
@@ -30,9 +31,9 @@ C:\Myproject\QScreenShot\include\common\GlobalVariable.h(11,2): warning C4091: �
   plabel.cpp
   screenview.cpp
   setting.cpp
+C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\editwindow.cpp)
   shotcommon.cpp
   wordpressapi.cpp
-C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\editwindow.cpp)
 C:\Myproject\QScreenShot\source\editwindow.cpp(40,9): warning C4189: “tabindex”: 局部变量已初始化但不引用
 C:\Myproject\QScreenShot\source\editwindow.cpp(86,9): warning C4189: “tabIndex”: 局部变量已初始化但不引用
 C:\Myproject\QScreenShot\source\editwindow.cpp(225,10): warning C4189: “res”: 局部变量已初始化但不引用
