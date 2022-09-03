@@ -1,63 +1,74 @@
-﻿  Reading Qt configuration (C:/Qt/6.2.1/msvc2019_64/bin/qmake)
-  Generate moc_predefs.h
-  Uic'ing ui\colorvalue.ui...
-  Uic'ing ui\dialog.ui...
-  Uic'ing ui\editwindow.ui...
-  Uic'ing ui\fixedsizeform.ui...
-  Uic'ing ui\formtimer.ui...
-  Uic'ing ui\mainwindow.ui...
-  Uic'ing ui\screenview.ui...
-  Uic'ing ui\setting.ui...
-   C:\Myproject\QScreenShot\ui\fixedsizeform.ui: Warning: The name 'horizontalFrame' (QFrame) is already in use, defaulting to 'horizontalFrame1'.
-  Rcc'ing resource\resource.qrc...
-  Moc'ing include\colorvalue.h...
-  Moc'ing include\editwindow.h...
-  Moc'ing include\fixedsizeform.h...
-  Moc'ing include\formtimer.h...
-  Moc'ing include\mainwindow.h...
-  Moc'ing include\screenview.h...
-  Moc'ing include\setting.h...
-  BaiduDiskApi.cpp
-  GlobalVariable.cpp
-  HttpHelper.cpp
-  UserTokenInfo.cpp
-  colorvalue.cpp
+﻿  Uic'ing ui\editwindow.ui...
   editwindow.cpp
-  fixedsizeform.cpp
-  formtimer.cpp
-C:\Myproject\QScreenShot\include\common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\common\GlobalVariable.cpp)
-  main.cpp
-  mainwindow.cpp
-  plabel.cpp
-  screenview.cpp
-  setting.cpp
-C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\editwindow.cpp)
-  shotcommon.cpp
-  wordpressapi.cpp
+C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0xcb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0xcd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0xcf 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0xd0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0xd1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0xd2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0xe7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0xe9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0xeb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0xec 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x107 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x108 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x10c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x10d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x110 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x111 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x112 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x128 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x12a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x12c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x12d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x131 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x135 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x14c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x14e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x150 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x1bf 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x1c0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x1c1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x1c3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x1c4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x1c7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x31c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x31e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x320 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x322 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x324 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x325 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x326 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x327 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x34d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x34f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x351 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x353 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x355 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x356 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x382 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x384 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x386 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x388 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x38a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x38b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x38c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x38d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x3b5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x3b7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x3b9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x3bb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x3bd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x3bf 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x3c0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x3ea 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x3ec 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x3ee 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x3f0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Myproject\QScreenShot\include\AntLine.h(1,1): warning C4828: 文件包含在偏移 0x3f2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
 C:\Myproject\QScreenShot\source\editwindow.cpp(40,9): warning C4189: “tabindex”: 局部变量已初始化但不引用
 C:\Myproject\QScreenShot\source\editwindow.cpp(86,9): warning C4189: “tabIndex”: 局部变量已初始化但不引用
 C:\Myproject\QScreenShot\source\editwindow.cpp(225,10): warning C4189: “res”: 局部变量已初始化但不引用
 C:\Myproject\QScreenShot\source\editwindow.cpp(220,10): warning C4189: “bOk”: 局部变量已初始化但不引用
-C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\main.cpp)
-C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\mainwindow.cpp)
-C:\Myproject\QScreenShot\source\mainwindow.cpp(91,48): warning C4100: “IParm”: 未引用的形参
-C:\Myproject\QScreenShot\source\setting.cpp(22,21): warning C4834: 放弃具有 "nodiscard" 属性的函数的返回值
-C:\Myproject\QScreenShot\include\common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\plabel.cpp)
-C:\Myproject\QScreenShot\source\plabel.cpp(24,25): warning C4100: “parent”: 未引用的形参
-C:\Myproject\QScreenShot\source\plabel.cpp(45,49): warning C4100: “e”: 未引用的形参
-C:\Myproject\QScreenShot\source\plabel.cpp(91,45): warning C4100: “e”: 未引用的形参
-C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 source\screenview.cpp)
-C:\Myproject\QScreenShot\source\screenview.cpp(43,42): warning C4100: “event”: 未引用的形参
-C:\Myproject\QScreenShot\source\screenview.cpp(73,18): warning C4101: “m_window”: 未引用的局部变量
-  qrc_resource.cpp
-  moc_colorvalue.cpp
-  moc_editwindow.cpp
-  moc_fixedsizeform.cpp
-  moc_formtimer.cpp
-  moc_mainwindow.cpp
-  moc_screenview.cpp
-  moc_setting.cpp
-C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 Debug\moc_editwindow.cpp)
-C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 Debug\moc_screenview.cpp)
-C:\Myproject\QScreenShot\include\Common\GlobalVariable.h(11,2): warning C4091: “extern ”: 没有声明变量时忽略“OptionTypeEnum”的左侧 (编译源文件 Debug\moc_mainwindow.cpp)
   QScreenShot.vcxproj -> C:\Myproject\QScreenShot\debug\QScreenShot.exe

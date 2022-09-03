@@ -13,7 +13,6 @@ AntLine::AntLine(QWidget* parent) : QWidget(parent)
     for (int i = 0; i < 20; ++i) {
         dashPattern << lineLen;
     }
-
     //启动定时器更新线条
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateValue()));

@@ -6,6 +6,7 @@
 
 #include "editwindow.h"
 #include "Common/GlobalVariable.h"
+#include "AntLine.h"
 
 //自定义label类，用来显示图像和绘制标记
 class Plabel:public QLabel
@@ -31,9 +32,10 @@ public:
     //对于桌面的坐标
     int glsx,glsy,glex,gley;
     QRect m_leftTopRect;
+    AntLine* antLine=nullptr;
 
 private:
-    QList<QRect> _listRect;
+    QList<QRect> _listRect; 
     //绘制箭头存放坐标点
     QVector<QVector<int>> _listSeat;
     //自由绘制坐标点

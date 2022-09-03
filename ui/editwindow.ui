@@ -222,7 +222,7 @@
   <action name="actionupload">
    <property name="icon">
     <iconset resource="../resource/resource.qrc">
-     <normaloff>:/images/set.png</normaloff>:/images/set.png</iconset>
+     <normaloff>:/images/upload.png</normaloff>:/images/upload.png</iconset>
    </property>
    <property name="text">
     <string>upload</string>
@@ -233,11 +233,11 @@
   </action>
   <action name="setting">
    <property name="icon">
-    <iconset>
-     <normaloff>:/set.png</normaloff>:/set.png</iconset>
+    <iconset resource="../resource/resource.qrc">
+     <normaloff>:/images/set.png</normaloff>:/images/set.png</iconset>
    </property>
    <property name="text">
-    <string>setting</string>
+    <string>设置</string>
    </property>
    <property name="toolTip">
     <string>设置</string>

@@ -103,12 +103,12 @@ public:
         actionupload = new QAction(editwindow);
         actionupload->setObjectName(QString::fromUtf8("actionupload"));
         QIcon icon8;
-        icon8.addFile(QString::fromUtf8(":/images/set.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon8.addFile(QString::fromUtf8(":/images/upload.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionupload->setIcon(icon8);
         setting = new QAction(editwindow);
         setting->setObjectName(QString::fromUtf8("setting"));
         QIcon icon9;
-        icon9.addFile(QString::fromUtf8(":/set.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon9.addFile(QString::fromUtf8(":/images/set.png"), QSize(), QIcon::Normal, QIcon::Off);
         setting->setIcon(icon9);
         actionCrop = new QAction(editwindow);
         actionCrop->setObjectName(QString::fromUtf8("actionCrop"));
@@ -204,7 +204,7 @@ public:
 #if QT_CONFIG(tooltip)
         actionupload->setToolTip(QCoreApplication::translate("editwindow", "\345\260\206\345\275\223\345\211\215\345\233\276\347\211\207\344\270\212\344\274\240", nullptr));
 #endif // QT_CONFIG(tooltip)
-        setting->setText(QCoreApplication::translate("editwindow", "setting", nullptr));
+        setting->setText(QCoreApplication::translate("editwindow", "\350\256\276\347\275\256", nullptr));
 #if QT_CONFIG(tooltip)
         setting->setToolTip(QCoreApplication::translate("editwindow", "\350\256\276\347\275\256", nullptr));
 #endif // QT_CONFIG(tooltip)
