@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 #include <QWidget>
 #include <QVector>
 #include <QTimer>
 #include <QPainter>
 
-class AntLine  : public QWidget
+class AntLine:public QWidget
 {
 	Q_OBJECT
 
@@ -13,22 +13,21 @@ public:
 	AntLine(QWidget* parent);
 	~AntLine();
 
-	//ÏßÌõ³¤¶È
 	int lineLen;
-	//ÏßÌõ¿í¶È
+
 	int lineWidth;
-	//Ã¿´ÎÒÆ¶¯µÄ²½³¤
+
 	int lineStep;
-	//ÏßÌõÁ÷¶¯µÄËÙ¶È
+
 	int lineSpeed;
-	//ÏßÌõÑÕÉ«
+
 	QColor lineColor = QColor(0,0,0);
 
 	int dashes;
 	int spaces;
 	//
 	QVector<double> dashPattern;
-	//¸üĞÂ¶¨Ê±Æ÷
+
 	QTimer* timer;
 
 protected:
@@ -48,14 +47,13 @@ public:
 	QSize minimumSizeHint()const;
 
 public Q_SLOTS:
-	//ÉèÖÃÏßÌõ³¤¶È
+
 	void setLineLen(int lineLen);
-	//ÉèÖÃÏßÌõ¿í¶È
 	void setLineWidth(int lineWidth);
-	//ÉèÖÃÏßÌõ²½³¤
+
 	void setLineStep(int lineStep);
-	//ÉèÖÃÏßÌõËÙ¶È
+
 	void setLineSpeed(int lineSpeed);
-	//ÉèÖÃÏßÌõÑÕÉ«
+
 	void setLineColor(const QColor& lineColor);
 };

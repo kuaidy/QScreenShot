@@ -17,6 +17,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+//获取全屏
 void MainWindow::on_pb_fullscreenshot_clicked()
 {
     hide();

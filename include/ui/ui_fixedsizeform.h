@@ -46,7 +46,8 @@ public:
     {
         if (fixedsizeform->objectName().isEmpty())
             fixedsizeform->setObjectName(QString::fromUtf8("fixedsizeform"));
-        fixedsizeform->resize(303, 131);
+        fixedsizeform->resize(318, 159);
+        fixedsizeform->setStyleSheet(QString::fromUtf8(""));
         gridLayout = new QGridLayout(fixedsizeform);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         horizontalFrame = new QFrame(fixedsizeform);
@@ -78,6 +79,7 @@ public:
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         groupBox->setLayoutDirection(Qt::LeftToRight);
         groupBox->setAutoFillBackground(false);
+        groupBox->setStyleSheet(QString::fromUtf8(""));
         gridLayout_2 = new QGridLayout(groupBox);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         gridLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);

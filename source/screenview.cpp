@@ -47,9 +47,13 @@ void screenview::paintEvent(QPaintEvent *event){
 
     if(shottype==0)
     {
-        if(sx>=0&&sy>=0&&ex>0&&ey>0)
+        if(MousePressed)
         {
-            painter.drawRect(QRect(sx,sy,ex-sx,ey-sy));
+            if(sx>ex){
+                painter.drawRect(QRect(ex,ey,sx-ex,sy-ey));
+            }else{
+                painter.drawRect(QRect(sx,sy,ex-sx,ey-sy));
+            }
         }
     }
     else if(shottype==1)
@@ -92,6 +96,7 @@ void screenview::paintEvent(QPaintEvent *event){
 
 void screenview::mousePressEvent(QMouseEvent *event)
 {
+    MousePressed=true;
     if(event->button()==Qt::LeftButton){
         sx=event->x();
         sy=event->y();
@@ -134,11 +139,16 @@ void screenview::mouseMoveEvent(QMouseEvent *event){
 
 void screenview::mouseReleaseEvent(QMouseEvent *event){
     this->close();
-
+    MousePressed=false;
     ex=event->x();
     ey=event->y();
 
-    sourcePixmap=originalPixmap.copy(sx*Scale,sy*Scale,(ex-sx)*Scale,(ey-sy)*Scale);
+    if(sx>ex){
+        sourcePixmap=originalPixmap.copy(ex*Scale,ey*Scale,(sx-ex)*Scale,(sy-ey)*Scale);
+    }else{
+        sourcePixmap=originalPixmap.copy(sx*Scale,sy*Scale,(ex-sx)*Scale,(ey-sy)*Scale);
+    }
+
     emit senddata(sourcePixmap);
 }
 

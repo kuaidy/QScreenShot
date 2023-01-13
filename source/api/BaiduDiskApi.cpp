@@ -27,23 +27,23 @@ QString BaiduDiskApi::GetToken(){
 QString BaiduDiskApi::GetTokenByNoserver(){
     QString tokenStr=GetTokenByFile();
     if(tokenStr.isEmpty()){
-        QWebEngineView *webView;
-        webView = new QWebEngineView();
-        webView->load(QUrl(BaiduDiskApi::NoServerTokenApi));
-        webView->show();
-        QEventLoop eventLoop;
-        connect(webView, &QWebEngineView::urlChanged, this, [this,webView,&tokenStr,&eventLoop](const QUrl &url){
-            QFile file("baidutoken.txt");
-            file.open(QIODevice::ReadWrite|QIODevice::Text);
-            file.write(url.toString().toUtf8());
-            file.close();
-            tokenStr=GetTokenByFile();
-            if(!tokenStr.isEmpty()){
-                eventLoop.exit();
-                webView->close();
-            }
-        });
-        eventLoop.exec();
+//        QWebEngineView *webView;
+//        webView = new QWebEngineView();
+//        webView->load(QUrl(BaiduDiskApi::NoServerTokenApi));
+//        webView->show();
+//        QEventLoop eventLoop;
+//        connect(webView, &QWebEngineView::urlChanged, this, [this,webView,&tokenStr,&eventLoop](const QUrl &url){
+//            QFile file("baidutoken.txt");
+//            file.open(QIODevice::ReadWrite|QIODevice::Text);
+//            file.write(url.toString().toUtf8());
+//            file.close();
+//            tokenStr=GetTokenByFile();
+//            if(!tokenStr.isEmpty()){
+//                eventLoop.exit();
+//                webView->close();
+//            }
+//        });
+//        eventLoop.exec();
     }
     return tokenStr;
 }

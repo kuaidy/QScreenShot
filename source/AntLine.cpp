@@ -1,4 +1,4 @@
-#include "../include/AntLine.h"
+ï»¿#include "../include/AntLine.h"
 
 AntLine::AntLine(QWidget* parent) : QWidget(parent)
 {
@@ -13,7 +13,7 @@ AntLine::AntLine(QWidget* parent) : QWidget(parent)
     for (int i = 0; i < 20; ++i) {
         dashPattern << lineLen;
     }
-    //Æô¶¯¶¨Ê±Æ÷¸üĞÂÏßÌõ
+    
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateValue()));
     timer->start(lineSpeed);
@@ -26,30 +26,26 @@ AntLine::~AntLine()
     }
 }
 
-void AntLine::paintEvent(QPaintEvent*)
+void AntLine::paintEvent(QPaintEvent* event)
 {
     int width = this->width();
     int height = this->height();
     int side = qMin(width, height);
 
-    //»æÖÆ×¼±¸¹¤×÷,ÆôÓÃ·´¾â³İ
     QPainter painter(this);
     painter.setRenderHints(QPainter::Antialiasing);
 
-    //ÉèÖÃ»­±Ê¿í¶È+ÑÕÉ«+µãÕóÑùÊ½
     QPen pen;
     pen.setWidth(lineWidth);
     pen.setColor(lineColor);
     pen.setDashPattern(dashPattern);
     painter.setPen(pen);
 
-    //¸ù¾İ²»Í¬µÄÑùÊ½»æÖÆ²»Í¬µÄÏßÌõ
     painter.drawRect(0, 0, width, height);
 }
 
 void AntLine::updateValue()
 {
-    //µ±ÂìÒÏÏß×ßµ½Ä©Î²,ÔòÖØĞÂ¸³Öµ
     if (dashes == lineLen && spaces == lineLen) {
         dashes = 0;
         spaces = 0;
@@ -62,7 +58,6 @@ void AntLine::updateValue()
         dashes = dashes + lineStep;
     }
 
-    //Ã¿´ÎÖ»ĞèÒª½«Ç°ÃæÁ½¸ö³¤¶È¸üĞÂ¾ÍĞĞ
     dashPattern[0] = dashes;
     dashPattern[1] = spaces;
 

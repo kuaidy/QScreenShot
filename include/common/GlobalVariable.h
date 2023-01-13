@@ -1,6 +1,6 @@
 ﻿#ifndef USERTOKENINFO_H
 #define USERTOKENINFO_H
-extern enum OptionTypeEnum{
+enum OptionTypeEnum{
     PaintRec,
     PaintArrow,
     PaintFreedom,

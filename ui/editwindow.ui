@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>editwindow</class>
  <widget class="QMainWindow" name="editwindow">
@@ -11,12 +11,15 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>编辑器</string>
+   <string>编辑器-QScreenShot</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="currentIndex">
        <number>-1</number>
       </property>
@@ -30,10 +33,10 @@
      <x>0</x>
      <y>0</y>
      <width>588</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="menu_file">
     <property name="title">
      <string>文件</string>
     </property>
@@ -41,19 +44,20 @@
     <addaction name="fileopen"/>
     <addaction name="filesaveother"/>
    </widget>
+   <widget class="QMenu" name="menu_help">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <addaction name="about"/>
+   </widget>
    <widget class="QMenu" name="menu_set">
     <property name="title">
      <string>设置</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menu_3">
-    <property name="title">
-     <string>帮助</string>
-    </property>
-   </widget>
-   <addaction name="menu"/>
+   <addaction name="menu_file"/>
    <addaction name="menu_set"/>
-   <addaction name="menu_3"/>
+   <addaction name="menu_help"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBarfile">
@@ -256,6 +260,14 @@
    </property>
    <property name="toolTip">
     <string>裁剪</string>
+   </property>
+  </action>
+  <action name="about">
+   <property name="text">
+    <string>关于</string>
+   </property>
+   <property name="toolTip">
+    <string>关于</string>
    </property>
   </action>
  </widget>

@@ -42,6 +42,8 @@ public:
 
     editwindow editwin;
 
+
+
 private:
     #ifdef Q_OS_WIN
     static BOOL CALLBACK EnumWindowsProc(HWND hwnd,LPARAM lParam);

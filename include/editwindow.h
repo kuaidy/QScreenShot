@@ -20,9 +20,11 @@
 #include <QRect>
 #include <QCursor>
 #include <QMessageBox>
-#include <QtWebEngineWidgets/QWebEngineView>
 #include <QNetworkProxyFactory>
 #include <QBuffer>
+#include <QQmlApplicationEngine>
+#include <QUrl>
+#include <QQuickWidget>
 
 #include "shotcommon.h"
 #include "setting.h"
@@ -30,6 +32,8 @@
 #include "api/wordpressapi.h"
 #include "plabel.h"
 #include "common/GlobalVariable.h"
+#include "TabWidget.h"
+#include "displayWidget.h"
 
 namespace Ui {
 class editwindow;
@@ -52,8 +56,6 @@ private:
 public:
     void editview(QPixmap *qpix);
 private slots:
-    void on_paintrec_triggered();
-    void on_paintarrow_triggered();
     void on_paintrec_triggered(bool checked);
     void on_paintarrow_triggered(bool checked);
     void on_filesaveother_triggered();
@@ -67,6 +69,7 @@ private slots:
     void on_actionupload_triggered();
     void on_actionCrop_triggered(bool checked);
 
+    void on_about_triggered();
 };
 
 #endif // EDITWINDOW_H

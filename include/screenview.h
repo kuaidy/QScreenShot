@@ -56,6 +56,8 @@ private:
     int rw,rh;
     //截图类型
     int shottype;
+    //鼠标按下
+    bool MousePressed=false;
     //固定截图的坐标
     int fixedx,fixedy;
     //固定大小的矩形

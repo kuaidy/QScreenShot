@@ -1,12 +1,13 @@
-QT       += core gui network webenginewidgets
+QT+= core gui network
+QT+=quickwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 
-win32{
-LIBS +=User32.LIB
-}
+#win32{
+#    LIBS +=User32.LIB
+#}
 
 linux-g++*{
     LIBS+=-lX11
@@ -18,6 +19,8 @@ linux-g++*{
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    source/displayWidget.cpp \
+    source/tabWidget.cpp \
     source/api/BaiduDiskApi.cpp \
     source/api//HttpHelper.cpp \
     source/api//wordpressapi.cpp \
@@ -33,8 +36,11 @@ SOURCES += \
     source/screenview.cpp \
     source/setting.cpp \
     source/shotcommon.cpp\
+    source/AntLine.cpp\
 
 HEADERS += \
+    include/displayWidget.h \
+    include/tabWidget.h \
     include/api/BaiduDiskApi.h \
     include/api/HttpHelper.h \
     include/api/wordpressapi.h \
@@ -49,6 +55,7 @@ HEADERS += \
     include/screenview.h \
     include/setting.h \
     include/shotcommon.h\
+    include/AntLine.h\
 
 FORMS += \
     ui/colorvalue.ui \
@@ -64,9 +71,13 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES +=
+DISTFILES += \
+    ui/about.qml
 
 RESOURCES += \
     resource/resource.qrc
 
-#RC_ICONS=resource/cut.ico
+RC_ICONS=resource/images/cut.ico
+
+#指定ui头文件生成的位置
+UI_DIR=../include/ui/

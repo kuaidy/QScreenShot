@@ -4,11 +4,8 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QEventLoop>
-#include <QtWebEngineWidgets/QWebEngineView>
 #include <QTabWidget>
 #include <QCoreApplication>
-#include <QWebEngineFindTextResult>
-#include <QWebEnginePage>
 #include <QFile>
 #include <QJsonDocument>
 #include <QCryptographicHash>
