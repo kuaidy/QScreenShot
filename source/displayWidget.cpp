@@ -2,7 +2,7 @@
 
 displayWidget::displayWidget()
 {
-
+    this->setMouseTracking(true);
 }
 void displayWidget::paintEvent(QPaintEvent *paintEvent){
     QPainter painter(this);
@@ -18,23 +18,50 @@ void displayWidget::paintEvent(QPaintEvent *paintEvent){
     //半径
     int r=8;
     //左上
-    painter.drawEllipse(x-r,y-r,r,r);
+    topLeftRect=QRect(x-r,y-r,r,r);
+    painter.drawEllipse(topLeftRect);
     //中上
-    painter.drawEllipse(x+width/2-r,y-r,r,r);
+    topCenterRect=QRect(x+width/2-r,y-r,r,r);
+    painter.drawEllipse(topCenterRect);
     //右上
-    painter.drawEllipse(x+width,y-r,r,r);
+    topRightRect=QRect(x+width,y-r,r,r);
+    painter.drawEllipse(topRightRect);
     //左中
-    painter.drawEllipse(x-r,y+height/2-r,r,r);
+    centerLeftRect=QRect(x-r,y+height/2-r,r,r);
+    painter.drawEllipse(centerLeftRect);
     //右中
-    painter.drawEllipse(x+width,y+height/2-r,r,r);
+    centerRightRect=QRect(x+width,y+height/2-r,r,r);
+    painter.drawEllipse(centerRightRect);
     //左下
-    painter.drawEllipse(x-r,y+height,r,r);
+    bottomLeftRect=QRect(x-r,y+height,r,r);
+    painter.drawEllipse(bottomLeftRect);
     //中下
-    painter.drawEllipse(x+width/2-r,y+height,r,r);
+    bottomCenterRect=QRect(x+width/2-r,y+height,r,r);
+    painter.drawEllipse(bottomCenterRect);
     //右下
-    painter.drawEllipse(x+width,y+height,r,r);
+    bottomRightRect=QRect(x+width,y+height,r,r);
+    painter.drawEllipse(bottomRightRect);
 }
 
 void displayWidget::mouseMoveEvent(QMouseEvent *mouseEvent){
-
+    QPoint cursorPoint=mouseEvent->pos();
+    if(topLeftRect.contains(cursorPoint)){
+        setCursor(Qt::SizeFDiagCursor);
+    }else if(topCenterRect.contains(cursorPoint)){
+        setCursor(Qt::SizeVerCursor);
+    }else if(topRightRect.contains(cursorPoint)){
+        setCursor(Qt::SizeBDiagCursor);
+    }else if(centerLeftRect.contains(cursorPoint)){
+        setCursor(Qt::SizeHorCursor);
+    }else if(centerRightRect.contains(cursorPoint)){
+        setCursor(Qt::SizeHorCursor);
+    }else if(bottomLeftRect.contains(cursorPoint)){
+        setCursor(Qt::SizeBDiagCursor);
+    }else if(bottomCenterRect.contains(cursorPoint)){
+        setCursor(Qt::SizeVerCursor);
+    }else if(bottomRightRect.contains(cursorPoint)){
+        setCursor(Qt::SizeFDiagCursor);
+    }else{
+        setCursor(Qt::ArrowCursor);
+    }
 }

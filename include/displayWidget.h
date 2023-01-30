@@ -16,6 +16,14 @@ public:
 
 public:
     Plabel *imageLabel;
+    QRect topLeftRect;
+    QRect topCenterRect;
+    QRect topRightRect;
+    QRect centerLeftRect;
+    QRect centerRightRect;
+    QRect bottomLeftRect;
+    QRect bottomCenterRect;
+    QRect bottomRightRect;
 };
 
 #endif // DISPLAYWIDGET_H
