@@ -8,9 +8,9 @@ Qt编写的一款截图工具。
 - 支持固定大小窗口截图
 - 颜色拾取
 - 图片编辑
-- 图片上传
+- 图片上传到wordpress
 
 ## 环境
 Qt6.2
-QtCreate 8 preview
+QtCreate 8
 
