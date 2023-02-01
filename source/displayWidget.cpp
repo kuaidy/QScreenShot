@@ -15,8 +15,6 @@ void displayWidget::paintEvent(QPaintEvent *paintEvent){
     int y=imageLabel->y();
     int width=imageLabel->width();
     int height=imageLabel->height();
-    //半径
-    int r=8;
     //左上
     topLeftRect=QRect(x-r,y-r,r,r);
     painter.drawEllipse(topLeftRect);
@@ -41,14 +39,35 @@ void displayWidget::paintEvent(QPaintEvent *paintEvent){
     //右下
     bottomRightRect=QRect(x+width,y+height,r,r);
     painter.drawEllipse(bottomRightRect);
+
+    if(isMouseLeftBtnDown){
+        //绘制调整图片的预览虚线
+        brush.setColor(Qt::black);
+        brush.setStyle(Qt::Dense1Pattern);
+        painter.setBrush(brush);
+        if(isTopLeft){
+            painter.drawRect(endX,endY,x+width-endX,y+height-endY);
+        }else if(isTopCenter){
+            painter.drawRect(x,endY,width,y+height-endY);
+        }
+    }
+
+}
+
+void displayWidget::mousePressEvent(QMouseEvent *mouseEvent){
+    startX=mouseEvent->x();
+    startY=mouseEvent->y();
+    isMouseLeftBtnDown=true;
 }
 
 void displayWidget::mouseMoveEvent(QMouseEvent *mouseEvent){
     QPoint cursorPoint=mouseEvent->pos();
     if(topLeftRect.contains(cursorPoint)){
         setCursor(Qt::SizeFDiagCursor);
+        isTopLeft=true;
     }else if(topCenterRect.contains(cursorPoint)){
         setCursor(Qt::SizeVerCursor);
+        isTopCenter=true;
     }else if(topRightRect.contains(cursorPoint)){
         setCursor(Qt::SizeBDiagCursor);
     }else if(centerLeftRect.contains(cursorPoint)){
@@ -64,4 +83,25 @@ void displayWidget::mouseMoveEvent(QMouseEvent *mouseEvent){
     }else{
         setCursor(Qt::ArrowCursor);
     }
+    if(isMouseLeftBtnDown){
+        endX=mouseEvent->position().x();
+        endY=mouseEvent->position().y();
+    }
+    update();
+}
+
+void displayWidget::mouseReleaseEvent(QMouseEvent *mouseEvent){
+
+    int x=imageLabel->x();
+    int y=imageLabel->y();
+    int width=imageLabel->width();
+    int height=imageLabel->height();
+    if(isTopLeft){
+        imageLabel->resize(x+width-endX,y+height-endY);
+    }else if(isTopCenter){
+        imageLabel->resize(width,y+height-endY);
+    }
+    isMouseLeftBtnDown=false;
+    isTopLeft=isTopCenter=false;
+    update();
 }
