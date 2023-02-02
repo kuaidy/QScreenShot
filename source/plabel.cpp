@@ -33,8 +33,8 @@ Plabel::~Plabel() {
 
 //重写鼠标按下方法
 void Plabel::mousePressEvent(QMouseEvent* e) {
-    sx = e->x();
-    sy = e->y();
+    sx = e->position().x();
+    sy = e->position().y();
     _startPoint = e->pos();
     _endPoint = e->pos();
     isOption = true;
@@ -51,8 +51,8 @@ void Plabel::mouseDoubleClickEvent(QMouseEvent* e) {
 //重写鼠标移动事件
 void Plabel::mouseMoveEvent(QMouseEvent* e) {
     if (isOption) {
-        ex = e->x();
-        ey = e->y();
+        ex = e->position().x();
+        ey = e->position().y();
 		_endPoint = e->pos();
 		switch (OptionFlag) {
 			case OptionTypeEnum::PaintFreedom: {
@@ -67,7 +67,6 @@ void Plabel::mouseMoveEvent(QMouseEvent* e) {
 			}
 		}
 	}
-
 	//改变鼠标的样式
 	QPoint cursorPoint = this->mapFromGlobal(QCursor::pos());
 	if (this->geometry().contains(cursorPoint))
@@ -84,7 +83,9 @@ void Plabel::mouseMoveEvent(QMouseEvent* e) {
 	}
     //
     QPoint cursorPos(ex, ey);
-    CalCursorPos(cursorPos);
+
+    imageResizeX=e->position().x();
+    imageResizeY=e->position().y();
 	update();
 }
 //重写鼠标弹起事件
@@ -123,10 +124,8 @@ void Plabel::mouseReleaseEvent(QMouseEvent* e) {
 void Plabel::paintEvent(QPaintEvent* event) {
 	QLabel::paintEvent(event);//先调用父类的paintEvent为了显示'背景'!!!
 	QPainter painter(this);
-
 	float l = 10;
 	float a = 0.5;
-
 	//绘制小方块
 	switch (OptionFlag) {
 		case OptionTypeEnum::PaintRec: {
@@ -178,13 +177,11 @@ void Plabel::paintEvent(QPaintEvent* event) {
 			break;
 		}
 	}
-
 	//绘制矩形
 	for (int i = 0; i != _listRect.size(); i++) {
         painter.setPen(QPen(Qt::red, 2));
 		painter.drawRect(QRect(_listRect.at(i).x(), _listRect.at(i).y(), _listRect.at(i).width(), _listRect.at(i).height()));
 	}
-
 	//绘制箭头
 	for (int i = 0; i != _listSeat.size(); i++)
 	{
@@ -202,41 +199,9 @@ void Plabel::paintEvent(QPaintEvent* event) {
         painter.setPen(QPen(Qt::red, 2));
 		painter.drawLine(_listLine[i][0], _listLine[i][1]);
 	}
-}
-//计算鼠标在哪个区域
-void Plabel::CalCursorPos(QPoint mousePoint){
-//    QPoint plabelPoint=this->mapFromParent(this->pos());
 
-//    QRect topLeftRect(plabelPoint.x()-ExtendedWidth, plabelPoint.y()-ExtendedWidth,ExtendedWidth,ExtendedWidth);
-//    if(topLeftRect.contains(mousePoint)){
-//        setCursor(Qt::SizeFDiagCursor);
-//    }
-//    QRect topRect(plabelPoint.x(), plabelPoint.y()-ExtendedWidth,this->width(),ExtendedWidth);
-//    if(topRect.contains(mousePoint)){
-//        setCursor(Qt::SizeVerCursor);
-//    }
-//    QRect topRightRect(plabelPoint.x()+this->width(), plabelPoint.y()-ExtendedWidth,ExtendedWidth,ExtendedWidth);
-//    if(topRightRect.contains(mousePoint)){
-//        setCursor(Qt::SizeBDiagCursor);
-//    }
-//    QRect rightRect(plabelPoint.x()+this->width(), plabelPoint.y(),ExtendedWidth,this->height());
-//    if(rightRect.contains(mousePoint)){
-//        setCursor(Qt::SizeHorCursor);
-//    }
-//    QRect bottomRightRect(plabelPoint.x()+this->width(), plabelPoint.y()+this->height(),ExtendedWidth,ExtendedWidth);
-//    if(bottomRightRect.contains(mousePoint)){
-//        setCursor(Qt::SizeFDiagCursor);
-//    }
-//    QRect bottomRect(plabelPoint.x(), plabelPoint.y()+this->height(),this->width(),ExtendedWidth);
-//    if(bottomRect.contains(mousePoint)){
-//        setCursor(Qt::SizeVerCursor);
-//    }
-//    QRect bottomLeftRect(plabelPoint.x()-ExtendedWidth, plabelPoint.y()+this->height(),ExtendedWidth,ExtendedWidth);
-//    if(bottomLeftRect.contains(mousePoint)){
-//        setCursor(Qt::SizeBDiagCursor);
-//    }
-//    QRect leftRect(plabelPoint.x()-ExtendedWidth, plabelPoint.y(),ExtendedWidth,this->height());
-//    if(leftRect.contains(mousePoint)){
-//        setCursor(Qt::SizeHorCursor);
-//    }
+    if(isPaintTopLeft){
+        painter.setPen(QPen(Qt::red, 1));
+        painter.drawRect(imageResizeX,imageResizeY,this->x()+this->width()-imageResizeX,this->y()+this->height()-imageResizeY);
+    }
 }

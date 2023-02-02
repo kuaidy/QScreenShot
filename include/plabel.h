@@ -19,6 +19,8 @@ public:
     int sx,sy,ex,ey;
     int cutsx,cutsy,cutex,cutey;
     bool isOption=false;
+    int imageResizeX,imageResizeY;
+    bool isPaintTopLeft=false;
     //对于桌面的坐标
     int glsx,glsy,glex,gley;
     QRect m_leftTopRect;
@@ -52,23 +54,6 @@ private:
 
     QPoint _cutStartPoint;
     QPoint _cutEndPoint;
-
-    //截图的位置，用来调整截图大小
-    enum ImagePosition{
-        TOPLEFT,
-        TOP,
-        TOPRIGHT,
-        LEFT,
-        CENTER,
-        RIGHT,
-        BUTTOMLEFT,
-        BUTTOM,
-        BUTTOMRIGHT
-    };
-    //扩展边框
-    int ExtendedWidth=10;
-
-
 
 signals:
     void mouseDoubleClickEvent(QMouseEvent *event);

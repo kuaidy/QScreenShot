@@ -42,10 +42,11 @@ void displayWidget::paintEvent(QPaintEvent *paintEvent){
 
     if(isMouseLeftBtnDown){
         //绘制调整图片的预览虚线
-        brush.setColor(Qt::black);
-        brush.setStyle(Qt::Dense1Pattern);
+        brush.setColor(Qt::transparent);
+//        brush.setStyle(Qt::Dense1Pattern);
         painter.setBrush(brush);
         if(isTopLeft){
+            imageLabel->isPaintTopLeft=true;
             painter.drawRect(endX,endY,x+width-endX,y+height-endY);
         }else if(isTopCenter){
             painter.drawRect(x,endY,width,y+height-endY);
@@ -103,5 +104,6 @@ void displayWidget::mouseReleaseEvent(QMouseEvent *mouseEvent){
     }
     isMouseLeftBtnDown=false;
     isTopLeft=isTopCenter=false;
+    imageLabel->isPaintTopLeft=false;
     update();
 }
