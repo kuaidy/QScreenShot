@@ -28,6 +28,12 @@ public:
     bool isMouseLeftBtnDown=false;
     bool isTopLeft=false;
     bool isTopCenter=false;
+    bool isTopRight=false;
+    bool isCenterLeft=false;
+    bool isCenterRight=false;
+    bool isBottomLeft=false;
+    bool isBottomRight=false;
+    bool isBottomCenter=false;
     int r=8;
     int startX=0;
     int startY=0;

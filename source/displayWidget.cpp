@@ -46,10 +46,28 @@ void displayWidget::paintEvent(QPaintEvent *paintEvent){
 //        brush.setStyle(Qt::Dense1Pattern);
         painter.setBrush(brush);
         if(isTopLeft){
-            imageLabel->isPaintTopLeft=true;
             painter.drawRect(endX,endY,x+width-endX,y+height-endY);
-        }else if(isTopCenter){
+        }
+        else if(isTopCenter){
             painter.drawRect(x,endY,width,y+height-endY);
+        }
+        else if(isTopRight){
+            painter.drawRect(x,endY,endX-x,y+height-endY);
+        }
+        else if(isCenterLeft){
+            painter.drawRect(endX,y,x+width-endX,height);
+        }
+        else if(isCenterRight){
+            painter.drawRect(x,y,endX-x,height);
+        }
+        else if(isBottomLeft){
+            painter.drawRect(endX,y,x+width-endX,endY-y);
+        }
+        else if(isBottomCenter){
+            painter.drawRect(x,y,width,endY-y);
+        }
+        else if(isBottomRight){
+            painter.drawRect(x,y,endX-x,endY-y);
         }
     }
 
@@ -71,16 +89,22 @@ void displayWidget::mouseMoveEvent(QMouseEvent *mouseEvent){
         isTopCenter=true;
     }else if(topRightRect.contains(cursorPoint)){
         setCursor(Qt::SizeBDiagCursor);
+        isTopRight=true;
     }else if(centerLeftRect.contains(cursorPoint)){
         setCursor(Qt::SizeHorCursor);
+        isCenterLeft=true;
     }else if(centerRightRect.contains(cursorPoint)){
         setCursor(Qt::SizeHorCursor);
+        isCenterRight=true;
     }else if(bottomLeftRect.contains(cursorPoint)){
         setCursor(Qt::SizeBDiagCursor);
+        isBottomLeft=true;
     }else if(bottomCenterRect.contains(cursorPoint)){
         setCursor(Qt::SizeVerCursor);
+        isBottomCenter=true;
     }else if(bottomRightRect.contains(cursorPoint)){
         setCursor(Qt::SizeFDiagCursor);
+        isBottomRight=true;
     }else{
         setCursor(Qt::ArrowCursor);
     }
@@ -102,8 +126,28 @@ void displayWidget::mouseReleaseEvent(QMouseEvent *mouseEvent){
     }else if(isTopCenter){
         imageLabel->resize(width,y+height-endY);
     }
+    else if(isTopRight){
+        imageLabel->resize(endX-x,y+height-endY);
+    }
+    else if(isCenterLeft){
+        imageLabel->resize(x+width-endX,height);
+    }
+    else if(isCenterRight){
+        imageLabel->resize(endX-x,height);
+    }
+    else if(isBottomLeft){
+        imageLabel->resize(x+width-endX,endY-y);
+    }
+    else if(isBottomCenter){
+        imageLabel->resize(width,endY-y);
+    }
+    else if(isBottomRight){
+        imageLabel->resize(endX-x,endY-y);
+    }
+
+
     isMouseLeftBtnDown=false;
-    isTopLeft=isTopCenter=false;
+    isTopLeft=isTopCenter=isTopRight=isCenterLeft=isCenterRight=isBottomLeft=isBottomCenter=isBottomRight=false;
     imageLabel->isPaintTopLeft=false;
     update();
 }
