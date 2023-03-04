@@ -20,8 +20,8 @@ void ColorValue::SetColorValue(int r,int g,int b){
     ui->colorRGB->setText(colorValue);
     QString hex="#"+QString::number(r, 16)+QString::number(g, 16)+QString::number(b, 16);
     ui->colorHex->setText(hex);
-    ui->colorPre->setStyleSheet("background-color:"+hex);
+    ui->colorPre->setStyleSheet("background-color:rgb("+QString::number(r)+","+QString::number(g)+","+QString::number(b)+")");
 }
 void ColorValue::mouseMoveEvent(QMouseEvent *event){
-    move(event->globalPos());
+    this->move(event->globalPosition().x(),event->globalPosition().y());
 }

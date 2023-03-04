@@ -98,8 +98,8 @@ void screenview::mousePressEvent(QMouseEvent *event)
 {
     MousePressed=true;
     if(event->button()==Qt::LeftButton){
-        sx=event->x();
-        sy=event->y();
+        sx=event->position().x();
+        sy=event->position().y();
 
         startpoint=event->pos();
 
@@ -113,23 +113,33 @@ void screenview::mousePressEvent(QMouseEvent *event)
             sourcePixmap=originalPixmap.copy(CurrentWindow.x()*Scale,CurrentWindow.y()*Scale,CurrentWindow.width()*Scale,CurrentWindow.height()*Scale);
             emit senddata(sourcePixmap);
         }
+        else if(shottype==3)
+        {
+            //显示颜色选择器
+            QColor color = QColorDialog::getColor(_color, this);
+            shottype=-1;
+            this->_colorValue->close();
+        }
     }
     else if(event->button()==Qt::RightButton)
     {
         if(shottype==3){
             this->close();
             this->_colorValue->close();
+            //忽略右键事件
+            event->ignore();
         }else{
             this->close();
             emit showWin();
+            event->ignore();
         }
     }
     update();
 }
 
 void screenview::mouseMoveEvent(QMouseEvent *event){
-    ex=event->x();
-    ey=event->y();
+    ex=event->position().x();
+    ey=event->position().y();
     endpoint=event->pos();
     if(shottype==3){
         getColorValue();
@@ -140,8 +150,8 @@ void screenview::mouseMoveEvent(QMouseEvent *event){
 void screenview::mouseReleaseEvent(QMouseEvent *event){
     this->close();
     MousePressed=false;
-    ex=event->x();
-    ey=event->y();
+    ex=event->position().x();
+    ey=event->position().y();
 
     if(sx>ex){
         sourcePixmap=originalPixmap.copy(ex*Scale,ey*Scale,(sx-ex)*Scale,(sy-ey)*Scale);
@@ -161,10 +171,10 @@ void screenview::getColorValue(){
     if(!originalPixmap.isNull()){
         QImage image=originalPixmap.toImage();
         if(image.valid(ex*Scale,ey*Scale)){
-            QColor color=image.pixel(ex*Scale,ey*Scale);
-            int r=color.red();
-            int g=color.green();
-            int b=color.blue();
+            _color=image.pixel(ex*Scale,ey*Scale);
+            int r=_color.red();
+            int g=_color.green();
+            int b=_color.blue();
             qDebug()<<r<<g<<b;
             int deviation=3;
             if(this->_colorValue==NULL){

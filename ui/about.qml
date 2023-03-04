@@ -22,7 +22,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Text {
-            text: qsTr("邮箱：kdy1115@163.com");
+            text: qsTr("邮箱：kuaidongyi@gmail.com");
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Text {

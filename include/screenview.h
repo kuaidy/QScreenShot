@@ -10,6 +10,7 @@
 #include <QRubberBand>
 #include <QDateTime>
 #include <QLabel>
+#include <QColorDialog>
 
 #include "editwindow.h"
 #include "mainwindow.h"
@@ -68,6 +69,9 @@ private:
 
     //当前选中的窗口
     QRect CurrentWindow;
+
+    //选取的颜色
+    QColor _color;
 
 signals:
     void senddata(QPixmap sourcePixmap);
