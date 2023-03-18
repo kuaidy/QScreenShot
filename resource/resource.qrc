@@ -22,5 +22,9 @@
         <file>images/upload.png</file>
         <file>images/vague.png</file>
         <file>images/widget.png</file>
+        <file>qml/about.qml</file>
+        <file>images/copy.png</file>
+        <file>images/parse.png</file>
+        <file>images/shear.png</file>
     </qresource>
 </RCC>

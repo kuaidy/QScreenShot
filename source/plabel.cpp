@@ -92,7 +92,7 @@ void Plabel::mouseMoveEvent(QMouseEvent* e) {
 void Plabel::mouseReleaseEvent(QMouseEvent* e) {
 	isOption = false;
 	switch (OptionFlag) {
-		case OptionTypeEnum::PaintRec: {
+        case OptionTypeEnum::PaintRect: {
 			_listRect.append(QRect(sx, sy, ex - sx, ey - sy));
 			break;
 		}
@@ -122,13 +122,14 @@ void Plabel::mouseReleaseEvent(QMouseEvent* e) {
 }
 //重写lable的绘制方法
 void Plabel::paintEvent(QPaintEvent* event) {
-	QLabel::paintEvent(event);//先调用父类的paintEvent为了显示'背景'!!!
+    //先调用父类的paintEvent为了显示'背景'!!!
+    QLabel::paintEvent(event);
 	QPainter painter(this);
 	float l = 10;
 	float a = 0.5;
 	//绘制小方块
 	switch (OptionFlag) {
-		case OptionTypeEnum::PaintRec: {
+        case OptionTypeEnum::PaintRect: {
 			painter.setPen(QPen(Qt::red, 2));
 			painter.drawRect(QRect(sx, sy, ex - sx, ey - sy));
 			break;

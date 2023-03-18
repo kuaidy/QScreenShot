@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'editwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 6.2.1
+** Created by: Qt User Interface Compiler version 6.2.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -38,6 +38,9 @@ public:
     QAction *setting;
     QAction *actionCrop;
     QAction *about;
+    QAction *copy;
+    QAction *shear;
+    QAction *parse;
     QWidget *centralwidget;
     QGridLayout *gridLayout;
     QTabWidget *tabWidget;
@@ -57,7 +60,7 @@ public:
     {
         if (editwindow->objectName().isEmpty())
             editwindow->setObjectName(QString::fromUtf8("editwindow"));
-        editwindow->resize(588, 401);
+        editwindow->resize(931, 460);
         filenew = new QAction(editwindow);
         filenew->setObjectName(QString::fromUtf8("filenew"));
         QIcon icon;
@@ -119,6 +122,26 @@ public:
         actionCrop->setIcon(icon10);
         about = new QAction(editwindow);
         about->setObjectName(QString::fromUtf8("about"));
+        copy = new QAction(editwindow);
+        copy->setObjectName(QString::fromUtf8("copy"));
+        QIcon icon11;
+        QString iconThemeName = QString::fromUtf8("applications-office");
+        if (QIcon::hasThemeIcon(iconThemeName)) {
+            icon11 = QIcon::fromTheme(iconThemeName);
+        } else {
+            icon11.addFile(QString::fromUtf8(":/images/copy.png"), QSize(), QIcon::Normal, QIcon::Off);
+        }
+        copy->setIcon(icon11);
+        shear = new QAction(editwindow);
+        shear->setObjectName(QString::fromUtf8("shear"));
+        QIcon icon12;
+        icon12.addFile(QString::fromUtf8(":/images/shear.png"), QSize(), QIcon::Normal, QIcon::Off);
+        shear->setIcon(icon12);
+        parse = new QAction(editwindow);
+        parse->setObjectName(QString::fromUtf8("parse"));
+        QIcon icon13;
+        icon13.addFile(QString::fromUtf8(":/images/parse.png"), QSize(), QIcon::Normal, QIcon::Off);
+        parse->setIcon(icon13);
         centralwidget = new QWidget(editwindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout = new QGridLayout(centralwidget);
@@ -132,7 +155,7 @@ public:
         editwindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(editwindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 588, 25));
+        menubar->setGeometry(QRect(0, 0, 931, 30));
         menu_file = new QMenu(menubar);
         menu_file->setObjectName(QString::fromUtf8("menu_file"));
         menu_help = new QMenu(menubar);
@@ -177,6 +200,9 @@ public:
         toolBarPaint->addAction(paintarrow);
         toolBarPaint->addAction(paintrec);
         toolBarOption->addAction(actionCrop);
+        toolBarOption->addAction(shear);
+        toolBarOption->addAction(copy);
+        toolBarOption->addAction(parse);
         toolBarClound->addAction(actionupload);
         toolBarSet->addAction(setting);
 
@@ -220,6 +246,18 @@ public:
         about->setText(QCoreApplication::translate("editwindow", "\345\205\263\344\272\216", nullptr));
 #if QT_CONFIG(tooltip)
         about->setToolTip(QCoreApplication::translate("editwindow", "\345\205\263\344\272\216", nullptr));
+#endif // QT_CONFIG(tooltip)
+        copy->setText(QCoreApplication::translate("editwindow", "\345\244\215\345\210\266", nullptr));
+#if QT_CONFIG(tooltip)
+        copy->setToolTip(QCoreApplication::translate("editwindow", "\345\244\215\345\210\266\345\233\276\345\203\217", nullptr));
+#endif // QT_CONFIG(tooltip)
+        shear->setText(QCoreApplication::translate("editwindow", "\345\211\252\345\210\207", nullptr));
+#if QT_CONFIG(tooltip)
+        shear->setToolTip(QCoreApplication::translate("editwindow", "\345\211\252\345\210\207\345\233\276\345\203\217", nullptr));
+#endif // QT_CONFIG(tooltip)
+        parse->setText(QCoreApplication::translate("editwindow", "\347\262\230\350\264\264", nullptr));
+#if QT_CONFIG(tooltip)
+        parse->setToolTip(QCoreApplication::translate("editwindow", "\347\262\230\350\264\264\345\233\276\345\203\217", nullptr));
 #endif // QT_CONFIG(tooltip)
         menu_file->setTitle(QCoreApplication::translate("editwindow", "\346\226\207\344\273\266", nullptr));
         menu_help->setTitle(QCoreApplication::translate("editwindow", "\345\270\256\345\212\251", nullptr));

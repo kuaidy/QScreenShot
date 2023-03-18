@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
-    <height>401</height>
+    <width>931</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,8 +32,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>588</width>
-     <height>25</height>
+     <width>931</width>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
@@ -111,6 +111,9 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionCrop"/>
+   <addaction name="shear"/>
+   <addaction name="copy"/>
+   <addaction name="parse"/>
   </widget>
   <widget class="QToolBar" name="toolBarClound">
    <property name="windowTitle">
@@ -268,6 +271,42 @@
    </property>
    <property name="toolTip">
     <string>关于</string>
+   </property>
+  </action>
+  <action name="copy">
+   <property name="icon">
+    <iconset theme="applications-office" resource="../resource/resource.qrc">
+     <normaloff>:/images/copy.png</normaloff>:/images/copy.png</iconset>
+   </property>
+   <property name="text">
+    <string>复制</string>
+   </property>
+   <property name="toolTip">
+    <string>复制图像</string>
+   </property>
+  </action>
+  <action name="shear">
+   <property name="icon">
+    <iconset resource="../resource/resource.qrc">
+     <normaloff>:/images/shear.png</normaloff>:/images/shear.png</iconset>
+   </property>
+   <property name="text">
+    <string>剪切</string>
+   </property>
+   <property name="toolTip">
+    <string>剪切图像</string>
+   </property>
+  </action>
+  <action name="parse">
+   <property name="icon">
+    <iconset resource="../resource/resource.qrc">
+     <normaloff>:/images/parse.png</normaloff>:/images/parse.png</iconset>
+   </property>
+   <property name="text">
+    <string>粘贴</string>
+   </property>
+   <property name="toolTip">
+    <string>粘贴图像</string>
    </property>
   </action>
  </widget>

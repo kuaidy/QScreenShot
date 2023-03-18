@@ -25,6 +25,8 @@
 #include <QQmlApplicationEngine>
 #include <QUrl>
 #include <QQuickWidget>
+#include <QQmlComponent>
+#include <QSizePolicy>
 
 #include "shotcommon.h"
 #include "setting.h"

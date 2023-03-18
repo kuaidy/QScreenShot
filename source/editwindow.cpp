@@ -52,7 +52,7 @@ void editwindow::editview(QPixmap *qpix){
 void editwindow::on_paintrec_triggered(bool checked)
 {
     if(checked){
-        OptionFlag=OptionTypeEnum::PaintRec;
+        OptionFlag=OptionTypeEnum::PaintRect;
     }else{
         OptionFlag=OptionTypeEnum::None;
     }
@@ -161,28 +161,36 @@ void editwindow::CreateTab(QPixmap pixMap,QString fileName){
     //创建一个窗口，放到tab里头
 //    QWidget *widget = new QWidget();
     displayWidget *widget=new displayWidget();
-    widget->setStyleSheet("background-color:#c8c8c8;");
+//    widget->setStyleSheet("background-color:green;");
     QGridLayout *qgridlayout=new QGridLayout(widget);
     //去除默认边距
     qgridlayout->setSpacing(0);
     qgridlayout->setContentsMargins(0,0,0,0);
     //创建滚动条
     QScrollArea *scrollarea=new QScrollArea(widget);
-//    scrollarea->setStyleSheet("background-color:blue;");
+    scrollarea->setStyleSheet("background-color:white;");
     scrollarea->setAttribute(Qt::WA_TranslucentBackground, true);
-//    scrollarea->setWidgetResizable(true);
+//    scrollarea->setWidgetResizable(true); 
     //创建一个label用来显示图片
     widget->imageLabel=new Plabel();
     widget->imageLabel->setMargin(0);
 //    connect(imagelabel,SIGNAL(mouseDoubleClickEvent(QMouseEvent*)),this,SLOT(removeSubTab(int)));
     widget->imageLabel->setObjectName(fileName);
-    widget->imageLabel->setScaledContents(true);
-    widget->imageLabel->setStyleSheet("background:red");
-    // 显示图像
-    widget->imageLabel->setPixmap(pixMap);
+//    widget->imageLabel->setStyleSheet("background:white;");
+//    widget->imageLabel->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Ignored);
     // 图像与imgLabel同大小
-    widget->imageLabel->resize(pixMap.width(), pixMap.height());
+    widget->imageLabel->resize(pixMap.size());
+//    widget->imageLabel->setFixedSize(pixMap.size());
+    //内容居中
     widget->imageLabel->setAlignment(Qt::AlignCenter);
+    // 禁用QLabel的边框
+//    widget->imageLabel->setFrameStyle(QFrame::NoFrame);
+//    widget->imageLabel->setContentsMargins(0,0,0,0);
+    //内容保持原来的大小
+    widget->imageLabel->setScaledContents(false);
+    //设置图像
+    widget->imageLabel->setPixmap(pixMap);
+
     scrollarea->setAlignment(Qt::AlignCenter);
     scrollarea->setWidget(widget->imageLabel);
     scrollarea->setMouseTracking(true);
@@ -236,10 +244,31 @@ void editwindow::on_actionCrop_triggered(bool checked)
 //关于
 void editwindow::on_about_triggered()
 {
-    QQuickWidget *view = new QQuickWidget();
-    view->setResizeMode(QQuickWidget::SizeRootObjectToView);
-    view->setFixedSize(400,300);
-    view->setSource(QUrl("../ui/about.qml"));
-    view->show();
+    //出现段错误，锚点布局导致？？？
+    QQuickWidget view;
+    view.setResizeMode(QQuickWidget::SizeRootObjectToView);
+    view.setFixedSize(400,300);
+    view.setSource(QUrl::fromLocalFile("C:/Myproject/QScreenShot/ui/about.qml"));
+    view.show();
+
+    // 创建 QQmlEngine 对象
+//    QQmlEngine engine;
+
+//    // 创建 QQmlComponent 对象，并关联 QQmlEngine
+//    QQmlComponent component(&engine, QUrl::fromLocalFile("../ui/about.qml"));
+
+//    // 设置 QML 数据
+//    QObject *object = component.create();
+
+//    if (object)
+//    {
+//        // 将 QML 组件添加到父对象中
+//        QWidget *window = new QWidget();
+//        QHBoxLayout *layout = new QHBoxLayout(window);
+//        QQuickItem *item = qobject_cast<QQuickItem *>(object);
+//        layout->addWidget(item);
+//        window->setCentralWidget(container);
+//        window->show();
+//    }
 }
 

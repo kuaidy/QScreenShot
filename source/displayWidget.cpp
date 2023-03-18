@@ -19,10 +19,10 @@ void displayWidget::paintEvent(QPaintEvent *paintEvent){
     topLeftRect=QRect(x-r,y-r,r,r);
     painter.drawEllipse(topLeftRect);
     //中上
-    topCenterRect=QRect(x+width/2-r,y-r,r,r);
+    topCenterRect=QRect(x+width/2,y-r,r,r);
     painter.drawEllipse(topCenterRect);
     //右上
-    topRightRect=QRect(x+width,y-r,r,r);
+    topRightRect=QRect(x+width,y,r,r);
     painter.drawEllipse(topRightRect);
     //左中
     centerLeftRect=QRect(x-r,y+height/2-r,r,r);
@@ -74,8 +74,8 @@ void displayWidget::paintEvent(QPaintEvent *paintEvent){
 }
 
 void displayWidget::mousePressEvent(QMouseEvent *mouseEvent){
-    startX=mouseEvent->x();
-    startY=mouseEvent->y();
+    startX=mouseEvent->position().x();
+    startY=mouseEvent->position().y();
     isMouseLeftBtnDown=true;
 }
 
@@ -144,7 +144,6 @@ void displayWidget::mouseReleaseEvent(QMouseEvent *mouseEvent){
     else if(isBottomRight){
         imageLabel->resize(endX-x,endY-y);
     }
-
 
     isMouseLeftBtnDown=false;
     isTopLeft=isTopCenter=isTopRight=isCenterLeft=isCenterRight=isBottomLeft=isBottomCenter=isBottomRight=false;
