@@ -32,6 +32,7 @@ editwindow::~editwindow()
 void editwindow::editview(QPixmap *qpix){
     showMaximized();
 //    ui->tabWidget->clear();
+    PlabelPixmap=qpix;
     PlabelImage = qpix->toImage();
     //插入页
     QString tabname="新建";
@@ -270,5 +271,14 @@ void editwindow::on_about_triggered()
 //        window->setCentralWidget(container);
 //        window->show();
 //    }
+}
+
+//复制图片到剪切板
+void editwindow::on_copy_triggered()
+{
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    // 将图片复制到剪切板
+//    clipboard->setPixmap(*PlabelPixmap);
+    clipboard->setImage(PlabelImage);
 }
 
