@@ -27,6 +27,7 @@
 #include <QQuickWidget>
 #include <QQmlComponent>
 #include <QSizePolicy>
+#include <QClipboard>
 
 #include "shotcommon.h"
 #include "setting.h"
@@ -72,6 +73,7 @@ private slots:
     void on_actionCrop_triggered(bool checked);
 
     void on_about_triggered();
+    void on_copy_triggered();
 };
 
 #endif // EDITWINDOW_H
