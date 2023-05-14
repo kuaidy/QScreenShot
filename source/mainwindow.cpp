@@ -11,6 +11,15 @@ MainWindow::MainWindow(QWidget *parent)
     int x= screen->geometry().width()-300;
     int y= 100;
     move(x,y);
+
+    //读取配置文件
+    try{
+        QSettings settingsread("setting.ini",QSettings::IniFormat);
+        _globalSetting._imageCompressLevel = settingsread.value("basic/imageCompressLevel").toInt();
+    }
+    catch(std::exception ex){
+
+    }
 }
 
 MainWindow::~MainWindow()
@@ -72,7 +81,7 @@ typedef struct _DLONG{
     LONG wParam;
     LONG lParam;
 }stLONG;
-editwindow *ewind=NULL;
+EditWindow *ewind=NULL;
 int i=0;
 #endif
 //捕获活动窗口

@@ -31,26 +31,29 @@
 
 #include "shotcommon.h"
 #include "setting.h"
-#include "api/BaiduDiskApi.h"
+#include "api/baidudiskapi.h"
 #include "api/wordpressapi.h"
-#include "plabel.h"
-#include "common/GlobalVariable.h"
-#include "TabWidget.h"
-#include "displayWidget.h"
+#include "imagelabel.h"
+#include "common/globalvariable.h"
+#include "tabwidget.h"
+#include "displaywidget.h"
+#include "common/globalsetting.h"
 
 namespace Ui {
-class editwindow;
+class EditWindow;
 }
-class editwindow : public QMainWindow
+
+class EditWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit editwindow(QWidget *parent = nullptr);
-    ~editwindow();
+    explicit EditWindow(QWidget *parent = nullptr);
+    ~EditWindow();
     void CreateTab(QPixmap qPixmap,QString fileName);
+    void CreateNewTab(QPixmap pixmap,QString fileName);
 private:
-    Ui::editwindow *ui;
+    Ui::EditWindow *ui;
     QDockWidget *DockImage;
     //状态栏大小
     QLabel *sizeStatus;

@@ -1,5 +1,5 @@
 ﻿#include "../include/editwindow.h"
-#include "../include/ui/ui_editwindow.h"
+#include "ui_editwindow.h"
 
 #define STRETCH_RECT_HEIGHT 4
 #define STRETCH_RECT_WIDTH 4
@@ -8,9 +8,9 @@ QPixmap *PlabelPixmap=nullptr;
 QImage PlabelImage;
 
 
-editwindow::editwindow(QWidget *parent) :
+EditWindow::EditWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::editwindow)
+    ui(new Ui::EditWindow)
 {
     ui->setupUi(this);
     ui->tabWidget->layout();
@@ -24,12 +24,12 @@ editwindow::editwindow(QWidget *parent) :
     connect(ui->tabWidget,SIGNAL(tabCloseRequested(int)),this,SLOT(removeSubTab(int)));
 }
 
-editwindow::~editwindow()
+EditWindow::~EditWindow()
 {
     delete ui;
 }
 
-void editwindow::editview(QPixmap *qpix){
+void EditWindow::editview(QPixmap *qpix){
     showMaximized();
 //    ui->tabWidget->clear();
     PlabelPixmap=qpix;
@@ -39,7 +39,8 @@ void editwindow::editview(QPixmap *qpix){
     QString tabnum=QString::number(ui->tabWidget->count(),10);
     tabname.append(tabnum);
     int tabindex=ui->tabWidget->count()-1<0?0:ui->tabWidget->count()-1;
-    CreateTab(*qpix,tabname);
+//    CreateTab(*qpix,tabname);
+    CreateNewTab(*qpix,tabname);
     //状态栏显示
 //    sizeStatus=new QLabel("大小："+QString::number(qpix->width())+'x'+QString::number(qpix->height()));
 //    scaleStatus=new QLabel("缩放："+QString::number(Scale)+"%");
@@ -50,7 +51,7 @@ void editwindow::editview(QPixmap *qpix){
 }
 
 //绘制矩形
-void editwindow::on_paintrec_triggered(bool checked)
+void EditWindow::on_paintrec_triggered(bool checked)
 {
     if(checked){
         OptionFlag=OptionTypeEnum::PaintRect;
@@ -60,7 +61,7 @@ void editwindow::on_paintrec_triggered(bool checked)
 }
 
 //绘制箭头
-void editwindow::on_paintarrow_triggered(bool checked)
+void EditWindow::on_paintarrow_triggered(bool checked)
 {
    if(checked){
        OptionFlag=OptionTypeEnum::PaintArrow;
@@ -70,7 +71,7 @@ void editwindow::on_paintarrow_triggered(bool checked)
 }
 
 //另存为
-void editwindow::on_filesaveother_triggered()
+void EditWindow::on_filesaveother_triggered()
 {
     int tabIndex=ui->tabWidget->currentIndex();
     QDateTime timenow=QDateTime::currentDateTime();
@@ -85,12 +86,12 @@ void editwindow::on_filesaveother_triggered()
         //根据子控件的名称查找子控件
         QLabel* label = qWidget->findChild<QLabel*>();
         QPixmap pixmap=label->grab();
-        pixmap.save(fileName);
+        pixmap.save(fileName,"PNG",_globalSetting._imageCompressLevel*10);
     }
 }
 
 //模糊
-void editwindow::on_vague_triggered(bool checked)
+void EditWindow::on_vague_triggered(bool checked)
 {
     if(checked){
        OptionFlag=OptionTypeEnum::Vague;
@@ -99,7 +100,7 @@ void editwindow::on_vague_triggered(bool checked)
     }
 }
 //自由绘制
-void editwindow::on_actionpaintfreedom_triggered(bool checked)
+void EditWindow::on_actionpaintfreedom_triggered(bool checked)
 {
     if(checked){
         OptionFlag=OptionTypeEnum::PaintFreedom;
@@ -108,7 +109,7 @@ void editwindow::on_actionpaintfreedom_triggered(bool checked)
     }
 }
 //放大
-void editwindow::on_enlarge_triggered()
+void EditWindow::on_enlarge_triggered()
 {
     const int num=2;
     QWidget* qWidget= ui->tabWidget->currentWidget();
@@ -126,7 +127,7 @@ void editwindow::on_enlarge_triggered()
 }
 
 //缩小
-void editwindow::on_narrow_triggered()
+void EditWindow::on_narrow_triggered()
 {
     const int num=2;
     QWidget* qWidget= ui->tabWidget->currentWidget();
@@ -144,7 +145,7 @@ void editwindow::on_narrow_triggered()
 }
 
 //打开文件
-void editwindow::on_fileopen_triggered()
+void EditWindow::on_fileopen_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("选择文件"),"./", tr("Image files(*.bmp *.jpg *.png);All files (*.*)"));
     if(!fileName.isEmpty())
@@ -157,12 +158,12 @@ void editwindow::on_fileopen_triggered()
     }
 }
 //创建tab页
-void editwindow::CreateTab(QPixmap pixMap,QString fileName){
+void EditWindow::CreateTab(QPixmap pixMap,QString fileName){
     //保存原始图片
     //创建一个窗口，放到tab里头
-//    QWidget *widget = new QWidget();
-    displayWidget *widget=new displayWidget();
-//    widget->setStyleSheet("background-color:green;");
+    //    QWidget *widget = new QWidget();
+    DisplayWidget *widget=new DisplayWidget();
+    //    widget->setStyleSheet("background-color:green;");
     QGridLayout *qgridlayout=new QGridLayout(widget);
     //去除默认边距
     qgridlayout->setSpacing(0);
@@ -171,22 +172,22 @@ void editwindow::CreateTab(QPixmap pixMap,QString fileName){
     QScrollArea *scrollarea=new QScrollArea(widget);
     scrollarea->setStyleSheet("background-color:white;");
     scrollarea->setAttribute(Qt::WA_TranslucentBackground, true);
-//    scrollarea->setWidgetResizable(true); 
+    //    scrollarea->setWidgetResizable(true);
     //创建一个label用来显示图片
-    widget->imageLabel=new Plabel();
+    widget->imageLabel=new ImageLabel();
     widget->imageLabel->setMargin(0);
-//    connect(imagelabel,SIGNAL(mouseDoubleClickEvent(QMouseEvent*)),this,SLOT(removeSubTab(int)));
+    //    connect(imagelabel,SIGNAL(mouseDoubleClickEvent(QMouseEvent*)),this,SLOT(removeSubTab(int)));
     widget->imageLabel->setObjectName(fileName);
-//    widget->imageLabel->setStyleSheet("background:white;");
-//    widget->imageLabel->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Ignored);
+    //    widget->imageLabel->setStyleSheet("background:white;");
+    //    widget->imageLabel->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Ignored);
     // 图像与imgLabel同大小
     widget->imageLabel->resize(pixMap.size());
-//    widget->imageLabel->setFixedSize(pixMap.size());
+    //    widget->imageLabel->setFixedSize(pixMap.size());
     //内容居中
     widget->imageLabel->setAlignment(Qt::AlignCenter);
     // 禁用QLabel的边框
-//    widget->imageLabel->setFrameStyle(QFrame::NoFrame);
-//    widget->imageLabel->setContentsMargins(0,0,0,0);
+    //    widget->imageLabel->setFrameStyle(QFrame::NoFrame);
+    //    widget->imageLabel->setContentsMargins(0,0,0,0);
     //内容保持原来的大小
     widget->imageLabel->setScaledContents(false);
     //设置图像
@@ -201,19 +202,62 @@ void editwindow::CreateTab(QPixmap pixMap,QString fileName){
     ui->tabWidget->setCurrentWidget(widget);
 }
 
-void editwindow::removeSubTab(int index)
+//创建新的tab页
+void EditWindow::CreateNewTab(QPixmap pixMap,QString fileName){
+//    //保存原始图片
+//    //创建一个窗口，放到tab里头
+//    //    QWidget *widget = new QWidget();
+//    displayWidget *widget=new displayWidget();
+//    //    widget->setStyleSheet("background-color:green;");
+//    QGridLayout *qgridlayout=new QGridLayout(widget);
+//    //去除默认边距
+//    qgridlayout->setSpacing(0);
+//    qgridlayout->setContentsMargins(0,0,0,0);
+//    //创建滚动条
+//    QScrollArea *scrollarea=new QScrollArea(widget);
+//    scrollarea->setStyleSheet("background-color:white;");
+//    scrollarea->setAttribute(Qt::WA_TranslucentBackground, true);
+//    //    scrollarea->setWidgetResizable(true);
+//    //创建一个label用来显示图片
+//    widget->imageLabel=new Plabel();
+    ImageLabel *imageLabel=new ImageLabel();
+    imageLabel->setStyleSheet("background-color:#f0f0f0;");
+    imageLabel->setMargin(0);
+    //connect(imagelabel,SIGNAL(mouseDoubleClickEvent(QMouseEvent*)),this,SLOT(removeSubTab(int)));
+    imageLabel->setObjectName(fileName);
+    //imageLabel->setStyleSheet("background:white;");
+    //imageLabel->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Ignored);
+    // 图像与imgLabel同大小
+//    imageLabel->resize(pixMap.size());
+    //imageLabel->setFixedSize(pixMap.size());
+    //内容居中
+    imageLabel->setAlignment(Qt::AlignCenter);
+    //禁用QLabel的边框
+    //imageLabel->setFrameStyle(QFrame::NoFrame);
+    //imageLabel->setContentsMargins(0,0,0,0);
+    //内容保持原来的大小
+    imageLabel->setScaledContents(false);
+    //设置图像
+    imageLabel->setPixmap(pixMap);
+    //插入页
+    ui->tabWidget->addTab(imageLabel,fileName);
+    ui->tabWidget->setCurrentWidget(imageLabel);
+}
+
+
+void EditWindow::removeSubTab(int index)
 {
     ui->tabWidget->removeTab(index);
 }
 
-void editwindow::on_setting_triggered()
+void EditWindow::on_setting_triggered()
 {
     Setting *setting=new Setting();
     setting->show();
 }
 
 //上传图片
-void editwindow::on_actionupload_triggered()
+void EditWindow::on_actionupload_triggered()
 {
     QMessageBox::StandardButton box;
     box = QMessageBox::question(this, "提示", "确定要上传图片吗?", QMessageBox::Yes|QMessageBox::No);
@@ -233,7 +277,7 @@ void editwindow::on_actionupload_triggered()
 }
 
 //裁剪
-void editwindow::on_actionCrop_triggered(bool checked)
+void EditWindow::on_actionCrop_triggered(bool checked)
 {
     if(checked){
         OptionFlag=OptionTypeEnum::ActionCrop;
@@ -243,7 +287,7 @@ void editwindow::on_actionCrop_triggered(bool checked)
 }
 
 //关于
-void editwindow::on_about_triggered()
+void EditWindow::on_about_triggered()
 {
     //出现段错误，锚点布局导致？？？
     QQuickWidget view;
@@ -274,7 +318,7 @@ void editwindow::on_about_triggered()
 }
 
 //复制图片到剪切板
-void editwindow::on_copy_triggered()
+void EditWindow::on_copy_triggered()
 {
     QClipboard *clipboard = QGuiApplication::clipboard();
     // 将图片复制到剪切板

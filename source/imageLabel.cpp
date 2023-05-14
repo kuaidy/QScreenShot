@@ -1,4 +1,4 @@
-﻿#include "../include/plabel.h"
+﻿#include "../include/imageLabel.h"
 
 QImage applyEffectToImage(QImage src, QGraphicsEffect* effect, int extent);
 
@@ -22,17 +22,17 @@ QImage applyEffectToImage(QImage src, QGraphicsEffect* effect, int extent = 0)
 }
 
 
-Plabel::Plabel(QWidget* parent)
+ImageLabel::ImageLabel(QWidget* parent)
 {
 	//设置默认追踪鼠标
 	this->setMouseTracking(true);
 }
-Plabel::~Plabel() {
+ImageLabel::~ImageLabel() {
 
 }
 
 //重写鼠标按下方法
-void Plabel::mousePressEvent(QMouseEvent* e) {
+void ImageLabel::mousePressEvent(QMouseEvent* e) {
     sx = e->position().x();
     sy = e->position().y();
     _startPoint = e->pos();
@@ -40,7 +40,7 @@ void Plabel::mousePressEvent(QMouseEvent* e) {
     isOption = true;
 }
 //重写鼠标双击事件
-void Plabel::mouseDoubleClickEvent(QMouseEvent* e) {
+void ImageLabel::mouseDoubleClickEvent(QMouseEvent* e) {
 	QPixmap pixmap = this->pixmap();
 	QPixmap tmpPixmap = pixmap.copy(QRect(cutsx, cutsy, cutex - cutsx, cutey - cutsy));
 
@@ -49,7 +49,7 @@ void Plabel::mouseDoubleClickEvent(QMouseEvent* e) {
 	cutsx = cutsy = cutex = cutey = 0;
 }
 //重写鼠标移动事件
-void Plabel::mouseMoveEvent(QMouseEvent* e) {
+void ImageLabel::mouseMoveEvent(QMouseEvent* e) {
     if (isOption) {
         ex = e->position().x();
         ey = e->position().y();
@@ -89,7 +89,7 @@ void Plabel::mouseMoveEvent(QMouseEvent* e) {
 	update();
 }
 //重写鼠标弹起事件
-void Plabel::mouseReleaseEvent(QMouseEvent* e) {
+void ImageLabel::mouseReleaseEvent(QMouseEvent* e) {
 	isOption = false;
 	switch (OptionFlag) {
         case OptionTypeEnum::PaintRect: {
@@ -121,63 +121,13 @@ void Plabel::mouseReleaseEvent(QMouseEvent* e) {
     sx=sy=ex=ey=-1;
 }
 //重写lable的绘制方法
-void Plabel::paintEvent(QPaintEvent* event) {
+void ImageLabel::paintEvent(QPaintEvent* event) {
     //先调用父类的paintEvent为了显示'背景'!!!
     QLabel::paintEvent(event);
 	QPainter painter(this);
 	float l = 10;
 	float a = 0.5;
-	//绘制小方块
-	switch (OptionFlag) {
-        case OptionTypeEnum::PaintRect: {
-			painter.setPen(QPen(Qt::red, 2));
-			painter.drawRect(QRect(sx, sy, ex - sx, ey - sy));
-			break;
-		}
-		case OptionTypeEnum::PaintArrow: {
-			painter.setPen(QPen(Qt::red, 2));
-			float x3 = ex - l * cos(atan2((ey - sy), (ex - sx)) - a);//计算箭头的终点（x3,y3）
-			float y3 = ey - l * sin(atan2((ey - sy), (ex - sx)) - a);
-			float x4 = ex - l * sin(atan2((ex - sx), (ey - sy)) - a);//计算箭头的终点（x4,y4）
-			float y4 = ey - l * cos(atan2((ex - sx), (ey - sy)) - a);
-			painter.drawLine(ex, ey, x3, y3);
-			painter.drawLine(ex, ey, x4, y4);
-			painter.drawLine(sx, sy, ex, ey);
-			break;
-		}
-		case OptionTypeEnum::Vague: {
-//			QImage copyImage = this->pixmap().copy(sx, sy, ex - sx, ey - sy).toImage();
-//			QGraphicsBlurEffect* blur = new QGraphicsBlurEffect;
-//			QGraphicsOpacityEffect* opac = new QGraphicsOpacityEffect;
-//			blur->setBlurRadius(5);
-//			opac->setOpacity(0.5);
-//			QImage result = applyEffectToImage(copyImage, blur, 0);
-//			painter.drawImage(sx, sy, result);
-			break;
-		}
-		case OptionTypeEnum::PaintFreedom: {
-			painter.setPen(QPen(Qt::red, 2));
-			painter.drawLine(_startPoint, _endPoint);
-			_startPoint = _endPoint;
-			break;
-		}
-		case OptionTypeEnum::ActionCrop: {
-			cutsx = sx;
-			cutsy = sy;
-			cutex = ex;
-			cutey = ey;
-			//裁剪
-			painter.setPen(QPen(Qt::black, 1));
-			painter.drawRect(QRect(sx, sy, ex - sx, ey - sy));
-			//绘制圆点
-			QPainterPath path;
-			path.setFillRule(Qt::WindingFill);
-			painter.setPen(QPen(Qt::black, 1));
-			painter.setPen(Qt::SolidLine);
-			painter.drawPath(path);
-			break;
-		}
-	}
+    paintDragBtns();
 	//绘制矩形
 	for (int i = 0; i != _listRect.size(); i++) {
         painter.setPen(QPen(Qt::red, 2));
@@ -204,5 +154,77 @@ void Plabel::paintEvent(QPaintEvent* event) {
     if(isPaintTopLeft){
         painter.setPen(QPen(Qt::red, 1));
         painter.drawRect(imageResizeX,imageResizeY,this->x()+this->width()-imageResizeX,this->y()+this->height()-imageResizeY);
+    }
+}
+//拖拽框
+void ImageLabel::paintDragBtns(){
+    QPainter painter(this);
+    painter.setPen(QPen(Qt::black, 1));
+    QBrush brush;
+    brush.setColor(Qt::white);
+    brush.setStyle(Qt::SolidPattern);
+    painter.setBrush(brush);
+
+//    int x=this->pixmap().rect().x();
+//    int y=this->pixmap().rect().y();
+    QPoint pixmapPos = this->pos() + this->rect().center() - this->pixmap().rect().center();
+    int x=pixmapPos.x();
+    int y=pixmapPos.y();
+    int width=this->pixmap().width();
+    int height=this->pixmap().height();
+    //左上
+    topLeftRect=QRect(x-r,y-r,r,r);
+    painter.drawEllipse(topLeftRect);
+    //中上
+    topCenterRect=QRect(x+width/2,y-r,r,r);
+    painter.drawEllipse(topCenterRect);
+    //右上
+    topRightRect=QRect(x+width,y,r,r);
+    painter.drawEllipse(topRightRect);
+    //左中
+    centerLeftRect=QRect(x-r,y+height/2-r,r,r);
+    painter.drawEllipse(centerLeftRect);
+    //右中
+    centerRightRect=QRect(x+width,y+height/2-r,r,r);
+    painter.drawEllipse(centerRightRect);
+    //左下
+    bottomLeftRect=QRect(x-r,y+height,r,r);
+    painter.drawEllipse(bottomLeftRect);
+    //中下
+    bottomCenterRect=QRect(x+width/2-r,y+height,r,r);
+    painter.drawEllipse(bottomCenterRect);
+    //右下
+    bottomRightRect=QRect(x+width,y+height,r,r);
+    painter.drawEllipse(bottomRightRect);
+
+    if(isMouseLeftBtnDown){
+        //绘制调整图片的预览虚线
+        brush.setColor(Qt::transparent);
+        //        brush.setStyle(Qt::Dense1Pattern);
+        painter.setBrush(brush);
+        if(isTopLeft){
+                painter.drawRect(endX,endY,x+width-endX,y+height-endY);
+        }
+        else if(isTopCenter){
+                painter.drawRect(x,endY,width,y+height-endY);
+        }
+        else if(isTopRight){
+                painter.drawRect(x,endY,endX-x,y+height-endY);
+        }
+        else if(isCenterLeft){
+                painter.drawRect(endX,y,x+width-endX,height);
+        }
+        else if(isCenterRight){
+                painter.drawRect(x,y,endX-x,height);
+        }
+        else if(isBottomLeft){
+                painter.drawRect(endX,y,x+width-endX,endY-y);
+        }
+        else if(isBottomCenter){
+                painter.drawRect(x,y,width,endY-y);
+        }
+        else if(isBottomRight){
+                painter.drawRect(x,y,endX-x,endY-y);
+        }
     }
 }

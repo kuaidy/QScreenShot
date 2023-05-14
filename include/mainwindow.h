@@ -26,6 +26,7 @@
 #include <QApplication>
 #include "screenview.h"
 #include "editwindow.h"
+#include "common/globalsetting.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -40,9 +41,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    editwindow editwin;
-
-
+    EditWindow editwin;
 
 private:
     #ifdef Q_OS_WIN

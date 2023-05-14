@@ -12,4 +12,5 @@ enum OptionTypeEnum{
 extern OptionTypeEnum OptionFlag;
 //缩放比列
 extern float Scale;
+
 #endif

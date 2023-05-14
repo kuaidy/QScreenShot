@@ -15,6 +15,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QWidget>
 
@@ -27,6 +28,11 @@ public:
     QPushButton *pushButton;
     QPushButton *pushButton_2;
     QTabWidget *tabWidget;
+    QWidget *tab_convention;
+    QWidget *layoutWidget;
+    QGridLayout *gridLayout_4;
+    QLabel *label_4;
+    QSpinBox *imageCompressLevel;
     QWidget *tab;
     QGridLayout *gridLayout_2;
     QTabWidget *tabWidgetResource;
@@ -80,6 +86,27 @@ public:
         tabWidget->setTabsClosable(false);
         tabWidget->setMovable(false);
         tabWidget->setTabBarAutoHide(false);
+        tab_convention = new QWidget();
+        tab_convention->setObjectName(QString::fromUtf8("tab_convention"));
+        layoutWidget = new QWidget(tab_convention);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(20, 10, 149, 31));
+        gridLayout_4 = new QGridLayout(layoutWidget);
+        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
+        gridLayout_4->setContentsMargins(0, 0, 0, 0);
+        label_4 = new QLabel(layoutWidget);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        gridLayout_4->addWidget(label_4, 0, 1, 1, 1);
+
+        imageCompressLevel = new QSpinBox(layoutWidget);
+        imageCompressLevel->setObjectName(QString::fromUtf8("imageCompressLevel"));
+        imageCompressLevel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+        imageCompressLevel->setMaximum(10);
+
+        gridLayout_4->addWidget(imageCompressLevel, 0, 2, 1, 1);
+
+        tabWidget->addTab(tab_convention, QString());
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         gridLayout_2 = new QGridLayout(tab);
@@ -157,6 +184,8 @@ public:
         Setting->setWindowTitle(QCoreApplication::translate("Setting", "\350\256\276\347\275\256", nullptr));
         pushButton->setText(QCoreApplication::translate("Setting", "\344\277\235\345\255\230", nullptr));
         pushButton_2->setText(QCoreApplication::translate("Setting", "\345\217\226\346\266\210", nullptr));
+        label_4->setText(QCoreApplication::translate("Setting", "\345\233\276\347\211\207\350\264\250\351\207\217", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_convention), QCoreApplication::translate("Setting", "\345\270\270\350\247\204", nullptr));
         label_3->setText(QCoreApplication::translate("Setting", "token\345\234\260\345\235\200\357\274\232", nullptr));
         label_1->setText(QCoreApplication::translate("Setting", "\347\224\250\346\210\267\345\220\215\357\274\232", nullptr));
         label_2->setText(QCoreApplication::translate("Setting", "\345\257\206\347\240\201\357\274\232", nullptr));

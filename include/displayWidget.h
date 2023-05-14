@@ -3,12 +3,12 @@
 #include <QWidget>
 #include <QPainter>
 
-#include "plabel.h"
+#include "imagelabel.h"
 
-class displayWidget:public QWidget
+class DisplayWidget:public QWidget
 {
 public:
-    displayWidget();
+    DisplayWidget();
 
 public:
     void paintEvent(QPaintEvent *event);
@@ -16,7 +16,7 @@ public:
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
 public:
-    Plabel *imageLabel;
+    ImageLabel *imageLabel;
     QRect topLeftRect;
     QRect topCenterRect;
     QRect topRightRect;

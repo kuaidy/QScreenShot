@@ -1,4 +1,4 @@
-/********************************************************************************
+﻿/********************************************************************************
 ** Form generated from reading UI file 'editwindow.ui'
 **
 ** Created by: Qt User Interface Compiler version 6.2.4
@@ -23,7 +23,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_editwindow
+class Ui_EditWindow
 {
 public:
     QAction *filenew;
@@ -273,7 +273,7 @@ public:
 };
 
 namespace Ui {
-    class editwindow: public Ui_editwindow {};
+    class EditWindow: public Ui_EditWindow {};
 } // namespace Ui
 
 QT_END_NAMESPACE

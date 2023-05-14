@@ -1,10 +1,10 @@
 ﻿#include "../include/displayWidget.h"
 
-displayWidget::displayWidget()
+DisplayWidget::DisplayWidget()
 {
     this->setMouseTracking(true);
 }
-void displayWidget::paintEvent(QPaintEvent *paintEvent){
+void DisplayWidget::paintEvent(QPaintEvent *paintEvent){
     QPainter painter(this);
     painter.setPen(QPen(Qt::black, 1));
     QBrush brush;
@@ -73,13 +73,13 @@ void displayWidget::paintEvent(QPaintEvent *paintEvent){
 
 }
 
-void displayWidget::mousePressEvent(QMouseEvent *mouseEvent){
+void DisplayWidget::mousePressEvent(QMouseEvent *mouseEvent){
     startX=mouseEvent->position().x();
     startY=mouseEvent->position().y();
     isMouseLeftBtnDown=true;
 }
 
-void displayWidget::mouseMoveEvent(QMouseEvent *mouseEvent){
+void DisplayWidget::mouseMoveEvent(QMouseEvent *mouseEvent){
     QPoint cursorPoint=mouseEvent->pos();
     if(topLeftRect.contains(cursorPoint)){
         setCursor(Qt::SizeFDiagCursor);
@@ -115,7 +115,7 @@ void displayWidget::mouseMoveEvent(QMouseEvent *mouseEvent){
     update();
 }
 
-void displayWidget::mouseReleaseEvent(QMouseEvent *mouseEvent){
+void DisplayWidget::mouseReleaseEvent(QMouseEvent *mouseEvent){
 
     int x=imageLabel->x();
     int y=imageLabel->y();

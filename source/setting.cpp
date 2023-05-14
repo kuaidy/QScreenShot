@@ -59,7 +59,14 @@ void Setting::on_pushButton_clicked()
     QString password=ui->password->text();
     QString tokenUrl=ui->tokenUrl->text();
     QString mediaUrl=ui->mediaUrl->text();
+    QString imageCompressLevel=ui->imageCompressLevel->text();
     QSettings settings("setting.ini",QSettings::IniFormat);
+    //基本设置
+    settings.beginGroup("basic");
+    settings.setValue("imageCompressLevel",imageCompressLevel);
+    settings.endGroup();
+
+    //图片上传设置
     settings.beginGroup("upload");
     settings.setValue("userName",userName);
     settings.setValue("password",password);
@@ -75,8 +82,10 @@ void Setting::settingRead(){
     QString password = settingsread.value("upload/password").toString();
     QString tokenUrl = settingsread.value("upload/tokenUrl").toString();
     QString mediaUrl = settingsread.value("upload/mediaUrl").toString();
+    int imageCompressLevel=settingsread.value("basic/imageCompressLevel").toInt();
     ui->userName->setText(userName);
     ui->password->setText(password);
     ui->tokenUrl->setText(tokenUrl);
     ui->mediaUrl->setText(mediaUrl);
+    ui->imageCompressLevel->setValue(imageCompressLevel);
 }
