@@ -82,10 +82,11 @@ void EditWindow::on_filesaveother_triggered()
     fileDialog->setFileMode(QFileDialog::AnyFile);
     QString fileName=fileDialog->getSaveFileName(this,tr("另存为"),filestr+".png");
     if(!fileName.isNull()){
-        QWidget* qWidget= ui->tabWidget->currentWidget();
+        QWidget* tabWidget= ui->tabWidget->currentWidget();
         //根据子控件的名称查找子控件
-        QLabel* label = qWidget->findChild<QLabel*>();
-        QPixmap pixmap=label->grab();
+//        ImageLabel* imageLabel = qWidget->findChild<ImageLabel*>();
+        ImageLabel *imageLabel=dynamic_cast<ImageLabel*>(tabWidget);
+        QPixmap pixmap=imageLabel->pixmap();
         pixmap.save(fileName,"PNG",_globalSetting._imageCompressLevel*10);
     }
 }
@@ -206,7 +207,7 @@ void EditWindow::CreateTab(QPixmap pixMap,QString fileName){
 void EditWindow::CreateNewTab(QPixmap pixMap,QString fileName){
 //    //保存原始图片
 //    //创建一个窗口，放到tab里头
-//    //    QWidget *widget = new QWidget();
+//    QWidget *widget = new QWidget();
 //    displayWidget *widget=new displayWidget();
 //    //    widget->setStyleSheet("background-color:green;");
 //    QGridLayout *qgridlayout=new QGridLayout(widget);

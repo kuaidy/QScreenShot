@@ -124,7 +124,7 @@ void ImageLabel::mouseReleaseEvent(QMouseEvent* e) {
 void ImageLabel::paintEvent(QPaintEvent* event) {
     //先调用父类的paintEvent为了显示'背景'!!!
     QLabel::paintEvent(event);
-	QPainter painter(this);
+    QPainter painter(this);
 	float l = 10;
 	float a = 0.5;
     paintDragBtns();
@@ -156,7 +156,7 @@ void ImageLabel::paintEvent(QPaintEvent* event) {
         painter.drawRect(imageResizeX,imageResizeY,this->x()+this->width()-imageResizeX,this->y()+this->height()-imageResizeY);
     }
 }
-//拖拽框
+//绘制拖拽框
 void ImageLabel::paintDragBtns(){
     QPainter painter(this);
     painter.setPen(QPen(Qt::black, 1));
@@ -165,13 +165,13 @@ void ImageLabel::paintDragBtns(){
     brush.setStyle(Qt::SolidPattern);
     painter.setBrush(brush);
 
-//    int x=this->pixmap().rect().x();
-//    int y=this->pixmap().rect().y();
-    QPoint pixmapPos = this->pos() + this->rect().center() - this->pixmap().rect().center();
-    int x=pixmapPos.x();
-    int y=pixmapPos.y();
-    int width=this->pixmap().width();
-    int height=this->pixmap().height();
+    //为啥无法直接获取到图片的坐标呢
+    int width=this->pixmap().rect().width()/Scale;
+    int height=this->pixmap().rect().height()/Scale;
+    QPoint center=this->rect().center();
+    int x=center.x()-width/2;
+    int y=center.y()-height/2;
+
     //左上
     topLeftRect=QRect(x-r,y-r,r,r);
     painter.drawEllipse(topLeftRect);
@@ -179,7 +179,7 @@ void ImageLabel::paintDragBtns(){
     topCenterRect=QRect(x+width/2,y-r,r,r);
     painter.drawEllipse(topCenterRect);
     //右上
-    topRightRect=QRect(x+width,y,r,r);
+    topRightRect=QRect(x+width,y-r,r,r);
     painter.drawEllipse(topRightRect);
     //左中
     centerLeftRect=QRect(x-r,y+height/2-r,r,r);
