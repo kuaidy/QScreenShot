@@ -41,6 +41,8 @@ public:
     //设置鼠标样式
     void SetCursorPattern(int CalPos);
     void paintDragBtns();
+    void resizePixmap();
+    void changeCursorStyle(QMouseEvent* e);
 
     QRect topLeftRect;
     QRect topCenterRect;

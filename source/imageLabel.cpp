@@ -38,6 +38,7 @@ void ImageLabel::mousePressEvent(QMouseEvent* e) {
     _startPoint = e->pos();
     _endPoint = e->pos();
     isOption = true;
+    isMouseLeftBtnDown=true;
 }
 //重写鼠标双击事件
 void ImageLabel::mouseDoubleClickEvent(QMouseEvent* e) {
@@ -50,6 +51,12 @@ void ImageLabel::mouseDoubleClickEvent(QMouseEvent* e) {
 }
 //重写鼠标移动事件
 void ImageLabel::mouseMoveEvent(QMouseEvent* e) {
+    changeCursorStyle(e);
+
+    if(isMouseLeftBtnDown){
+        endX=e->position().x();
+        endY=e->position().y();
+    }
     if (isOption) {
         ex = e->position().x();
         ey = e->position().y();
@@ -67,22 +74,6 @@ void ImageLabel::mouseMoveEvent(QMouseEvent* e) {
 			}
 		}
 	}
-	//改变鼠标的样式
-	QPoint cursorPoint = this->mapFromGlobal(QCursor::pos());
-	if (this->geometry().contains(cursorPoint))
-	{
-		QPoint topLeftPoint(cutsx, cutsy);
-		QPoint bottomRightPoint(cutex, cutey);
-		QRect cutRect(topLeftPoint, bottomRightPoint);
-		if (cutRect.contains(cursorPoint)) {
-			setCursor(Qt::SizeAllCursor);
-		}
-		else {
-			setCursor(Qt::ArrowCursor);
-		}
-	}
-    //
-    QPoint cursorPos(ex, ey);
 
     imageResizeX=e->position().x();
     imageResizeY=e->position().y();
@@ -91,7 +82,11 @@ void ImageLabel::mouseMoveEvent(QMouseEvent* e) {
 //重写鼠标弹起事件
 void ImageLabel::mouseReleaseEvent(QMouseEvent* e) {
 	isOption = false;
-	switch (OptionFlag) {
+    isMouseLeftBtnDown=false;
+    isTopLeft=isTopCenter=isTopRight=isCenterLeft=isCenterRight=isBottomLeft=isBottomCenter=isBottomRight=false;
+
+    resizePixmap();
+    switch (OptionFlag) {
         case OptionTypeEnum::PaintRect: {
 			_listRect.append(QRect(sx, sy, ex - sx, ey - sy));
 			break;
@@ -226,5 +221,48 @@ void ImageLabel::paintDragBtns(){
         else if(isBottomRight){
                 painter.drawRect(x,y,endX-x,endY-y);
         }
+    }
+}
+//改变图片大小
+void ImageLabel::resizePixmap(){
+    QPixmap pixmap = this->pixmap();
+    int width=pixmap.width()+ex-sx;
+    int height=pixmap.height()+ey-ey;
+    QPixmap newPixmap(width,height);
+    newPixmap.fill(Qt::white);
+
+    QPainter painter(&newPixmap);
+    painter.drawPixmap(QRect(0,0, width,height), pixmap);
+    this->setPixmap(newPixmap);
+}
+//改变鼠标样式
+void ImageLabel::changeCursorStyle(QMouseEvent* e){
+    QPoint cursorPoint=e->pos();
+    if(topLeftRect.contains(cursorPoint)){
+        setCursor(Qt::SizeFDiagCursor);
+        isTopLeft=true;
+    }else if(topCenterRect.contains(cursorPoint)){
+        setCursor(Qt::SizeVerCursor);
+        isTopCenter=true;
+    }else if(topRightRect.contains(cursorPoint)){
+        setCursor(Qt::SizeBDiagCursor);
+        isTopRight=true;
+    }else if(centerLeftRect.contains(cursorPoint)){
+        setCursor(Qt::SizeHorCursor);
+        isCenterLeft=true;
+    }else if(centerRightRect.contains(cursorPoint)){
+        setCursor(Qt::SizeHorCursor);
+        isCenterRight=true;
+    }else if(bottomLeftRect.contains(cursorPoint)){
+        setCursor(Qt::SizeBDiagCursor);
+        isBottomLeft=true;
+    }else if(bottomCenterRect.contains(cursorPoint)){
+        setCursor(Qt::SizeVerCursor);
+        isBottomCenter=true;
+    }else if(bottomRightRect.contains(cursorPoint)){
+        setCursor(Qt::SizeFDiagCursor);
+        isBottomRight=true;
+    }else{
+        setCursor(Qt::ArrowCursor);
     }
 }
