@@ -1,5 +1,5 @@
 ﻿#include "../include/editwindow.h"
-#include "ui_editwindow.h"
+#include "../include/ui/ui_editwindow.h"
 
 #define STRETCH_RECT_HEIGHT 4
 #define STRETCH_RECT_WIDTH 4
@@ -113,34 +113,35 @@ void EditWindow::on_actionpaintfreedom_triggered(bool checked)
 void EditWindow::on_enlarge_triggered()
 {
     const int num=2;
-    QWidget* qWidget= ui->tabWidget->currentWidget();
+    QWidget* tabWidget= ui->tabWidget->currentWidget();
     //根据子控件的名称查找子控件
-    QLabel* label = qWidget->findChild<QLabel*>();
+    ImageLabel* imageLabel = tabWidget->findChild<ImageLabel*>();
+//    ImageLabel *imageLabel=dynamic_cast<ImageLabel*>(tabWidget);
     //获取原图片
     int pixWidth=PlabelImage.width();
     int pixHeigth=PlabelImage.height();
     Scale=Scale*num;
     QPixmap pixMap=QPixmap::fromImage(PlabelImage.scaled(pixWidth*Scale,pixHeigth*Scale,Qt::KeepAspectRatio,Qt::SmoothTransformation));
-    label->setPixmap(pixMap);
-    label->resize(pixMap.width(),pixMap.height());
+    imageLabel->setPixmap(pixMap);
+    imageLabel->resize(pixMap.width(),pixMap.height());
     sizeStatus->setText("大小："+QString::number(pixMap.width())+"x"+QString::number(pixMap.height()));
     scaleStatus->setText("缩放："+QString::number(Scale*100)+"%");
 }
-
 //缩小
 void EditWindow::on_narrow_triggered()
 {
     const int num=2;
-    QWidget* qWidget= ui->tabWidget->currentWidget();
+    QWidget* tabWidget= ui->tabWidget->currentWidget();
     //根据子控件的名称查找子控件
-    QLabel* label = qWidget->findChild<QLabel*>();
+  ImageLabel* imageLabel = tabWidget->findChild<ImageLabel*>();
+//    ImageLabel *imageLabel=dynamic_cast<ImageLabel*>(tabWidget);
     //获取原图片
     int pixWidth=PlabelImage.width();
     int pixHeigth=PlabelImage.height();
     Scale=Scale/num;
     QPixmap pixMap=QPixmap::fromImage(PlabelImage.scaled(pixWidth*Scale,pixHeigth*Scale,Qt::KeepAspectRatio,Qt::SmoothTransformation));
-    label->setPixmap(pixMap);
-    label->resize(pixMap.width(),pixMap.height());
+    imageLabel->setPixmap(pixMap);
+    imageLabel->resize(pixMap.width(),pixMap.height());
     sizeStatus->setText("大小："+QString::number(pixMap.width())+"x"+QString::number(pixMap.height()));
     scaleStatus->setText("缩放："+QString::number(Scale*100)+"%");
 }
@@ -211,9 +212,7 @@ void EditWindow::CreateNewTab(QPixmap pixMap,QString fileName){
 //    displayWidget *widget=new displayWidget();
 //    //    widget->setStyleSheet("background-color:green;");
 //    QGridLayout *qgridlayout=new QGridLayout(widget);
-//    //去除默认边距
-//    qgridlayout->setSpacing(0);
-//    qgridlayout->setContentsMargins(0,0,0,0);
+
 //    //创建滚动条
 //    QScrollArea *scrollarea=new QScrollArea(widget);
 //    scrollarea->setStyleSheet("background-color:white;");
@@ -222,7 +221,7 @@ void EditWindow::CreateNewTab(QPixmap pixMap,QString fileName){
 //    //创建一个label用来显示图片
 //    widget->imageLabel=new Plabel();
     ImageLabel *imageLabel=new ImageLabel();
-    imageLabel->setStyleSheet("background-color:#f0f0f0;");
+    imageLabel->setStyleSheet("background-color:blue;");
     imageLabel->setMargin(0);
     //connect(imagelabel,SIGNAL(mouseDoubleClickEvent(QMouseEvent*)),this,SLOT(removeSubTab(int)));
     imageLabel->setObjectName(fileName);
@@ -241,8 +240,21 @@ void EditWindow::CreateNewTab(QPixmap pixMap,QString fileName){
     //设置图像
     imageLabel->setPixmap(pixMap);
     //插入页
-    ui->tabWidget->addTab(imageLabel,fileName);
-    ui->tabWidget->setCurrentWidget(imageLabel);
+//    QGridLayout *qgridlayout=new QGridLayout(imageLabel);
+    //去除默认边距
+//    qgridlayout->setSpacing(0);
+//    qgridlayout->setContentsMargins(0,0,0,0);
+    //创建滚动条
+    QScrollArea *scrollarea=new QScrollArea();
+    scrollarea->setStyleSheet("background-color:white;");
+    scrollarea->setAttribute(Qt::WA_TranslucentBackground, true);
+    scrollarea->setAlignment(Qt::AlignCenter);
+    scrollarea->setMouseTracking(true);
+    scrollarea->setWidget(imageLabel);
+//    qgridlayout->addWidget(scrollarea);
+
+    ui->tabWidget->addTab(scrollarea,fileName);
+    ui->tabWidget->setCurrentWidget(scrollarea);
 }
 
 

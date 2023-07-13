@@ -74,7 +74,6 @@ private slots:
     void removeSubTab(int index);
     void on_actionupload_triggered();
     void on_actionCrop_triggered(bool checked);
-
     void on_about_triggered();
     void on_copy_triggered();
 };
