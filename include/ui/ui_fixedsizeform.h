@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'fixedsizeform.ui'
 **
-** Created by: Qt User Interface Compiler version 6.2.4
+** Created by: Qt User Interface Compiler version 6.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -45,30 +45,30 @@ public:
     void setupUi(QWidget *fixedsizeform)
     {
         if (fixedsizeform->objectName().isEmpty())
-            fixedsizeform->setObjectName(QString::fromUtf8("fixedsizeform"));
+            fixedsizeform->setObjectName("fixedsizeform");
         fixedsizeform->resize(318, 159);
         fixedsizeform->setStyleSheet(QString::fromUtf8(""));
         gridLayout = new QGridLayout(fixedsizeform);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName("gridLayout");
         horizontalFrame = new QFrame(fixedsizeform);
-        horizontalFrame->setObjectName(QString::fromUtf8("horizontalFrame"));
+        horizontalFrame->setObjectName("horizontalFrame");
         horizontalLayout = new QHBoxLayout(horizontalFrame);
         horizontalLayout->setSpacing(0);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setObjectName("horizontalLayout");
         horizontalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
         horizontalLayout->setContentsMargins(1, 1, 1, 1);
         pushButton = new QPushButton(horizontalFrame);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setObjectName("pushButton");
 
         horizontalLayout->addWidget(pushButton);
 
         pushButton_2 = new QPushButton(horizontalFrame);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        pushButton_2->setObjectName("pushButton_2");
 
         horizontalLayout->addWidget(pushButton_2);
 
         pushButton_3 = new QPushButton(horizontalFrame);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        pushButton_3->setObjectName("pushButton_3");
 
         horizontalLayout->addWidget(pushButton_3);
 
@@ -76,36 +76,36 @@ public:
         gridLayout->addWidget(horizontalFrame, 4, 0, 1, 1, Qt::AlignVCenter);
 
         groupBox = new QGroupBox(fixedsizeform);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setObjectName("groupBox");
         groupBox->setLayoutDirection(Qt::LeftToRight);
         groupBox->setAutoFillBackground(false);
         groupBox->setStyleSheet(QString::fromUtf8(""));
         gridLayout_2 = new QGridLayout(groupBox);
-        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        gridLayout_2->setObjectName("gridLayout_2");
         gridLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
         gridLayout_2->setHorizontalSpacing(4);
         gridLayout_2->setContentsMargins(-1, 10, 10, -1);
         horizontalFrame1 = new QFrame(groupBox);
-        horizontalFrame1->setObjectName(QString::fromUtf8("horizontalFrame1"));
+        horizontalFrame1->setObjectName("horizontalFrame1");
         horizontalLayout_2 = new QHBoxLayout(horizontalFrame1);
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_2->setObjectName("horizontalLayout_2");
         label = new QLabel(horizontalFrame1);
-        label->setObjectName(QString::fromUtf8("label"));
+        label->setObjectName("label");
 
         horizontalLayout_2->addWidget(label);
 
         spinBox_2 = new QSpinBox(horizontalFrame1);
-        spinBox_2->setObjectName(QString::fromUtf8("spinBox_2"));
+        spinBox_2->setObjectName("spinBox_2");
 
         horizontalLayout_2->addWidget(spinBox_2, 0, Qt::AlignRight);
 
         label_2 = new QLabel(horizontalFrame1);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setObjectName("label_2");
 
         horizontalLayout_2->addWidget(label_2);
 
         spinBox = new QSpinBox(horizontalFrame1);
-        spinBox->setObjectName(QString::fromUtf8("spinBox"));
+        spinBox->setObjectName("spinBox");
         spinBox->setContextMenuPolicy(Qt::DefaultContextMenu);
         spinBox->setLayoutDirection(Qt::LeftToRight);
         spinBox->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
@@ -115,7 +115,7 @@ public:
         horizontalLayout_2->addWidget(spinBox, 0, Qt::AlignHCenter);
 
         comboBox = new QComboBox(horizontalFrame1);
-        comboBox->setObjectName(QString::fromUtf8("comboBox"));
+        comboBox->setObjectName("comboBox");
 
         horizontalLayout_2->addWidget(comboBox);
 

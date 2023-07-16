@@ -27,6 +27,7 @@ public:
     QRect m_leftTopRect;
     AntLine* antLine=nullptr;
 
+
     //重写绘制方法
     void paintEvent(QPaintEvent *event);
     //重写鼠标按下方法
@@ -68,6 +69,8 @@ public:
     int startHeight=0;
     int endX=0;
     int endY=0;
+    //笔刷颜色
+    QColor penColor;
 private:
     //矩形
     QList<QRect> _listRect; 
@@ -75,6 +78,7 @@ private:
     QVector<QVector<int>> _listSeat;
     //自由绘制坐标点
     QVector<QVector<int>> _listPoint;
+    QVector<QPoint> _freedomPoints;
     QVector<QVector<QPoint>> _listLine;
 
     QPoint _startPoint;
@@ -82,6 +86,9 @@ private:
 
     QPoint _cutStartPoint;
     QPoint _cutEndPoint;
+    int _cutsx=-1,_cutsy=-1,_cutex,_cutey;
+    bool _isCutting=false;
+    bool _isCuttingEnd=false;
 
 signals:
     void mouseDoubleClickEvent(QMouseEvent *event);

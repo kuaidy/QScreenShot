@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'colorvalue.ui'
 **
-** Created by: Qt User Interface Compiler version 6.2.4
+** Created by: Qt User Interface Compiler version 6.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -29,22 +29,22 @@ public:
     void setupUi(QWidget *ColorValue)
     {
         if (ColorValue->objectName().isEmpty())
-            ColorValue->setObjectName(QString::fromUtf8("ColorValue"));
+            ColorValue->setObjectName("ColorValue");
         ColorValue->resize(142, 74);
         gridLayout = new QGridLayout(ColorValue);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName("gridLayout");
         colorRGB = new QLabel(ColorValue);
-        colorRGB->setObjectName(QString::fromUtf8("colorRGB"));
+        colorRGB->setObjectName("colorRGB");
 
         gridLayout->addWidget(colorRGB, 1, 0, 1, 1, Qt::AlignHCenter|Qt::AlignVCenter);
 
         colorHex = new QLabel(ColorValue);
-        colorHex->setObjectName(QString::fromUtf8("colorHex"));
+        colorHex->setObjectName("colorHex");
 
         gridLayout->addWidget(colorHex, 4, 0, 1, 1, Qt::AlignHCenter|Qt::AlignVCenter);
 
         colorPre = new QFrame(ColorValue);
-        colorPre->setObjectName(QString::fromUtf8("colorPre"));
+        colorPre->setObjectName("colorPre");
         colorPre->setStyleSheet(QString::fromUtf8(""));
         colorPre->setFrameShape(QFrame::StyledPanel);
         colorPre->setFrameShadow(QFrame::Raised);

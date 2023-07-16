@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'formtimer.ui'
 **
-** Created by: Qt User Interface Compiler version 6.2.4
+** Created by: Qt User Interface Compiler version 6.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -26,12 +26,12 @@ public:
     void setupUi(QWidget *FormTimer)
     {
         if (FormTimer->objectName().isEmpty())
-            FormTimer->setObjectName(QString::fromUtf8("FormTimer"));
+            FormTimer->setObjectName("FormTimer");
         FormTimer->resize(400, 300);
         gridLayout = new QGridLayout(FormTimer);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName("gridLayout");
         label = new QLabel(FormTimer);
-        label->setObjectName(QString::fromUtf8("label"));
+        label->setObjectName("label");
         label->setStyleSheet(QString::fromUtf8("background:red"));
 
         gridLayout->addWidget(label, 0, 0, 1, 1, Qt::AlignHCenter|Qt::AlignVCenter);

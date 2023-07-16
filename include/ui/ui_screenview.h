@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'screenview.ui'
 **
-** Created by: Qt User Interface Compiler version 6.2.4
+** Created by: Qt User Interface Compiler version 6.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -24,10 +24,10 @@ public:
     void setupUi(QWidget *screenview)
     {
         if (screenview->objectName().isEmpty())
-            screenview->setObjectName(QString::fromUtf8("screenview"));
+            screenview->setObjectName("screenview");
         screenview->resize(400, 300);
         gridLayout = new QGridLayout(screenview);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName("gridLayout");
 
         retranslateUi(screenview);
 

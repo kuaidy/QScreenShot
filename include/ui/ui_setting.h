@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'setting.ui'
 **
-** Created by: Qt User Interface Compiler version 6.2.4
+** Created by: Qt User Interface Compiler version 6.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -50,22 +50,22 @@ public:
     void setupUi(QWidget *Setting)
     {
         if (Setting->objectName().isEmpty())
-            Setting->setObjectName(QString::fromUtf8("Setting"));
+            Setting->setObjectName("Setting");
         Setting->resize(547, 422);
         gridLayout = new QGridLayout(Setting);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setObjectName("gridLayout");
         pushButton = new QPushButton(Setting);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setObjectName("pushButton");
 
         gridLayout->addWidget(pushButton, 2, 2, 1, 1);
 
         pushButton_2 = new QPushButton(Setting);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        pushButton_2->setObjectName("pushButton_2");
 
         gridLayout->addWidget(pushButton_2, 2, 3, 1, 1);
 
         tabWidget = new QTabWidget(Setting);
-        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tabWidget->setObjectName("tabWidget");
         QFont font;
         font.setBold(false);
         font.setItalic(false);
@@ -87,20 +87,20 @@ public:
         tabWidget->setMovable(false);
         tabWidget->setTabBarAutoHide(false);
         tab_convention = new QWidget();
-        tab_convention->setObjectName(QString::fromUtf8("tab_convention"));
+        tab_convention->setObjectName("tab_convention");
         layoutWidget = new QWidget(tab_convention);
-        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setObjectName("layoutWidget");
         layoutWidget->setGeometry(QRect(20, 10, 149, 31));
         gridLayout_4 = new QGridLayout(layoutWidget);
-        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
+        gridLayout_4->setObjectName("gridLayout_4");
         gridLayout_4->setContentsMargins(0, 0, 0, 0);
         label_4 = new QLabel(layoutWidget);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setObjectName("label_4");
 
         gridLayout_4->addWidget(label_4, 0, 1, 1, 1);
 
         imageCompressLevel = new QSpinBox(layoutWidget);
-        imageCompressLevel->setObjectName(QString::fromUtf8("imageCompressLevel"));
+        imageCompressLevel->setObjectName("imageCompressLevel");
         imageCompressLevel->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         imageCompressLevel->setMaximum(10);
 
@@ -108,56 +108,56 @@ public:
 
         tabWidget->addTab(tab_convention, QString());
         tab = new QWidget();
-        tab->setObjectName(QString::fromUtf8("tab"));
+        tab->setObjectName("tab");
         gridLayout_2 = new QGridLayout(tab);
-        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        gridLayout_2->setObjectName("gridLayout_2");
         tabWidgetResource = new QTabWidget(tab);
-        tabWidgetResource->setObjectName(QString::fromUtf8("tabWidgetResource"));
+        tabWidgetResource->setObjectName("tabWidgetResource");
         Wordpress = new QWidget();
-        Wordpress->setObjectName(QString::fromUtf8("Wordpress"));
+        Wordpress->setObjectName("Wordpress");
         gridLayout_3 = new QGridLayout(Wordpress);
-        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
+        gridLayout_3->setObjectName("gridLayout_3");
         label_3 = new QLabel(Wordpress);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setObjectName("label_3");
         label_3->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         gridLayout_3->addWidget(label_3, 2, 0, 1, 1);
 
         label_1 = new QLabel(Wordpress);
-        label_1->setObjectName(QString::fromUtf8("label_1"));
+        label_1->setObjectName("label_1");
         label_1->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         gridLayout_3->addWidget(label_1, 0, 0, 1, 1);
 
         password = new QLineEdit(Wordpress);
-        password->setObjectName(QString::fromUtf8("password"));
+        password->setObjectName("password");
 
         gridLayout_3->addWidget(password, 1, 2, 1, 1);
 
         userName = new QLineEdit(Wordpress);
-        userName->setObjectName(QString::fromUtf8("userName"));
+        userName->setObjectName("userName");
 
         gridLayout_3->addWidget(userName, 0, 2, 1, 1);
 
         label_2 = new QLabel(Wordpress);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setObjectName("label_2");
         label_2->setLayoutDirection(Qt::LeftToRight);
         label_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         gridLayout_3->addWidget(label_2, 1, 0, 1, 1);
 
         tokenUrl = new QLineEdit(Wordpress);
-        tokenUrl->setObjectName(QString::fromUtf8("tokenUrl"));
+        tokenUrl->setObjectName("tokenUrl");
 
         gridLayout_3->addWidget(tokenUrl, 2, 2, 1, 1);
 
         label = new QLabel(Wordpress);
-        label->setObjectName(QString::fromUtf8("label"));
+        label->setObjectName("label");
 
         gridLayout_3->addWidget(label, 3, 0, 1, 1);
 
         mediaUrl = new QLineEdit(Wordpress);
-        mediaUrl->setObjectName(QString::fromUtf8("mediaUrl"));
+        mediaUrl->setObjectName("mediaUrl");
 
         gridLayout_3->addWidget(mediaUrl, 3, 2, 1, 1);
 

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>editwindow</class>
- <widget class="QMainWindow" name="editwindow">
+ <class>EditWindow</class>
+ <widget class="QMainWindow" name="EditWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -33,7 +33,7 @@
      <x>0</x>
      <y>0</y>
      <width>931</width>
-     <height>30</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
@@ -90,6 +90,9 @@
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
@@ -99,6 +102,7 @@
    <addaction name="actionpaintfreedom"/>
    <addaction name="paintarrow"/>
    <addaction name="paintrec"/>
+   <addaction name="selectcolor"/>
   </widget>
   <widget class="QToolBar" name="toolBarOption">
    <property name="windowTitle">
@@ -307,6 +311,17 @@
    </property>
    <property name="toolTip">
     <string>粘贴图像</string>
+   </property>
+  </action>
+  <action name="selectcolor">
+   <property name="icon">
+    <iconset theme="accessories-calculator"/>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="toolTip">
+    <string>选择颜色</string>
    </property>
   </action>
  </widget>

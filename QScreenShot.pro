@@ -82,4 +82,4 @@ RESOURCES += \
 RC_ICONS=resource/images/cut.ico
 
 #指定ui头文件生成的位置
-UI_DIR=../include/ui/
+UI_DIR=../QScreenShot/include/ui/

@@ -1,25 +1,25 @@
 ﻿#include "../include/imageLabel.h"
 
-QImage applyEffectToImage(QImage src, QGraphicsEffect* effect, int extent);
+//QImage applyEffectToImage(QImage src, QGraphicsEffect* effect, int extent);
 
-//图片模糊处理
-QImage applyEffectToImage(QImage src, QGraphicsEffect* effect, int extent = 0)
-{
-    return QImage();
-//	if (src.isNull()) return QImage();
-//	if (!effect) return src;
-//	QGraphicsScene scene;
-//	QGraphicsPixmapItem item;
-//	item.setPixmap(QPixmap::fromImage(src));
-//	item.setGraphicsEffect(effect);
-//	item.setOpacity(1);
-//	scene.addItem(&item);
-//	QImage res(src.size() + QSize(extent * 2, extent * 2), QImage::Format_ARGB32);
-//	res.fill(Qt::transparent);
-//	QPainter ptr(&res);
-//	scene.render(&ptr, QRectF(), QRectF(-extent, -extent, src.width() + extent * 2, src.height() + extent * 2));
-//	return res;
-}
+////图片模糊处理
+//QImage applyEffectToImage(QImage src, QGraphicsEffect* effect, int extent = 0)
+//{
+//    return QImage();
+////	if (src.isNull()) return QImage();
+////	if (!effect) return src;
+////	QGraphicsScene scene;
+////	QGraphicsPixmapItem item;
+////	item.setPixmap(QPixmap::fromImage(src));
+////	item.setGraphicsEffect(effect);
+////	item.setOpacity(1);
+////	scene.addItem(&item);
+////	QImage res(src.size() + QSize(extent * 2, extent * 2), QImage::Format_ARGB32);
+////	res.fill(Qt::transparent);
+////	QPainter ptr(&res);
+////	scene.render(&ptr, QRectF(), QRectF(-extent, -extent, src.width() + extent * 2, src.height() + extent * 2));
+////	return res;
+//}
 
 
 ImageLabel::ImageLabel(QWidget* parent)
@@ -27,7 +27,7 @@ ImageLabel::ImageLabel(QWidget* parent)
 	//设置默认追踪鼠标
 	this->setMouseTracking(true);
 }
-ImageLabel::~ImageLabel() {
+ImageLabel:: ~ImageLabel(){
 
 }
 
@@ -39,42 +39,55 @@ void ImageLabel::mousePressEvent(QMouseEvent* e) {
     _endPoint = e->pos();
     isOption = true;
     isMouseLeftBtnDown=true;
+
+    switch (OptionFlag) {
+        case OptionTypeEnum::PaintFreedom: {
+            _freedomPoints.clear();
+            _freedomPoints.push_back(_startPoint);
+            break;
+        }
+        case OptionTypeEnum::ActionCrop:{
+            if(!_isCutting){
+                _cutsx=e->pos().x();
+                _cutsy=e->pos().y();
+            }
+            break;
+        }
+        default: {
+
+        }
+    }
+
 }
 //重写鼠标双击事件
 void ImageLabel::mouseDoubleClickEvent(QMouseEvent* e) {
-	QPixmap pixmap = this->pixmap();
-	QPixmap tmpPixmap = pixmap.copy(QRect(cutsx, cutsy, cutex - cutsx, cutey - cutsy));
 
-    this->resize(tmpPixmap.width()+100, tmpPixmap.height());
-    this->setPixmap(tmpPixmap);
-	cutsx = cutsy = cutex = cutey = 0;
 }
 //重写鼠标移动事件
 void ImageLabel::mouseMoveEvent(QMouseEvent* e) {
+    ex = e->position().x();
+    ey = e->position().y();
     changeCursorStyle(e);
-
     if(isMouseLeftBtnDown){
         endX=e->position().x();
         endY=e->position().y();
     }
-    if (isOption) {
-        ex = e->position().x();
-        ey = e->position().y();
-		_endPoint = e->pos();
-		switch (OptionFlag) {
-			case OptionTypeEnum::PaintFreedom: {
-				QVector<QPoint> tmpPoint;
-				tmpPoint.append(_startPoint);
-				tmpPoint.append(_endPoint);
-				_listLine.append(tmpPoint);
-				break;
-			}
-			default: {
+    switch (OptionFlag) {
+        case OptionTypeEnum::PaintFreedom: {
+            _freedomPoints.push_back(_endPoint);
+            break;
+        }
+        case OptionTypeEnum::ActionCrop:{
+            if(!_isCutting){
+                _cutex=e->pos().x();
+                _cutey=e->pos().y();
+            }
+            break;
+        }
+        default: {
 
-			}
-		}
-	}
-
+        }
+    }
     imageResizeX=e->position().x();
     imageResizeY=e->position().y();
 	update();
@@ -84,8 +97,8 @@ void ImageLabel::mouseReleaseEvent(QMouseEvent* e) {
 	isOption = false;
     isMouseLeftBtnDown=false;
     isTopLeft=isTopCenter=isTopRight=isCenterLeft=isCenterRight=isBottomLeft=isBottomCenter=isBottomRight=false;
-
-    resizePixmap();
+    ex=e->pos().x();
+    ey=e->pos().y();
     switch (OptionFlag) {
         case OptionTypeEnum::PaintRect: {
 			_listRect.append(QRect(sx, sy, ex - sx, ey - sy));
@@ -101,19 +114,33 @@ void ImageLabel::mouseReleaseEvent(QMouseEvent* e) {
 			break;
 		}
 		case OptionTypeEnum::ActionCrop: {
-			/// <summary>
-			/// 绘制蚂蚁线
-			/// </summary>
-			/// <param name="event"></param>
-			if (antLine == nullptr) {
-				antLine = new AntLine(this);
-			}
-			antLine->resize(abs(ex - sx), abs(ey - sy));
-			antLine->move(sx, sy);
-			antLine->show();
+            //点击蚂蚁线范围之外，表示裁剪确认
+            if(antLine!=nullptr){
+                QRect cutRect(antLine->x(),antLine->y(),antLine->width(),antLine->height());
+                if(!cutRect.contains(_startPoint))
+                {
+                    QPixmap pixmap = this->pixmap();
+                    QPixmap tmpPixmap = pixmap.copy(cutRect);
+                    this->resize(tmpPixmap.width(), tmpPixmap.height());
+                    this->setPixmap(tmpPixmap);
+                    _cutsx=_cutsy=_cutex=_cutey=-1;
+                    _isCutting=false;
+                    antLine->close();
+                    antLine=nullptr;
+                }else{
+                    if(!_isCutting){
+                        _cutex=e->pos().x();
+                        _cutey=e->pos().y();
+                        _isCutting=true;
+                    }
+                }
+            }
 		}
+        case OptionTypeEnum::PaintFreedom:{
+            _listLine.push_back(_freedomPoints);
+            break;
+        }
 	}
-    sx=sy=ex=ey=-1;
 }
 //重写lable的绘制方法
 void ImageLabel::paintEvent(QPaintEvent* event) {
@@ -122,16 +149,72 @@ void ImageLabel::paintEvent(QPaintEvent* event) {
     QPainter painter(this);
 	float l = 10;
 	float a = 0.5;
-    paintDragBtns();
+    QPen pen(penColor,2);
+    //实时绘制，鼠标左键按下的时候绘制
+    if(isMouseLeftBtnDown){
+        switch (OptionFlag) {
+            case OptionTypeEnum::PaintRect: {
+                painter.setPen(pen);
+                painter.drawRect(QRect(sx,sy,ex-sx,ey-sy));
+                break;
+            }
+            case OptionTypeEnum::PaintArrow: {
+                painter.setPen(pen);
+                float x3 = ex - l * cos(atan2((ey - sy), (ex - sx)) - a);//计算箭头的终点（x3,y3）
+                float y3 = ey - l * sin(atan2((ey - sy), (ex - sx)) - a);
+                float x4 = ex - l * sin(atan2((ex - sx), (ey - sy)) - a);//计算箭头的终点（x4,y4）
+                float y4 = ey - l * cos(atan2((ex - sx), (ey - sy)) - a);
+                painter.drawLine(ex, ey, x3, y3);
+                painter.drawLine(ex, ey, x4, y4);
+                painter.drawLine(sx, sy, ex, ey);
+                break;
+            }
+            case OptionTypeEnum::PaintFreedom:{
+                for(int i=0;i<_freedomPoints.size()-1;i++)
+                {
+                    painter.setPen(pen);
+                    painter.drawLine(_freedomPoints[i],_freedomPoints[i+1]);
+                }
+                break;
+            }
+            case OptionTypeEnum::ActionCrop:{
+                if(_cutsx!=-1&&_cutsy!=-1&&_cutex!=-1&&_cutey!=-1)
+                {
+                    //剪切绘制蚂蚁线
+                    if (antLine == nullptr) {
+                        antLine = new AntLine(this);
+                    }
+                    antLine->resize(abs(_cutex - _cutsx), abs(_cutey - _cutsy));
+                    if(_cutex>_cutsx&&_cutey>_cutsy)
+                    {
+                        antLine->move(_cutsx, _cutsy);
+                    }
+                    else if(_cutsx>_cutex&&_cutey>_cutsy){
+                        antLine->move(_cutex, _cutsy);
+                    }
+                    else if(_cutex>_cutsx&&_cutsy>_cutey)
+                    {
+                        antLine->move(_cutsx,_cutey);
+                    }
+                    else if(_cutsx>_cutex&&_cutsy>_cutey){
+                        antLine->move(_cutex,_cutey);
+                    }
+                    antLine->show();
+                }
+                break;
+            }
+        }
+    }
+
 	//绘制矩形
 	for (int i = 0; i != _listRect.size(); i++) {
-        painter.setPen(QPen(Qt::red, 2));
+        painter.setPen(pen);
 		painter.drawRect(QRect(_listRect.at(i).x(), _listRect.at(i).y(), _listRect.at(i).width(), _listRect.at(i).height()));
 	}
 	//绘制箭头
 	for (int i = 0; i != _listSeat.size(); i++)
 	{
-        painter.setPen(QPen(Qt::red, 2));
+        painter.setPen(pen);
 		float x3 = _listSeat[i][2] - l * cos(atan2((_listSeat[i][3] - _listSeat[i][1]), (_listSeat[i][2] - _listSeat[i][0])) - a);//计算箭头的终点（x3,y3）
 		float y3 = _listSeat[i][3] - l * sin(atan2((_listSeat[i][3] - _listSeat[i][1]), (_listSeat[i][2] - _listSeat[i][0])) - a);
 		float x4 = _listSeat[i][2] - l * sin(atan2((_listSeat[i][2] - _listSeat[i][0]), (_listSeat[i][3] - _listSeat[i][1])) - a);//计算箭头的终点（x4,y4）
@@ -141,9 +224,11 @@ void ImageLabel::paintEvent(QPaintEvent* event) {
 		painter.drawLine(_listSeat[i][0], _listSeat[i][1], _listSeat[i][2], _listSeat[i][3]);
 	}
 	//自由绘制
-	for (int i = 0; i != _listLine.size(); i++) {
-        painter.setPen(QPen(Qt::red, 2));
-		painter.drawLine(_listLine[i][0], _listLine[i][1]);
+    for (int i = 0; i < _listLine.size(); i++) {
+        for(int j=0;j<_listLine[i].size()-1;j++){
+            painter.setPen(pen);
+            painter.drawLine(_listLine[i][j],_listLine[i][j+1]);
+        }
 	}
 
     if(isPaintTopLeft){

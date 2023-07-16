@@ -59,6 +59,7 @@ private:
     QLabel *sizeStatus;
     //状态栏缩放比例
     QLabel *scaleStatus;
+    ImageLabel *_imageLabel;
 public:
     void editview(QPixmap *qpix);
 private slots:
@@ -76,6 +77,7 @@ private slots:
     void on_actionCrop_triggered(bool checked);
     void on_about_triggered();
     void on_copy_triggered();
+    void on_selectcolor_triggered();
 };
 
 #endif // EDITWINDOW_H

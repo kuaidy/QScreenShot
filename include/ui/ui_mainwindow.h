@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 6.2.4
+** Created by: Qt User Interface Compiler version 6.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -33,7 +33,7 @@ public:
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
+            MainWindow->setObjectName("MainWindow");
         MainWindow->setWindowModality(Qt::NonModal);
         MainWindow->setEnabled(true);
         MainWindow->resize(230, 54);
@@ -47,11 +47,11 @@ public:
         MainWindow->setAnimated(true);
         MainWindow->setUnifiedTitleAndToolBarOnMac(false);
         centralwidget = new QWidget(MainWindow);
-        centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
+        centralwidget->setObjectName("centralwidget");
         horizontalLayout = new QHBoxLayout(centralwidget);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setObjectName("horizontalLayout");
         pb_fullscreenshot = new QPushButton(centralwidget);
-        pb_fullscreenshot->setObjectName(QString::fromUtf8("pb_fullscreenshot"));
+        pb_fullscreenshot->setObjectName("pb_fullscreenshot");
         pb_fullscreenshot->setEnabled(true);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
@@ -67,7 +67,7 @@ public:
         horizontalLayout->addWidget(pb_fullscreenshot);
 
         pb_regscreenshot = new QPushButton(centralwidget);
-        pb_regscreenshot->setObjectName(QString::fromUtf8("pb_regscreenshot"));
+        pb_regscreenshot->setObjectName("pb_regscreenshot");
         pb_regscreenshot->setEnabled(true);
         sizePolicy.setHeightForWidth(pb_regscreenshot->sizePolicy().hasHeightForWidth());
         pb_regscreenshot->setSizePolicy(sizePolicy);
@@ -80,7 +80,7 @@ public:
         horizontalLayout->addWidget(pb_regscreenshot);
 
         pb_windowsshot = new QPushButton(centralwidget);
-        pb_windowsshot->setObjectName(QString::fromUtf8("pb_windowsshot"));
+        pb_windowsshot->setObjectName("pb_windowsshot");
         pb_windowsshot->setEnabled(true);
         sizePolicy.setHeightForWidth(pb_windowsshot->sizePolicy().hasHeightForWidth());
         pb_windowsshot->setSizePolicy(sizePolicy);
@@ -93,7 +93,7 @@ public:
         horizontalLayout->addWidget(pb_windowsshot);
 
         pb_fixedsize = new QPushButton(centralwidget);
-        pb_fixedsize->setObjectName(QString::fromUtf8("pb_fixedsize"));
+        pb_fixedsize->setObjectName("pb_fixedsize");
         pb_fixedsize->setEnabled(true);
         sizePolicy.setHeightForWidth(pb_fixedsize->sizePolicy().hasHeightForWidth());
         pb_fixedsize->setSizePolicy(sizePolicy);
@@ -106,7 +106,7 @@ public:
         horizontalLayout->addWidget(pb_fixedsize);
 
         pb_colorpicker = new QPushButton(centralwidget);
-        pb_colorpicker->setObjectName(QString::fromUtf8("pb_colorpicker"));
+        pb_colorpicker->setObjectName("pb_colorpicker");
         QIcon icon5;
         icon5.addFile(QString::fromUtf8(":/images/ColorPicker.png"), QSize(), QIcon::Normal, QIcon::Off);
         pb_colorpicker->setIcon(icon5);

@@ -1,6 +1,8 @@
 ﻿#include "../include/editwindow.h"
 #include "../include/ui/ui_editwindow.h"
 
+#include <QColorDialog>
+
 #define STRETCH_RECT_HEIGHT 4
 #define STRETCH_RECT_WIDTH 4
 
@@ -22,6 +24,8 @@ EditWindow::EditWindow(QWidget *parent) :
     ui->statusbar->addWidget(sizeStatus);
     ui->statusbar->addWidget(scaleStatus);
     connect(ui->tabWidget,SIGNAL(tabCloseRequested(int)),this,SLOT(removeSubTab(int)));
+    //工具栏样式
+    ui->toolBarPaint->setStyleSheet("QAction#selecrcolor {background:red}");
 }
 
 EditWindow::~EditWindow()
@@ -84,8 +88,8 @@ void EditWindow::on_filesaveother_triggered()
     if(!fileName.isNull()){
         QWidget* tabWidget= ui->tabWidget->currentWidget();
         //根据子控件的名称查找子控件
-//        ImageLabel* imageLabel = qWidget->findChild<ImageLabel*>();
-        ImageLabel *imageLabel=dynamic_cast<ImageLabel*>(tabWidget);
+        ImageLabel* imageLabel = tabWidget->findChild<ImageLabel*>();
+//        ImageLabel *imageLabel=dynamic_cast<ImageLabel*>(tabWidget);
         QPixmap pixmap=imageLabel->pixmap();
         pixmap.save(fileName,"PNG",_globalSetting._imageCompressLevel*10);
     }
@@ -155,7 +159,7 @@ void EditWindow::on_fileopen_triggered()
         QFileInfo fileInfo=QFileInfo(fileName);
         QImage img;
         if(img.load(fileName)){
-            CreateTab(QPixmap::fromImage(img),fileInfo.fileName());
+            CreateNewTab(QPixmap::fromImage(img),fileInfo.fileName());
         }
     }
 }
@@ -220,25 +224,25 @@ void EditWindow::CreateNewTab(QPixmap pixMap,QString fileName){
 //    //    scrollarea->setWidgetResizable(true);
 //    //创建一个label用来显示图片
 //    widget->imageLabel=new Plabel();
-    ImageLabel *imageLabel=new ImageLabel();
-    imageLabel->setStyleSheet("background-color:blue;");
-    imageLabel->setMargin(0);
+    _imageLabel=new ImageLabel();
+    _imageLabel->setStyleSheet("background-color:blue;");
+    _imageLabel->setMargin(0);
     //connect(imagelabel,SIGNAL(mouseDoubleClickEvent(QMouseEvent*)),this,SLOT(removeSubTab(int)));
-    imageLabel->setObjectName(fileName);
+    _imageLabel->setObjectName(fileName);
     //imageLabel->setStyleSheet("background:white;");
     //imageLabel->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Ignored);
     // 图像与imgLabel同大小
 //    imageLabel->resize(pixMap.size());
     //imageLabel->setFixedSize(pixMap.size());
     //内容居中
-    imageLabel->setAlignment(Qt::AlignCenter);
+    _imageLabel->setAlignment(Qt::AlignCenter);
     //禁用QLabel的边框
     //imageLabel->setFrameStyle(QFrame::NoFrame);
     //imageLabel->setContentsMargins(0,0,0,0);
     //内容保持原来的大小
-    imageLabel->setScaledContents(false);
+    _imageLabel->setScaledContents(false);
     //设置图像
-    imageLabel->setPixmap(pixMap);
+    _imageLabel->setPixmap(pixMap);
     //插入页
 //    QGridLayout *qgridlayout=new QGridLayout(imageLabel);
     //去除默认边距
@@ -246,15 +250,17 @@ void EditWindow::CreateNewTab(QPixmap pixMap,QString fileName){
 //    qgridlayout->setContentsMargins(0,0,0,0);
     //创建滚动条
     QScrollArea *scrollarea=new QScrollArea();
-    scrollarea->setStyleSheet("background-color:white;");
+    scrollarea->setStyleSheet("background-color:red;");
     scrollarea->setAttribute(Qt::WA_TranslucentBackground, true);
     scrollarea->setAlignment(Qt::AlignCenter);
     scrollarea->setMouseTracking(true);
-    scrollarea->setWidget(imageLabel);
+    scrollarea->setWidget(_imageLabel);
 //    qgridlayout->addWidget(scrollarea);
-
     ui->tabWidget->addTab(scrollarea,fileName);
     ui->tabWidget->setCurrentWidget(scrollarea);
+//        delete _imageLabel;
+//    delete scrollarea;
+
 }
 
 
@@ -337,5 +343,12 @@ void EditWindow::on_copy_triggered()
     // 将图片复制到剪切板
 //    clipboard->setPixmap(*PlabelPixmap);
     clipboard->setImage(PlabelImage);
+}
+
+//选择笔刷的颜色
+void EditWindow::on_selectcolor_triggered()
+{
+    QColor color = QColorDialog::getColor("选择笔刷颜色");
+    _imageLabel->penColor=color;
 }
 
