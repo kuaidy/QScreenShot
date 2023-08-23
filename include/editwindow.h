@@ -78,6 +78,7 @@ private slots:
     void on_about_triggered();
     void on_copy_triggered();
     void on_selectcolor_triggered();
+    void on_actionfuzzy_triggered(bool checked);
 };
 
 #endif // EDITWINDOW_H

@@ -103,6 +103,7 @@
    <addaction name="paintarrow"/>
    <addaction name="paintrec"/>
    <addaction name="selectcolor"/>
+   <addaction name="actionfuzzy"/>
   </widget>
   <widget class="QToolBar" name="toolBarOption">
    <property name="windowTitle">
@@ -315,13 +316,29 @@
   </action>
   <action name="selectcolor">
    <property name="icon">
-    <iconset theme="accessories-calculator"/>
+    <iconset theme="accessories-calculator">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string/>
    </property>
    <property name="toolTip">
     <string>选择颜色</string>
+   </property>
+  </action>
+  <action name="actionfuzzy">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resource/resource.qrc">
+     <normaloff>:/images/vague.png</normaloff>:/images/vague.png</iconset>
+   </property>
+   <property name="text">
+    <string>模糊</string>
+   </property>
+   <property name="toolTip">
+    <string>模糊处理</string>
    </property>
   </action>
  </widget>

@@ -19,7 +19,8 @@ linux-g++*{
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    include/common/globalsetting.cpp \
+    source/common/gaussianblur.cpp \
+    source/common/globalsetting.cpp \
     source/displaywidget.cpp \
     source/imagelabel.cpp \
     source/tabwidget.cpp \
@@ -40,6 +41,7 @@ SOURCES += \
     source/antline.cpp\
 
 HEADERS += \
+    include/common/gaussianblur.h \
     include/common/globalsetting.h \
     include/displaywidget.h \
     include/imagelabel.h \

@@ -7,6 +7,7 @@ enum OptionTypeEnum{
     PaintLine,
     Vague,
     ActionCrop,
+    Fuzzy,
     None
 };
 extern OptionTypeEnum OptionFlag;

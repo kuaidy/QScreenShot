@@ -42,6 +42,7 @@ public:
     QAction *shear;
     QAction *parse;
     QAction *selectcolor;
+    QAction *actionfuzzy;
     QWidget *centralwidget;
     QGridLayout *gridLayout;
     QTabWidget *tabWidget;
@@ -145,8 +146,20 @@ public:
         parse->setIcon(icon13);
         selectcolor = new QAction(EditWindow);
         selectcolor->setObjectName("selectcolor");
-        QIcon icon14(QIcon::fromTheme(QString::fromUtf8("accessories-calculator")));
+        QIcon icon14;
+        iconThemeName = QString::fromUtf8("accessories-calculator");
+        if (QIcon::hasThemeIcon(iconThemeName)) {
+            icon14 = QIcon::fromTheme(iconThemeName);
+        } else {
+            icon14.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
+        }
         selectcolor->setIcon(icon14);
+        actionfuzzy = new QAction(EditWindow);
+        actionfuzzy->setObjectName("actionfuzzy");
+        actionfuzzy->setCheckable(true);
+        QIcon icon15;
+        icon15.addFile(QString::fromUtf8(":/images/vague.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionfuzzy->setIcon(icon15);
         centralwidget = new QWidget(EditWindow);
         centralwidget->setObjectName("centralwidget");
         gridLayout = new QGridLayout(centralwidget);
@@ -206,6 +219,7 @@ public:
         toolBarPaint->addAction(paintarrow);
         toolBarPaint->addAction(paintrec);
         toolBarPaint->addAction(selectcolor);
+        toolBarPaint->addAction(actionfuzzy);
         toolBarOption->addAction(actionCrop);
         toolBarOption->addAction(shear);
         toolBarOption->addAction(copy);
@@ -269,6 +283,10 @@ public:
         selectcolor->setText(QString());
 #if QT_CONFIG(tooltip)
         selectcolor->setToolTip(QCoreApplication::translate("EditWindow", "\351\200\211\346\213\251\351\242\234\350\211\262", nullptr));
+#endif // QT_CONFIG(tooltip)
+        actionfuzzy->setText(QCoreApplication::translate("EditWindow", "\346\250\241\347\263\212", nullptr));
+#if QT_CONFIG(tooltip)
+        actionfuzzy->setToolTip(QCoreApplication::translate("EditWindow", "\346\250\241\347\263\212\345\244\204\347\220\206", nullptr));
 #endif // QT_CONFIG(tooltip)
         menu_file->setTitle(QCoreApplication::translate("EditWindow", "\346\226\207\344\273\266", nullptr));
         menu_help->setTitle(QCoreApplication::translate("EditWindow", "\345\270\256\345\212\251", nullptr));

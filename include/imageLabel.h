@@ -5,9 +5,20 @@
 #include <QMouseEvent>
 #include <QPainterPath>
 #include <QRect>
+#include <QGraphicsBlurEffect>
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
 
 #include "common/globalvariable.h"
 #include "antline.h"
+#include "common/gaussianblur.h"
+
+class BlurImage{
+public:
+    int x;
+    int y;
+    QImage image;
+};
 
 //自定义label类，用来显示图像和绘制标记
 class ImageLabel:public QLabel
@@ -90,9 +101,9 @@ private:
     bool _isCutting=false;
     bool _isCuttingEnd=false;
 
+    std::vector<BlurImage> m_ListImages;
 signals:
     void mouseDoubleClickEvent(QMouseEvent *event);
-
 };
 
 #endif

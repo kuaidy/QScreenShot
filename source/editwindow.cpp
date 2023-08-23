@@ -90,7 +90,10 @@ void EditWindow::on_filesaveother_triggered()
         //根据子控件的名称查找子控件
         ImageLabel* imageLabel = tabWidget->findChild<ImageLabel*>();
 //        ImageLabel *imageLabel=dynamic_cast<ImageLabel*>(tabWidget);
-        QPixmap pixmap=imageLabel->pixmap();
+//        QPixmap pixmap=imageLabel->pixmap();
+        QPixmap pixmap(imageLabel->size());
+        pixmap.fill(Qt::transparent);
+        imageLabel->render(&pixmap);
         pixmap.save(fileName,"PNG",_globalSetting._imageCompressLevel*10);
     }
 }
@@ -350,5 +353,14 @@ void EditWindow::on_selectcolor_triggered()
 {
     QColor color = QColorDialog::getColor("选择笔刷颜色");
     _imageLabel->penColor=color;
+}
+//图片高斯模糊
+void EditWindow::on_actionfuzzy_triggered(bool checked)
+{
+    if(checked){
+        OptionFlag=OptionTypeEnum::Fuzzy;
+    }else{
+        OptionFlag=OptionTypeEnum::None;
+    }
 }
 

@@ -1,27 +1,5 @@
 ﻿#include "../include/imageLabel.h"
 
-//QImage applyEffectToImage(QImage src, QGraphicsEffect* effect, int extent);
-
-////图片模糊处理
-//QImage applyEffectToImage(QImage src, QGraphicsEffect* effect, int extent = 0)
-//{
-//    return QImage();
-////	if (src.isNull()) return QImage();
-////	if (!effect) return src;
-////	QGraphicsScene scene;
-////	QGraphicsPixmapItem item;
-////	item.setPixmap(QPixmap::fromImage(src));
-////	item.setGraphicsEffect(effect);
-////	item.setOpacity(1);
-////	scene.addItem(&item);
-////	QImage res(src.size() + QSize(extent * 2, extent * 2), QImage::Format_ARGB32);
-////	res.fill(Qt::transparent);
-////	QPainter ptr(&res);
-////	scene.render(&ptr, QRectF(), QRectF(-extent, -extent, src.width() + extent * 2, src.height() + extent * 2));
-////	return res;
-//}
-
-
 ImageLabel::ImageLabel(QWidget* parent)
 {
 	//设置默认追踪鼠标
@@ -126,6 +104,7 @@ void ImageLabel::mouseReleaseEvent(QMouseEvent* e) {
                     _cutsx=_cutsy=_cutex=_cutey=-1;
                     _isCutting=false;
                     antLine->close();
+                    delete antLine;
                     antLine=nullptr;
                 }else{
                     if(!_isCutting){
@@ -138,6 +117,24 @@ void ImageLabel::mouseReleaseEvent(QMouseEvent* e) {
 		}
         case OptionTypeEnum::PaintFreedom:{
             _listLine.push_back(_freedomPoints);
+            break;
+        }
+        case OptionTypeEnum::Fuzzy:{
+            if(antLine!=nullptr){
+                //高斯模糊
+                QRect fuzzyRect(antLine->x(),antLine->y(),antLine->width(),antLine->height());
+                QImage partImage=this->pixmap().toImage().copy(fuzzyRect);
+                GaussianBlur gassianBlur;
+                QImage fuzzyImage = gassianBlur.ApplyGaussianBlur(partImage,10);
+                BlurImage blurImage;
+                blurImage.x=antLine->x();
+                blurImage.y=antLine->y();
+                blurImage.image=fuzzyImage;
+                m_ListImages.push_back(blurImage);
+                antLine->close();
+                delete antLine;
+                antLine=nullptr;
+            }
             break;
         }
 	}
@@ -203,6 +200,27 @@ void ImageLabel::paintEvent(QPaintEvent* event) {
                 }
                 break;
             }
+            case OptionTypeEnum::Fuzzy:{
+                if (antLine == nullptr) {
+                    antLine = new AntLine(this);
+                }
+                antLine->resize(abs(ex - sx), abs(ey - sy));
+                if(ex>sx&&ey>sy)
+                {
+                    antLine->move(sx, sy);
+                }
+                else if(sx>ex&&ey>sy){
+                    antLine->move(ex, sy);
+                }
+                else if(ex>sx&&sy>ey)
+                {
+                    antLine->move(sx,ey);
+                }
+                else if(sx>ex&&sy>ey){
+                    antLine->move(ex,ey);
+                }
+                antLine->show();
+            }
         }
     }
 
@@ -230,6 +248,10 @@ void ImageLabel::paintEvent(QPaintEvent* event) {
             painter.drawLine(_listLine[i][j],_listLine[i][j+1]);
         }
 	}
+    //绘制模糊后的图片
+    for(int i=0;i<m_ListImages.size();i++){
+        painter.drawImage(m_ListImages[i].x,m_ListImages[i].y,m_ListImages[i].image);
+    }
 
     if(isPaintTopLeft){
         painter.setPen(QPen(Qt::red, 1));
@@ -351,3 +373,4 @@ void ImageLabel::changeCursorStyle(QMouseEvent* e){
         setCursor(Qt::ArrowCursor);
     }
 }
+
