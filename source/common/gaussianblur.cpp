@@ -4,7 +4,7 @@ GaussianBlur::GaussianBlur()
 {
 
 }
-//优化的高斯模糊算法
+//优化的高斯模糊算法,一维做两次计算
 QImage GaussianBlur::ApplyGaussianBlur(const QImage &source,int radius){
     //典型高斯核
     //int kernel[5]={1,4,6,4,1};
