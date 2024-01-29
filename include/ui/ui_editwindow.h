@@ -41,7 +41,7 @@ public:
     QAction *copy;
     QAction *shear;
     QAction *parse;
-    QAction *selectcolor;
+    QAction *action;
     QAction *actionfuzzy;
     QWidget *centralwidget;
     QGridLayout *gridLayout;
@@ -144,8 +144,8 @@ public:
         QIcon icon13;
         icon13.addFile(QString::fromUtf8(":/images/parse.png"), QSize(), QIcon::Normal, QIcon::Off);
         parse->setIcon(icon13);
-        selectcolor = new QAction(EditWindow);
-        selectcolor->setObjectName("selectcolor");
+        action = new QAction(EditWindow);
+        action->setObjectName("action");
         QIcon icon14;
         iconThemeName = QString::fromUtf8("accessories-calculator");
         if (QIcon::hasThemeIcon(iconThemeName)) {
@@ -153,7 +153,7 @@ public:
         } else {
             icon14.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
         }
-        selectcolor->setIcon(icon14);
+        action->setIcon(icon14);
         actionfuzzy = new QAction(EditWindow);
         actionfuzzy->setObjectName("actionfuzzy");
         actionfuzzy->setCheckable(true);
@@ -173,7 +173,7 @@ public:
         EditWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(EditWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 931, 25));
+        menubar->setGeometry(QRect(0, 0, 931, 21));
         menu_file = new QMenu(menubar);
         menu_file->setObjectName("menu_file");
         menu_help = new QMenu(menubar);
@@ -218,7 +218,7 @@ public:
         toolBarPaint->addAction(actionpaintfreedom);
         toolBarPaint->addAction(paintarrow);
         toolBarPaint->addAction(paintrec);
-        toolBarPaint->addAction(selectcolor);
+        toolBarPaint->addAction(action);
         toolBarPaint->addAction(actionfuzzy);
         toolBarOption->addAction(actionCrop);
         toolBarOption->addAction(shear);
@@ -280,9 +280,9 @@ public:
 #if QT_CONFIG(tooltip)
         parse->setToolTip(QCoreApplication::translate("EditWindow", "\347\262\230\350\264\264\345\233\276\345\203\217", nullptr));
 #endif // QT_CONFIG(tooltip)
-        selectcolor->setText(QString());
+        action->setText(QString());
 #if QT_CONFIG(tooltip)
-        selectcolor->setToolTip(QCoreApplication::translate("EditWindow", "\351\200\211\346\213\251\351\242\234\350\211\262", nullptr));
+        action->setToolTip(QCoreApplication::translate("EditWindow", "\351\200\211\346\213\251\351\242\234\350\211\262", nullptr));
 #endif // QT_CONFIG(tooltip)
         actionfuzzy->setText(QCoreApplication::translate("EditWindow", "\346\250\241\347\263\212", nullptr));
 #if QT_CONFIG(tooltip)

@@ -52,7 +52,7 @@ public:
     void CalCursorPos(QPoint pt);
     //设置鼠标样式
     void SetCursorPattern(int CalPos);
-    void paintDragBtns();
+    void paintDragBtns(QPainter &painter);
     void resizePixmap();
     void changeCursorStyle(QMouseEvent* e);
 
@@ -64,6 +64,7 @@ public:
     QRect bottomLeftRect;
     QRect bottomCenterRect;
     QRect bottomRightRect;
+    bool isPainting=false;
     bool isMouseLeftBtnDown=false;
     bool isTopLeft=false;
     bool isTopCenter=false;
@@ -100,7 +101,8 @@ private:
     int _cutsx=-1,_cutsy=-1,_cutex,_cutey;
     bool _isCutting=false;
     bool _isCuttingEnd=false;
-
+    bool m_isChangingPixmapSize=false;
+    QRect m_changedPixmapRect;
     std::vector<BlurImage> m_ListImages;
 signals:
     void mouseDoubleClickEvent(QMouseEvent *event);

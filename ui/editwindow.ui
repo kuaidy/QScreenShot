@@ -33,7 +33,7 @@
      <x>0</x>
      <y>0</y>
      <width>931</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
@@ -102,7 +102,7 @@
    <addaction name="actionpaintfreedom"/>
    <addaction name="paintarrow"/>
    <addaction name="paintrec"/>
-   <addaction name="selectcolor"/>
+   <addaction name="action"/>
    <addaction name="actionfuzzy"/>
   </widget>
   <widget class="QToolBar" name="toolBarOption">
@@ -314,7 +314,7 @@
     <string>粘贴图像</string>
    </property>
   </action>
-  <action name="selectcolor">
+  <action name="action">
    <property name="icon">
     <iconset theme="accessories-calculator">
      <normaloff>.</normaloff>.</iconset>

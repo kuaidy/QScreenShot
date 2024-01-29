@@ -169,3 +169,9 @@ void MainWindow::on_pb_colorpicker_clicked()
     sv->show();
 }
 
+//图像拼接
+void MainWindow::on_pb_splicing_clicked()
+{
+
+}
+

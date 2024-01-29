@@ -26,5 +26,6 @@
         <file>images/copy.png</file>
         <file>images/parse.png</file>
         <file>images/shear.png</file>
+        <file>images/splicing.png</file>
     </qresource>
 </RCC>

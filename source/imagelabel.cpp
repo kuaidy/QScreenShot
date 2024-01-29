@@ -20,8 +20,8 @@ void ImageLabel::mousePressEvent(QMouseEvent* e) {
 
     switch (OptionFlag) {
         case OptionTypeEnum::PaintFreedom: {
-            _freedomPoints.clear();
-            _freedomPoints.push_back(_startPoint);
+            isPainting=true;
+            _freedomPoints.push_back(e->pos());
             break;
         }
         case OptionTypeEnum::ActionCrop:{
@@ -38,21 +38,16 @@ void ImageLabel::mousePressEvent(QMouseEvent* e) {
 
 }
 //重写鼠标双击事件
-void ImageLabel::mouseDoubleClickEvent(QMouseEvent* e) {
-
-}
+void ImageLabel::mouseDoubleClickEvent(QMouseEvent* e) {}
 //重写鼠标移动事件
 void ImageLabel::mouseMoveEvent(QMouseEvent* e) {
     ex = e->position().x();
     ey = e->position().y();
-    changeCursorStyle(e);
-    if(isMouseLeftBtnDown){
-        endX=e->position().x();
-        endY=e->position().y();
-    }
     switch (OptionFlag) {
         case OptionTypeEnum::PaintFreedom: {
-            _freedomPoints.push_back(_endPoint);
+            if(isPainting){
+                _freedomPoints.push_back(e->pos());
+            }
             break;
         }
         case OptionTypeEnum::ActionCrop:{
@@ -63,7 +58,7 @@ void ImageLabel::mouseMoveEvent(QMouseEvent* e) {
             break;
         }
         default: {
-
+            changeCursorStyle(e);
         }
     }
     imageResizeX=e->position().x();
@@ -80,6 +75,13 @@ void ImageLabel::mouseReleaseEvent(QMouseEvent* e) {
     switch (OptionFlag) {
         case OptionTypeEnum::PaintRect: {
 			_listRect.append(QRect(sx, sy, ex - sx, ey - sy));
+            //将绘制的图案绘制到图片上
+            QPixmap oldPixmap=this->pixmap();
+            QPainter painter(&oldPixmap);
+            QPen pen(penColor,2);
+            painter.setPen(pen);
+            painter.drawRect(sx,sy,ex-sx,ey-sy);
+            this->setPixmap(oldPixmap);
 			break;
 		}
 		case OptionTypeEnum::PaintArrow: {
@@ -89,6 +91,7 @@ void ImageLabel::mouseReleaseEvent(QMouseEvent* e) {
 			tmpseat.append(ex);
 			tmpseat.append(ey);
 			_listSeat.append(tmpseat);
+
 			break;
 		}
 		case OptionTypeEnum::ActionCrop: {
@@ -117,6 +120,7 @@ void ImageLabel::mouseReleaseEvent(QMouseEvent* e) {
 		}
         case OptionTypeEnum::PaintFreedom:{
             _listLine.push_back(_freedomPoints);
+            isPainting=false;
             break;
         }
         case OptionTypeEnum::Fuzzy:{
@@ -125,7 +129,7 @@ void ImageLabel::mouseReleaseEvent(QMouseEvent* e) {
                 QRect fuzzyRect(antLine->x(),antLine->y(),antLine->width(),antLine->height());
                 QImage partImage=this->pixmap().toImage().copy(fuzzyRect);
                 GaussianBlur gassianBlur;
-                QImage fuzzyImage = gassianBlur.ApplyGaussianBlur(partImage,10);
+                QImage fuzzyImage = gassianBlur.ApplyGaussianBlur(partImage,3);
                 BlurImage blurImage;
                 blurImage.x=antLine->x();
                 blurImage.y=antLine->y();
@@ -138,6 +142,8 @@ void ImageLabel::mouseReleaseEvent(QMouseEvent* e) {
             break;
         }
 	}
+    //改变图片大小
+    resizePixmap();
 }
 //重写lable的绘制方法
 void ImageLabel::paintEvent(QPaintEvent* event) {
@@ -148,7 +154,7 @@ void ImageLabel::paintEvent(QPaintEvent* event) {
 	float a = 0.5;
     QPen pen(penColor,2);
     //实时绘制，鼠标左键按下的时候绘制
-    if(isMouseLeftBtnDown){
+    if(isPainting){
         switch (OptionFlag) {
             case OptionTypeEnum::PaintRect: {
                 painter.setPen(pen);
@@ -223,7 +229,6 @@ void ImageLabel::paintEvent(QPaintEvent* event) {
             }
         }
     }
-
 	//绘制矩形
 	for (int i = 0; i != _listRect.size(); i++) {
         painter.setPen(pen);
@@ -257,10 +262,10 @@ void ImageLabel::paintEvent(QPaintEvent* event) {
         painter.setPen(QPen(Qt::red, 1));
         painter.drawRect(imageResizeX,imageResizeY,this->x()+this->width()-imageResizeX,this->y()+this->height()-imageResizeY);
     }
+    paintDragBtns(painter);
 }
 //绘制拖拽框
-void ImageLabel::paintDragBtns(){
-    QPainter painter(this);
+void ImageLabel::paintDragBtns(QPainter &painter){
     painter.setPen(QPen(Qt::black, 1));
     QBrush brush;
     brush.setColor(Qt::white);
@@ -302,45 +307,51 @@ void ImageLabel::paintDragBtns(){
     if(isMouseLeftBtnDown){
         //绘制调整图片的预览虚线
         brush.setColor(Qt::transparent);
-        //        brush.setStyle(Qt::Dense1Pattern);
+        //brush.setStyle(Qt::Dense1Pattern);
         painter.setBrush(brush);
         if(isTopLeft){
-                painter.drawRect(endX,endY,x+width-endX,y+height-endY);
+            m_changedPixmapRect=QRect(endX,endY,x+width-endX,y+height-endY);
         }
         else if(isTopCenter){
-                painter.drawRect(x,endY,width,y+height-endY);
+            m_changedPixmapRect=QRect(x,endY,width,y+height-endY);
         }
         else if(isTopRight){
-                painter.drawRect(x,endY,endX-x,y+height-endY);
+             m_changedPixmapRect=QRect(x,endY,endX-x,y+height-endY);
         }
         else if(isCenterLeft){
-                painter.drawRect(endX,y,x+width-endX,height);
+             m_changedPixmapRect=QRect(endX,y,x+width-endX,height);
         }
         else if(isCenterRight){
-                painter.drawRect(x,y,endX-x,height);
+             m_changedPixmapRect=QRect(x,y,endX-x,height);
         }
         else if(isBottomLeft){
-                painter.drawRect(endX,y,x+width-endX,endY-y);
+             m_changedPixmapRect=QRect(endX,y,x+width-endX,endY-y);
         }
         else if(isBottomCenter){
-                painter.drawRect(x,y,width,endY-y);
+             m_changedPixmapRect=QRect(x,y,width,endY-y);
         }
         else if(isBottomRight){
-                painter.drawRect(x,y,endX-x,endY-y);
+             m_changedPixmapRect=QRect(x,y,endX-x,endY-y);
         }
+        painter.drawRect(m_changedPixmapRect);
     }
 }
 //改变图片大小
 void ImageLabel::resizePixmap(){
-    QPixmap pixmap = this->pixmap();
-    int width=pixmap.width()+ex-sx;
-    int height=pixmap.height()+ey-ey;
-    QPixmap newPixmap(width,height);
-    newPixmap.fill(Qt::white);
+    if(m_isChangingPixmapSize){
+        QPixmap pixmap = this->pixmap();
+        int pixmapx=this->width()/2-pixmap.width()/2;
+        int pixmapy=this->height()/2-pixmap.height()/2;
+        int width=m_changedPixmapRect.width();
+        int height=m_changedPixmapRect.height();
+        QPixmap newPixmap(width,height);
+        newPixmap.fill(Qt::white);
 
-    QPainter painter(&newPixmap);
-    painter.drawPixmap(QRect(0,0, width,height), pixmap);
-    this->setPixmap(newPixmap);
+        QPainter painter(&newPixmap);
+        painter.drawPixmap(pixmapx -m_changedPixmapRect.x(),pixmapy-m_changedPixmapRect.y(),pixmap);
+        this->setPixmap(newPixmap);
+        m_isChangingPixmapSize=false;
+    }
 }
 //改变鼠标样式
 void ImageLabel::changeCursorStyle(QMouseEvent* e){
@@ -372,5 +383,14 @@ void ImageLabel::changeCursorStyle(QMouseEvent* e){
     }else{
         setCursor(Qt::ArrowCursor);
     }
+    if(isTopLeft||isTopCenter||isTopRight||isCenterLeft||isCenterRight||isBottomLeft||isBottomCenter||isBottomRight){
+        if(this->isMouseLeftBtnDown){
+            this->m_isChangingPixmapSize=true;
+        }else
+        {
+            this->m_isChangingPixmapSize=false;
+        }
+    }else{
+        this->m_isChangingPixmapSize=false;
+    }
 }
-

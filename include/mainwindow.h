@@ -62,6 +62,8 @@ private slots:
 
     void on_pb_colorpicker_clicked();
 
+    void on_pb_splicing_clicked();
+
 signals:
     void senddata(QString str);
 

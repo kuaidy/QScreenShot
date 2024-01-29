@@ -88,12 +88,13 @@ void EditWindow::on_filesaveother_triggered()
     if(!fileName.isNull()){
         QWidget* tabWidget= ui->tabWidget->currentWidget();
         //根据子控件的名称查找子控件
-        ImageLabel* imageLabel = tabWidget->findChild<ImageLabel*>();
-//        ImageLabel *imageLabel=dynamic_cast<ImageLabel*>(tabWidget);
+//        ImageLabel* imageLabel = tabWidget->findChild<ImageLabel*>();
+        ImageLabel *imageLabel=dynamic_cast<ImageLabel*>(tabWidget);
 //        QPixmap pixmap=imageLabel->pixmap();
-        QPixmap pixmap(imageLabel->size());
-        pixmap.fill(Qt::transparent);
-        imageLabel->render(&pixmap);
+//        QPixmap pixmap(imageLabel->size());
+        QPixmap pixmap = imageLabel->pixmap();
+//        pixmap.fill(Qt::transparent);
+//        imageLabel->render(&pixmap);
         pixmap.save(fileName,"PNG",_globalSetting._imageCompressLevel*10);
     }
 }
@@ -122,8 +123,8 @@ void EditWindow::on_enlarge_triggered()
     const int num=2;
     QWidget* tabWidget= ui->tabWidget->currentWidget();
     //根据子控件的名称查找子控件
-    ImageLabel* imageLabel = tabWidget->findChild<ImageLabel*>();
-//    ImageLabel *imageLabel=dynamic_cast<ImageLabel*>(tabWidget);
+//    ImageLabel* imageLabel = tabWidget->findChild<ImageLabel*>();
+    ImageLabel *imageLabel=dynamic_cast<ImageLabel*>(tabWidget);
     //获取原图片
     int pixWidth=PlabelImage.width();
     int pixHeigth=PlabelImage.height();
@@ -140,8 +141,8 @@ void EditWindow::on_narrow_triggered()
     const int num=2;
     QWidget* tabWidget= ui->tabWidget->currentWidget();
     //根据子控件的名称查找子控件
-  ImageLabel* imageLabel = tabWidget->findChild<ImageLabel*>();
-//    ImageLabel *imageLabel=dynamic_cast<ImageLabel*>(tabWidget);
+//  ImageLabel* imageLabel = tabWidget->findChild<ImageLabel*>();
+    ImageLabel *imageLabel=dynamic_cast<ImageLabel*>(tabWidget);
     //获取原图片
     int pixWidth=PlabelImage.width();
     int pixHeigth=PlabelImage.height();
@@ -228,7 +229,7 @@ void EditWindow::CreateNewTab(QPixmap pixMap,QString fileName){
 //    //创建一个label用来显示图片
 //    widget->imageLabel=new Plabel();
     _imageLabel=new ImageLabel();
-    _imageLabel->setStyleSheet("background-color:blue;");
+//    _imageLabel->setStyleSheet("background-color:blue;");
     _imageLabel->setMargin(0);
     //connect(imagelabel,SIGNAL(mouseDoubleClickEvent(QMouseEvent*)),this,SLOT(removeSubTab(int)));
     _imageLabel->setObjectName(fileName);
@@ -241,26 +242,26 @@ void EditWindow::CreateNewTab(QPixmap pixMap,QString fileName){
     _imageLabel->setAlignment(Qt::AlignCenter);
     //禁用QLabel的边框
     //imageLabel->setFrameStyle(QFrame::NoFrame);
-    //imageLabel->setContentsMargins(0,0,0,0);
+    _imageLabel->setContentsMargins(0,0,0,0);
     //内容保持原来的大小
     _imageLabel->setScaledContents(false);
     //设置图像
     _imageLabel->setPixmap(pixMap);
     //插入页
-//    QGridLayout *qgridlayout=new QGridLayout(imageLabel);
+//    QGridLayout *qgridlayout=new QGridLayout(_imageLabel);
     //去除默认边距
 //    qgridlayout->setSpacing(0);
 //    qgridlayout->setContentsMargins(0,0,0,0);
     //创建滚动条
     QScrollArea *scrollarea=new QScrollArea();
-    scrollarea->setStyleSheet("background-color:red;");
+//    scrollarea->setStyleSheet("background-color:red;");
     scrollarea->setAttribute(Qt::WA_TranslucentBackground, true);
     scrollarea->setAlignment(Qt::AlignCenter);
     scrollarea->setMouseTracking(true);
     scrollarea->setWidget(_imageLabel);
 //    qgridlayout->addWidget(scrollarea);
-    ui->tabWidget->addTab(scrollarea,fileName);
-    ui->tabWidget->setCurrentWidget(scrollarea);
+    ui->tabWidget->addTab(_imageLabel,fileName);
+    ui->tabWidget->setCurrentWidget(_imageLabel);
 //        delete _imageLabel;
 //    delete scrollarea;
 
